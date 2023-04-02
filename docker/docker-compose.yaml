@@ -1,0 +1,20 @@
+version: "3"
+services:
+  mysql:
+    image: "mysql"
+    ports:
+      - "3306:3306"
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=yuki
+      - LANG=C.UTF-8
+    command: [ '--character-set-server=utf8mb4', '--collation-server=utf8mb4_bin' ]
+    volumes:
+      - ../sql:/docker-entrypoint-initdb.d
+  redis:
+    image: "redis"
+    ports:
+      - "6379:6379"
+    environment:
+      - TZ=Asia/Shanghai
