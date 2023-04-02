@@ -1,0 +1,6 @@
+yuki:
+  name: 'Yuki 管理系统'
+  authors: 'ShiXin,Yuki'
+  version: '0.0.1'
+  fileRootPath: 'E:\Code\Java\Yuki\path'
+  captchaType: 'digital'
