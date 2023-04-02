@@ -1,0 +1,9 @@
+group 'com.yuki.framework'
+
+dependencies {
+    implementation project(':yuki-common')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+}

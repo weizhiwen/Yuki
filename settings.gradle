@@ -1,0 +1,4 @@
+rootProject.name = 'Yuki'
+include 'yuki-common'
+include 'yuki-framework'
+include 'yuki-admin'
