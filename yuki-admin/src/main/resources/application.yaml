@@ -4,3 +4,13 @@ yuki:
   version: '0.0.1'
   fileRootPath: 'E:\Code\Java\Yuki\path'
   captchaType: 'digital'
+spring:
+  jackson:
+    time-zone: GMT+8
+    serialization:
+      fail-on-empty-beans: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update

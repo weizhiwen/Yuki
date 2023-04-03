@@ -7,15 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.token.TokenService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
 public class SecurityConfig {
@@ -43,9 +41,18 @@ public class SecurityConfig {
             LoginUser loginUser = tokenAuthenticationService.getLoginUser(request);
             if (loginUser != null) {
                 tokenAuthenticationService.deleteLoginUser(loginUser);
-                // 记录日志
+                // TODO 记录日志
             }
             ServletUtils.renderJson(response, JsonResult.success("退出成功"));
         };
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
     }
 }

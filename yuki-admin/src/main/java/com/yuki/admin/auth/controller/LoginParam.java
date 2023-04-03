@@ -11,14 +11,14 @@ public class LoginParam extends BaseParam {
     private String username;
 
     /**
-     * 用户密码
+     * 密码
      */
     private String password;
 
     /**
      * 验证码
      */
-    private String code;
+    private String captchaCode;
 
     public String getUsername() {
         return username;
@@ -36,11 +36,11 @@ public class LoginParam extends BaseParam {
         this.password = password;
     }
 
-    public String getCode() {
-        return code;
+    public String getCaptchaCode() {
+        return captchaCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCaptchaCode(String captchaCode) {
+        this.captchaCode = captchaCode;
     }
 }
