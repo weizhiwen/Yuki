@@ -1,4 +1,4 @@
-package com.yuki.admin.domain.entity.user;
+package com.ruoyi.common.core.domain.entity;
 
 import com.ruoyi.common.core.domain.entity.BaseEntity;
 
@@ -6,25 +6,25 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class User extends BaseEntity {
+public class SystemUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "USER_NAME")
+    @Column(name = "USER_NAME", length = 32)
     private String userName;
 
-    @Column(name = "NICK_NAME")
+    @Column(name = "NICK_NAME", length = 32)
     private String nickName;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", length = 32)
     private String email;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "PHONE_NUMBER", length = 11)
     private String phoneNumber;
 
-    @Column(name = "AVATAR")
+    @Column(name = "AVATAR", length = 256)
     private String avatar;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", length = 64)
     private String password;
 
     @Column(name = "IS_ENABLED")

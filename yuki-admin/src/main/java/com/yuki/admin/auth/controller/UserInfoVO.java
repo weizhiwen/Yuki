@@ -1,10 +1,10 @@
-package com.yuki.admin.vo;
+package com.yuki.admin.auth.controller;
 
 import com.ruoyi.common.annotation.RelatedClass;
 import com.ruoyi.common.core.domain.BaseData;
-import com.yuki.admin.domain.entity.user.User;
+import com.ruoyi.common.core.domain.entity.SystemUser;
 
-@RelatedClass(classes = {User.class})
+@RelatedClass(classes = {SystemUser.class})
 public class UserInfoVO extends BaseData {
     private static final long serialVersionUID = 1L;
 

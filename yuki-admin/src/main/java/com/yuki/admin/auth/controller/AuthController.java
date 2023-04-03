@@ -1,12 +1,10 @@
-package com.yuki.admin.controller;
+package com.yuki.admin.auth.controller;
 
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.JsonResult;
 import com.ruoyi.common.core.service.BaseService;
-import com.yuki.admin.param.LoginParam;
-import com.yuki.admin.reader.UserInfoReader;
-import com.yuki.admin.service.AuthService;
-import com.yuki.admin.vo.UserInfoVO;
+import com.yuki.admin.auth.service.AuthService;
+import com.yuki.admin.auth.service.UserInfoReader;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

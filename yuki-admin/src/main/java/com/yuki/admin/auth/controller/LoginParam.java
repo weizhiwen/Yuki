@@ -1,4 +1,4 @@
-package com.yuki.admin.param;
+package com.yuki.admin.auth.controller;
 
 import com.ruoyi.common.core.domain.BaseParam;
 

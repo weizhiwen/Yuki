@@ -1,5 +1,6 @@
-package com.yuki.admin.domain.entity.dept;
+package com.yuki.admin.department.domain;
 
+import com.ruoyi.common.core.domain.entity.BaseEntity;
 import com.ruoyi.common.core.domain.entity.TraceableEntity;
 
 import javax.persistence.Column;
@@ -7,10 +8,10 @@ import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 @Entity
-public class Department extends TraceableEntity {
+public class Department extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", length = 32)
     private String name;
 
     @Column(name = "IDX")
@@ -19,10 +20,10 @@ public class Department extends TraceableEntity {
     @Column(name = "IS_DISABLE")
     private boolean disabled;
 
-    @Column(name = "LEFT")
+    @Column(name = "LEFT", precision = 15, scale = 6)
     private BigDecimal left;
 
-    @Column(name = "RIGHT")
+    @Column(name = "RIGHT", precision = 15, scale = 6)
     private BigDecimal right;
 
     public String getName() {

@@ -1,4 +1,4 @@
-package com.yuki.admin.domain.entity.position;
+package com.yuki.admin.position.domain;
 
 import com.ruoyi.common.core.domain.entity.TraceableEntity;
 
@@ -9,8 +9,10 @@ import javax.persistence.Entity;
 public class Position extends TraceableEntity {
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "CODE", length = 64)
     private String code;
 
+    @Column(name = "NAME", length = 64)
     private String name;
 
     @Column(name = "IDX")
