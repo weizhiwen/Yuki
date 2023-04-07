@@ -7,6 +7,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,14 +20,15 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class TokenService {
     final TokenProperty tokenProperty;
+    final UserDetailsService userDetailsService;
 
 
     public UserLogin getLoginUser(HttpServletRequest request) {
         String token = getToken(request);
         if (StrUtil.isNotEmpty(token)) {
             Claims claims = parseToken(token);
-            String userName = (String)claims.get(Constants.LOGIN_USER_KEY);
-
+            String userName = (String) claims.get(Constants.LOGIN_USER_KEY);
+            return (UserLogin) userDetailsService.loadUserByUsername(userName);
         }
         return null;
     }
@@ -34,17 +36,16 @@ public class TokenService {
     public String getToken(HttpServletRequest request) {
         String header = request.getHeader(tokenProperty.getHeader());
         if (StrUtil.isNotEmpty(header) && header.startsWith(Constants.TOKEN_PREFIX)) {
-            return header.substring(header.indexOf(Constants.TOKEN_PREFIX));
+            return header.substring(Constants.TOKEN_PREFIX.length());
         }
         return null;
     }
 
     public void verifyTokenExpire(UserLogin userLogin) {
-
+        return;
     }
 
-    private Claims parseToken(String token)
-    {
+    private Claims parseToken(String token) {
         return Jwts.parser()
                 .setSigningKey(tokenProperty.getSecret())
                 .parseClaimsJws(token)
@@ -64,8 +65,7 @@ public class TokenService {
         return createTokenByClaims(claims);
     }
 
-    private String createTokenByClaims(Map<String, Object> claims)
-    {
+    private String createTokenByClaims(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS512, tokenProperty.getSecret()).compact();
