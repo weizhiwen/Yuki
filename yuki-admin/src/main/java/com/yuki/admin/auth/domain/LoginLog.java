@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class LoginLog extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "USER_NAME", length = 32)
+    @Column(name = "USERNAME", length = 32)
     private String username;
 
     @Column(name = "IS_LOGIN_SUCCESS")

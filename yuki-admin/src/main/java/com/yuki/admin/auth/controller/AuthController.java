@@ -27,8 +27,13 @@ public class AuthController extends BaseController {
         return JsonResult.success(service.login(param));
     }
 
+    @GetMapping("/test")
+    public JsonResult<String> test() {
+        return JsonResult.success("Success");
+    }
+
     @GetMapping("/info")
-    public JsonResult<UserInfoVO> info() {
+    public JsonResult<SystemUserInfoVO> info() {
         service.executeWithReader(userInfoReader, () -> service.getInfo());
         return JsonResult.success(userInfoReader.fetchTarget());
     }

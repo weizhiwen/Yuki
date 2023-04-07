@@ -1,6 +1,6 @@
 package com.yuki.framework.security;
 
-import com.ruoyi.common.core.domain.model.LoginUser;
+import com.ruoyi.common.core.domain.model.UserLogin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,6 +8,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,19 +16,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-@RequiredArgsConstructor
-public class TokenAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthFilter extends OncePerRequestFilter {
 
-    final TokenAuthenticationService tokenAuthenticationService;
+    @Resource
+    private TokenService tokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        LoginUser loginUser = tokenAuthenticationService.getLoginUser(request);
-        if (loginUser != null && SecurityUtils.getAuthentication() == null) {
-            tokenAuthenticationService.verifyTokenExpire(loginUser);
+        UserLogin userLogin = tokenService.getLoginUser(request);
+        if (userLogin != null && SecurityUtils.getAuthentication() == null) {
+            tokenService.verifyTokenExpire(userLogin);
             UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+                    new UsernamePasswordAuthenticationToken(userLogin, null, userLogin.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }

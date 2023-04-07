@@ -1,5 +1,8 @@
 package com.ruoyi.common.core.domain;
 
+import lombok.Getter;
+
+@Getter
 public class JsonResult<T> extends BaseData {
     private static final long serialVersionUID = 1L;
 
@@ -10,7 +13,12 @@ public class JsonResult<T> extends BaseData {
     private T data;
 
     enum Status {
-        SUCCESS(200, "操作成功"), WARN(400, "请求参数有误"), UNAUTHORIZED(401, "没有认证"), FORBIDDEN(403, "没有权限"), NOT_FOUND(404, "没有找到"), ERROR(500, "系统异常");
+        SUCCESS(200, "操作成功"),
+        WARN(400, "请求参数有误"),
+        UNAUTHORIZED(401, "没有认证"),
+        FORBIDDEN(403, "没有权限"),
+        NOT_FOUND(404, "没有找到"),
+        ERROR(500, "系统异常");
 
         final int code;
 

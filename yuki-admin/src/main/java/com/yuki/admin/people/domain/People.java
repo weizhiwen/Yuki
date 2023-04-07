@@ -1,13 +1,14 @@
 package com.yuki.admin.people.domain;
 
 import com.ruoyi.common.core.domain.entity.BaseEntity;
-import com.ruoyi.common.core.domain.entity.SystemUser;
+import com.yuki.admin.auth.domain.SystemUser;
 import com.yuki.admin.department.domain.Department;
 import com.yuki.admin.position.domain.Position;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "PEOPLE")
 public class People extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

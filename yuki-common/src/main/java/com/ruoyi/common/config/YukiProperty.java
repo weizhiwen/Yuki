@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "yuki")
-public class YukiConfig {
+public class YukiProperty {
     private String name;
 
     private String authors;
@@ -14,7 +14,7 @@ public class YukiConfig {
 
     private static String fileRootPath;
 
-    private static String captchaType;
+    private String captchaType;
 
     public String getName() {
         return name;
@@ -44,16 +44,16 @@ public class YukiConfig {
         return fileRootPath;
     }
 
-    public static void setFileRootPath(String fileRootPath) {
-        YukiConfig.fileRootPath = fileRootPath;
+    public void setFileRootPath(String fileRootPath) {
+        YukiProperty.fileRootPath = fileRootPath;
     }
 
-    public static String getCaptchaType() {
+    public String getCaptchaType() {
         return captchaType;
     }
 
-    public static void setCaptchaType(String captchaType) {
-        YukiConfig.captchaType = captchaType;
+    public void setCaptchaType(String captchaType) {
+        this.captchaType = captchaType;
     }
 
 

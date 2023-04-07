@@ -2,7 +2,7 @@ yuki:
   name: 'Yuki 管理系统'
   authors: 'ShiXin,Yuki'
   version: '0.0.1'
-  fileRootPath: 'E:\Code\Java\Yuki\path'
+  file-root-path: 'E:\Code\Java\Yuki\path'
   captchaType: 'digital'
 spring:
   jackson:
@@ -14,3 +14,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
+    open-in-view: false
+  profiles:
+    active: dev
+token:
+  header: Authorization
+  secret: y9xfuDtynPrgf585
+  expireTime: 30

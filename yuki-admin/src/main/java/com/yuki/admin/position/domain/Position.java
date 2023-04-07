@@ -1,18 +1,21 @@
 package com.yuki.admin.position.domain;
 
+import com.ruoyi.common.core.domain.entity.BaseEntity;
 import com.ruoyi.common.core.domain.entity.TraceableEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-public class Position extends TraceableEntity {
+@Table(name = "POSITION")
+public class Position extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "CODE", length = 64)
+    @Column(name = "CODE", length = 32, unique = true)
     private String code;
 
-    @Column(name = "NAME", length = 64)
+    @Column(name = "NAME", length = 32, unique = true)
     private String name;
 
     @Column(name = "IDX")

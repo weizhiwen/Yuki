@@ -1,18 +1,23 @@
 package com.ruoyi.common.core.domain.model;
 
-import com.ruoyi.common.core.domain.entity.SystemUser;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-public class LoginUser implements UserDetails {
+@NoArgsConstructor
+public class UserLogin implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private SystemUser user;
+    private Long userId;
 
-    private String token;
+    private String username;
+
+    private String password;
+
+    private String userKey;
 
     private LocalDateTime loginTime;
 
@@ -26,21 +31,34 @@ public class LoginUser implements UserDetails {
 
     private String os;
 
-
-    public SystemUser getUser() {
-        return user;
+    public UserLogin(Long userId, String username, String password) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
     }
 
-    public void setUser(SystemUser user) {
-        this.user = user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public String getToken() {
-        return token;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserKey() {
+        return userKey;
+    }
+
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
     }
 
     public LocalDateTime getLoginTime() {
@@ -98,12 +116,12 @@ public class LoginUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return user.getUserName();
+        return username;
     }
 
     @Override

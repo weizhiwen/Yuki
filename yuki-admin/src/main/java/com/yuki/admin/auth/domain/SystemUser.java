@@ -1,49 +1,51 @@
-package com.ruoyi.common.core.domain.entity;
+package com.yuki.admin.auth.domain;
 
 import com.ruoyi.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "SYSTEM_USER")
 public class SystemUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "USER_NAME", length = 32)
-    private String userName;
+    @Column(name = "USERNAME", length = 32, unique = true)
+    private String username;
 
-    @Column(name = "NICK_NAME", length = 32)
-    private String nickName;
+    @Column(name = "NICKNAME", length = 32)
+    private String nickname;
 
     @Column(name = "EMAIL", length = 32)
     private String email;
 
-    @Column(name = "PHONE_NUMBER", length = 11)
-    private String phoneNumber;
+    @Column(name = "TEL", length = 11)
+    private String tel;
 
     @Column(name = "AVATAR", length = 256)
     private String avatar;
 
-    @Column(name = "PASSWORD", length = 64)
+    @Column(name = "PASSWORD", length = 64, nullable = false)
     private String password;
 
     @Column(name = "IS_ENABLED")
     private boolean enabled;
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getEmail() {
@@ -54,12 +56,12 @@ public class SystemUser extends BaseEntity {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getTel() {
+        return tel;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public String getAvatar() {
