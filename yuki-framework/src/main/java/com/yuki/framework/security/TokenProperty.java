@@ -6,11 +6,21 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "token")
 public class TokenProperty {
+    private String algorithm;
+
     private String header;
 
     private String secret;
 
     private int expireTime;
+
+    public String getAlgorithm() {
+        return algorithm;
+    }
+
+    public void setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+    }
 
     public String getHeader() {
         return header;

@@ -68,7 +68,7 @@ public class TokenService {
     private String createTokenByClaims(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, tokenProperty.getSecret()).compact();
+                .signWith(SignatureAlgorithm.forName(tokenProperty.getAlgorithm()), tokenProperty.getSecret()).compact();
     }
 
     public void refreshToken(UserLogin userLogin) {
