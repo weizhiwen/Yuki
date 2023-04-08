@@ -1,6 +1,5 @@
 package com.yuki;
 
-import cn.hutool.extra.spring.SpringUtil;
 import com.ruoyi.common.core.domain.JsonResult;
 import com.ruoyi.common.core.exception.BaseException;
 import lombok.RequiredArgsConstructor;
