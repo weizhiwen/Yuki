@@ -14,7 +14,7 @@ public class JsonResult<T> extends BaseData {
 
     enum Status {
         SUCCESS(200, "操作成功"),
-        WARN(400, "请求参数有误"),
+        WARN(400, "请求有误"),
         UNAUTHORIZED(401, "没有认证"),
         FORBIDDEN(403, "没有权限"),
         NOT_FOUND(404, "没有找到"),
@@ -51,6 +51,10 @@ public class JsonResult<T> extends BaseData {
         return new JsonResult<>(Status.WARN.code, Status.WARN.message, null);
     }
 
+    public static JsonResult<String> warn(String message) {
+        return new JsonResult<>(Status.WARN.code, message, null);
+    }
+
     public static JsonResult<String> unauthorized() {
         return new JsonResult<>(Status.UNAUTHORIZED.code, Status.UNAUTHORIZED.message, null);
     }
@@ -65,5 +69,9 @@ public class JsonResult<T> extends BaseData {
 
     public static JsonResult<String> error() {
         return new JsonResult<>(Status.ERROR.code, Status.ERROR.message, null);
+    }
+
+    public static JsonResult<String> error(String message) {
+        return new JsonResult<>(Status.ERROR.code, message, null);
     }
 }

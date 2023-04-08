@@ -3,6 +3,7 @@ package com.yuki.framework.security;
 import com.ruoyi.common.core.domain.JsonResult;
 import com.ruoyi.common.core.domain.model.UserLogin;
 import com.ruoyi.common.util.ServletUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.annotation.Resource;
-
+@Slf4j
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
