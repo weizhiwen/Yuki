@@ -1,6 +1,6 @@
 package com.yuki.admin.auth.service;
 
-import com.ruoyi.common.core.domain.model.UserLogin;
+import com.yuki.common.core.domain.model.UserLogin;
 import com.yuki.admin.auth.domain.SystemUser;
 import com.yuki.admin.auth.repo.SystemUserRepo;
 import lombok.RequiredArgsConstructor;

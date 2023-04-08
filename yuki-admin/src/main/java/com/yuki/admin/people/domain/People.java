@@ -1,6 +1,6 @@
 package com.yuki.admin.people.domain;
 
-import com.ruoyi.common.core.domain.entity.BaseEntity;
+import com.yuki.common.core.domain.entity.BaseEntity;
 import com.yuki.admin.auth.domain.SystemUser;
 import com.yuki.admin.department.domain.Department;
 import com.yuki.admin.position.domain.Position;

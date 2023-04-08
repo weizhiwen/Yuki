@@ -1,8 +1,8 @@
 package com.yuki.framework.security;
 
 import cn.hutool.core.util.StrUtil;
-import com.ruoyi.common.constant.Constants;
-import com.ruoyi.common.core.domain.model.UserLogin;
+import com.yuki.common.constant.Constants;
+import com.yuki.common.core.domain.model.UserLogin;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

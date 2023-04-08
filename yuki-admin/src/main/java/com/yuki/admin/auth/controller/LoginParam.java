@@ -1,6 +1,6 @@
 package com.yuki.admin.auth.controller;
 
-import com.ruoyi.common.core.domain.BaseParam;
+import com.yuki.common.core.domain.BaseParam;
 
 
 public class LoginParam extends BaseParam {

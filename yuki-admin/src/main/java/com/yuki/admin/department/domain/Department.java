@@ -1,7 +1,6 @@
 package com.yuki.admin.department.domain;
 
-import com.ruoyi.common.core.domain.entity.BaseEntity;
-import com.ruoyi.common.core.domain.entity.TraceableEntity;
+import com.yuki.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

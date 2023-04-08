@@ -1,8 +1,7 @@
 package com.yuki.framework.security;
 
-import com.ruoyi.common.core.domain.JsonResult;
-import com.ruoyi.common.core.domain.model.UserLogin;
-import com.ruoyi.common.util.ServletUtils;
+import com.yuki.common.core.domain.JsonResult;
+import com.yuki.common.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.annotation.Resource;
 @Slf4j

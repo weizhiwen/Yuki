@@ -1,7 +1,7 @@
 package com.yuki.admin.auth.controller;
 
-import com.ruoyi.common.annotation.RelatedClass;
-import com.ruoyi.common.core.domain.BaseData;
+import com.yuki.common.annotation.RelatedClass;
+import com.yuki.common.core.domain.BaseData;
 import com.yuki.admin.auth.domain.SystemUser;
 
 @RelatedClass(classes = {SystemUser.class})

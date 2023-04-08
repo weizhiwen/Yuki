@@ -1,6 +1,6 @@
 package com.yuki.admin.auth.domain;
 
-import com.ruoyi.common.core.domain.entity.BaseEntity;
+import com.yuki.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

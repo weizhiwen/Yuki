@@ -1,6 +1,6 @@
 package com.yuki.admin.auth.service;
 
-import com.ruoyi.common.core.reader.BaseReader;
+import com.yuki.common.core.reader.BaseReader;
 import com.yuki.admin.auth.controller.SystemUserInfoVO;
 import com.yuki.admin.auth.domain.SystemUser;
 import org.springframework.stereotype.Component;
