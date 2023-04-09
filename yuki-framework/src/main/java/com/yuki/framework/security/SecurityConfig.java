@@ -1,6 +1,7 @@
 package com.yuki.framework.security;
 
 import com.yuki.common.core.domain.JsonResult;
+import com.yuki.common.core.domain.model.UserLogin;
 import com.yuki.common.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +21,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.annotation.Resource;
 @Slf4j
@@ -49,6 +53,10 @@ public class SecurityConfig {
                 .accessDeniedHandler(accessDeniedHandler())
                 .authenticationEntryPoint(authenticationEntryPoint())
                 .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
+                .logoutSuccessHandler(logoutSuccessHandler())
+                .and()
                 .build();
     }
 
@@ -70,21 +78,19 @@ public class SecurityConfig {
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> {
-            accessDeniedException.printStackTrace();
+            Authentication authentication = SecurityUtils.getAuthentication();
+            log.warn("用户【{}】禁止访问：{}", ((UserLogin)authentication.getPrincipal()).getUsername(), request.getRequestURI());
             ServletUtils.renderJson(response, JsonResult.forbidden());
         };
     }
 
-//    @Bean
-//    public LogoutSuccessHandler logoutSuccessHandler() {
-//        return (request, response, authentication) -> {
-//            UserLogin userLogin = tokenService.getLoginUser(request);
-//            if (userLogin != null) {
-//                tokenService.deleteLoginUser(userLogin);
-//            }
-//            ServletUtils.renderJson(response, JsonResult.success("退出成功"));
-//        };
-//    }
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return (request, response, authentication) -> {
+            // TODO 删除token
+            ServletUtils.renderJson(response, JsonResult.success("退出成功"));
+        };
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
