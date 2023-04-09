@@ -3,9 +3,9 @@ package com.yuki.framework.security;
 import com.yuki.common.core.domain.JsonResult;
 import com.yuki.common.core.domain.model.UserSession;
 import com.yuki.common.util.ServletUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -24,15 +24,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.annotation.Resource;
 @Slf4j
-@Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
-    @Resource
-    private UserDetailsService userDetailsService;
-    @Resource
-    private JWTAuthFilter jwtAuthFilter;
+    private final UserDetailsService userDetailsService;
+    private final JWTAuthFilter jwtAuthFilter;
+    private final TokenService tokenService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -87,7 +85,10 @@ public class SecurityConfig {
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
         return (request, response, authentication) -> {
-            // TODO 删除token
+            UserSession userSession = tokenService.getUserSession(request);
+            if (userSession != null) {
+                tokenService.deleteUserSession(userSession);
+            }
             ServletUtils.renderJson(response, JsonResult.success("退出成功"));
         };
     }

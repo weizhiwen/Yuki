@@ -25,7 +25,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         UserSession userSession = tokenService.getUserSession(request);
         if (userSession != null && SecurityUtils.getAuthentication() == null) {
-            tokenService.verifyTokenExpire(userSession);
+            tokenService.refreshTokenIfNecessary(userSession);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(userSession, null, userSession.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
