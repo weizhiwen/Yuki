@@ -28,7 +28,7 @@ public class SecurityConfig {
     @Resource
     private UserDetailsService userDetailsService;
     @Resource
-    private JwtAuthFilter jwtAuthFilter;
+    private JWTAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

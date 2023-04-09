@@ -6,7 +6,10 @@ import com.yuki.common.core.domain.model.UserLogin;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import jdk.security.jarsigner.JarSignerException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +19,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TokenService {
@@ -26,9 +30,13 @@ public class TokenService {
     public UserLogin getLoginUser(HttpServletRequest request) {
         String token = getToken(request);
         if (StrUtil.isNotEmpty(token)) {
-            Claims claims = parseToken(token);
-            String userName = (String) claims.get(Constants.LOGIN_USER_KEY);
-            return (UserLogin) userDetailsService.loadUserByUsername(userName);
+            try {
+                Claims claims = parseToken(token);
+                String userName = (String) claims.get(Constants.LOGIN_USER_KEY);
+                return (UserLogin) userDetailsService.loadUserByUsername(userName);
+            } catch (SignatureException e) {
+                log.error("JWT签名不匹配，无效的JWT");
+            }
         }
         return null;
     }
