@@ -2,7 +2,7 @@
 # Build Tools
 
 .gradle
-/build/
+*/build/
 !gradle/wrapper/gradle-wrapper.jar
 
 target/
