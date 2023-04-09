@@ -1,13 +1,13 @@
 package com.yuki.framework.security;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.yuki.common.constant.Constants;
-import com.yuki.common.core.domain.model.UserLogin;
+import com.yuki.common.core.domain.model.UserSession;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
-import jdk.security.jarsigner.JarSignerException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,13 +27,13 @@ public class TokenService {
     final UserDetailsService userDetailsService;
 
 
-    public UserLogin getLoginUser(HttpServletRequest request) {
+    public UserSession getUserSession(HttpServletRequest request) {
         String token = getToken(request);
         if (StrUtil.isNotEmpty(token)) {
             try {
                 Claims claims = parseToken(token);
-                String userName = (String) claims.get(Constants.LOGIN_USER_KEY);
-                return (UserLogin) userDetailsService.loadUserByUsername(userName);
+                String userName = (String) claims.get(Constants.LOGIN_USER_NAME);
+                return (UserSession) userDetailsService.loadUserByUsername(userName);
             } catch (SignatureException e) {
                 log.error("JWT签名不匹配，无效的JWT");
             }
@@ -49,7 +49,7 @@ public class TokenService {
         return null;
     }
 
-    public void verifyTokenExpire(UserLogin userLogin) {
+    public void verifyTokenExpire(UserSession userSession) {
         return;
     }
 
@@ -60,16 +60,19 @@ public class TokenService {
                 .getBody();
     }
 
-    public void deleteLoginUser(UserLogin userLogin) {
+    public void deleteUserSession(UserSession userSession) {
 
     }
 
-    public String createToken(UserLogin userLogin) {
-        String userKey = userLogin.getUsername();
-        userLogin.setUserKey(userKey);
-        refreshToken(userLogin);
+    public String createToken(UserSession userSession) {
+        String username = userSession.getUsername();
+        userSession.setSessionId(username);
+        String sessionId = IdUtil.fastSimpleUUID();
+        userSession.setSessionId(sessionId);
+        refreshToken(userSession);
         Map<String, Object> claims = new HashMap<>();
-        claims.put(Constants.LOGIN_USER_KEY, userKey);
+        claims.put(Constants.LOGIN_USER_NAME, username);
+        claims.put(Constants.LOGIN_SESSION_ID, sessionId);
         return createTokenByClaims(claims);
     }
 
@@ -79,8 +82,8 @@ public class TokenService {
                 .signWith(SignatureAlgorithm.forName(tokenProperty.getAlgorithm()), tokenProperty.getSecret()).compact();
     }
 
-    public void refreshToken(UserLogin userLogin) {
-        userLogin.setLoginTime(LocalDateTime.now());
-        userLogin.setExpireTime(userLogin.getLoginTime().plus(tokenProperty.getExpireTime(), ChronoUnit.MINUTES));
+    public void refreshToken(UserSession userSession) {
+        userSession.setLoginTime(LocalDateTime.now());
+        userSession.setExpireTime(userSession.getLoginTime().plus(tokenProperty.getExpireTime(), ChronoUnit.MINUTES));
     }
 }

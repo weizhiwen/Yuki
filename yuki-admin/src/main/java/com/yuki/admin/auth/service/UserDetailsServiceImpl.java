@@ -1,6 +1,6 @@
 package com.yuki.admin.auth.service;
 
-import com.yuki.common.core.domain.model.UserLogin;
+import com.yuki.common.core.domain.model.UserSession;
 import com.yuki.admin.auth.domain.SystemUser;
 import com.yuki.admin.auth.repo.SystemUserRepo;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (systemUser == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
-        return new UserLogin(systemUser.getId(), systemUser.getUsername(), systemUser.getPassword());
+        return new UserSession(systemUser.getId(), systemUser.getUsername(), systemUser.getPassword());
     }
 }

@@ -1,7 +1,7 @@
 package com.yuki.framework.security;
 
 import com.yuki.common.core.domain.JsonResult;
-import com.yuki.common.core.domain.model.UserLogin;
+import com.yuki.common.core.domain.model.UserSession;
 import com.yuki.common.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -79,7 +79,7 @@ public class SecurityConfig {
     public AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> {
             Authentication authentication = SecurityUtils.getAuthentication();
-            log.warn("用户【{}】禁止访问：{}", ((UserLogin)authentication.getPrincipal()).getUsername(), request.getRequestURI());
+            log.warn("用户【{}】禁止访问：{}", ((UserSession)authentication.getPrincipal()).getUsername(), request.getRequestURI());
             ServletUtils.renderJson(response, JsonResult.forbidden());
         };
     }

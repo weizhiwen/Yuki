@@ -1,6 +1,6 @@
 package com.yuki.admin.auth.service;
 
-import com.yuki.common.core.domain.model.UserLogin;
+import com.yuki.common.core.domain.model.UserSession;
 import com.yuki.common.core.service.BaseService;
 import com.yuki.admin.auth.controller.LoginParam;
 import com.yuki.admin.auth.domain.SystemUser;
@@ -24,8 +24,8 @@ public class AuthService extends BaseService<SystemUser> {
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(param.getUsername(), param.getPassword());
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
-            UserLogin userLogin = (UserLogin) authentication.getPrincipal();
-            return tokenService.createToken(userLogin);
+            UserSession userSession = (UserSession) authentication.getPrincipal();
+            return tokenService.createToken(userSession);
         } catch (Exception ex) {
             if (ex instanceof BadCredentialsException) {
                 throw new UserPasswordNotMatchException();

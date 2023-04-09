@@ -1,6 +1,6 @@
 package com.yuki.framework.security;
 
-import com.yuki.common.core.domain.model.UserLogin;
+import com.yuki.common.core.domain.model.UserSession;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -23,11 +23,11 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        UserLogin userLogin = tokenService.getLoginUser(request);
-        if (userLogin != null && SecurityUtils.getAuthentication() == null) {
-            tokenService.verifyTokenExpire(userLogin);
+        UserSession userSession = tokenService.getUserSession(request);
+        if (userSession != null && SecurityUtils.getAuthentication() == null) {
+            tokenService.verifyTokenExpire(userSession);
             UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(userLogin, null, userLogin.getAuthorities());
+                    new UsernamePasswordAuthenticationToken(userSession, null, userSession.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }

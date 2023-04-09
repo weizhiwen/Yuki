@@ -8,16 +8,15 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 @NoArgsConstructor
-public class UserLogin implements UserDetails {
+public class UserSession implements UserDetails {
     private static final long serialVersionUID = 1L;
+    private String sessionId;
 
     private Long userId;
 
     private String username;
 
     private String password;
-
-    private String userKey;
 
     private LocalDateTime loginTime;
 
@@ -31,7 +30,7 @@ public class UserLogin implements UserDetails {
 
     private String os;
 
-    public UserLogin(Long userId, String username, String password) {
+    public UserSession(Long userId, String username, String password) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -53,12 +52,12 @@ public class UserLogin implements UserDetails {
         this.password = password;
     }
 
-    public String getUserKey() {
-        return userKey;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setUserKey(String userKey) {
-        this.userKey = userKey;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public LocalDateTime getLoginTime() {
