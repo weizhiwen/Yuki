@@ -11,6 +11,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,7 +48,7 @@ public class GlobalExceptionHandler {
      * 自定义异常
      */
     @ExceptionHandler(BaseException.class)
-    public JsonResult<String> handleServiceException(BaseException e, HttpServletRequest request)
+    public JsonResult<String> handleBaseException(BaseException e, HttpServletRequest request)
     {
         log.error(e.getMessage(), e);
         return JsonResult.error(messageSource.getMessage(e.getMessage(), e.getArgs(), LocaleContextHolder.getLocale()));
@@ -79,7 +80,7 @@ public class GlobalExceptionHandler {
      * 最顶级异常
      */
     @ExceptionHandler(Throwable.class)
-    public JsonResult<String> handleRuntimeException(Throwable e, HttpServletRequest request)
+    public JsonResult<String> handleThrowable(Throwable e, HttpServletRequest request)
     {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生未知Throwable.", requestURI, e);

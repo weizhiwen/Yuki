@@ -17,7 +17,7 @@ public class JsonResult<T> extends BaseData {
         WARN(400, "请求有误"),
         UNAUTHORIZED(401, "没有认证"),
         FORBIDDEN(403, "没有权限"),
-        NOT_FOUND(404, "没有找到"),
+        NOT_FOUND(404, "资源不存在"),
         ERROR(500, "系统异常");
 
         final int code;
@@ -64,11 +64,7 @@ public class JsonResult<T> extends BaseData {
     }
 
     public static JsonResult<String> notFound() {
-        return new JsonResult<>(Status.UNAUTHORIZED.code, Status.UNAUTHORIZED.message, null);
-    }
-
-    public static JsonResult<String> error() {
-        return new JsonResult<>(Status.ERROR.code, Status.ERROR.message, null);
+        return new JsonResult<>(Status.NOT_FOUND.code, Status.NOT_FOUND.message, null);
     }
 
     public static JsonResult<String> error(String message) {
