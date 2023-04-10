@@ -2,7 +2,7 @@ group 'com.yuki.framework'
 
 dependencies {
     implementation project(':yuki-common')
-
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'cn.hutool:hutool-all:+'

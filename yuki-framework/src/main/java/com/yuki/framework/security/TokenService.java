@@ -93,8 +93,8 @@ public class TokenService {
 
     public void refreshToken(UserSession userSession) {
         userSession.setLoginTime(LocalDateTime.now());
-        redisRepo.set(getUserSessionKey(userSession.getSessionId()), userSession, tokenProperty.getExpireTime(), TimeUnit.MINUTES);
         userSession.setExpireTime(userSession.getLoginTime().plus(tokenProperty.getExpireTime(), ChronoUnit.MINUTES));
+        redisRepo.set(getUserSessionKey(userSession.getSessionId()), userSession, tokenProperty.getExpireTime(), TimeUnit.MINUTES);
     }
 
     private String getUserSessionKey(@NonNull String sessionId) {
