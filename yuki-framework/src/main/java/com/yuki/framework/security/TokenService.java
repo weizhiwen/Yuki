@@ -57,7 +57,7 @@ public class TokenService {
     public void refreshTokenIfNecessary(UserSession userSession) {
         LocalDateTime expireTime = userSession.getExpireTime();
         LocalDateTime now = LocalDateTime.now();
-        if (expireTime.isBefore(now)) {
+        if (expireTime.isAfter(now)) {
             refreshToken(userSession);
         }
     }
