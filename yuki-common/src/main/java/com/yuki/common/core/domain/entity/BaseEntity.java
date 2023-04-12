@@ -16,8 +16,9 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @DynamicUpdate
 @EntityListeners({AuditingEntityListener.class})
-public class BaseEntity extends BaseData {
+public class BaseEntity implements BaseData {
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")

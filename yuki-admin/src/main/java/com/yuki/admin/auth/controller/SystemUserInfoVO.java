@@ -5,7 +5,7 @@ import com.yuki.common.core.domain.BaseData;
 import com.yuki.admin.auth.entity.SystemUser;
 
 @RelatedClass(classes = {SystemUser.class})
-public class SystemUserInfoVO extends BaseData {
+public class SystemUserInfoVO implements BaseData {
     private static final long serialVersionUID = 1L;
 
     private String nickname;

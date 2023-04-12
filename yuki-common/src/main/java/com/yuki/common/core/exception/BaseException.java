@@ -13,7 +13,7 @@ public class BaseException extends RuntimeException {
         super(message);
     }
 
-    public BaseException(String message, Object[] args) {
+    public BaseException(String message, Object ...args) {
         super(message);
         this.args = args;
     }

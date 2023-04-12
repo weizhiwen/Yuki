@@ -1,6 +1,6 @@
 package com.yuki.common.core.domain;
 
-public class BaseVO implements BaseData {
+public class UpdateParam extends CreateParam {
     private static final long serialVersionUID = 1L;
 
     private Long id;

@@ -3,7 +3,7 @@ package com.yuki.common.core.domain;
 import lombok.Getter;
 
 @Getter
-public class JsonResult<T> extends BaseData {
+public class JsonResult<T> implements BaseData {
     private static final long serialVersionUID = 1L;
 
     private int code;
