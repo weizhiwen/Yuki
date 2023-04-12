@@ -1,29 +1,21 @@
-package com.yuki.admin.position.entity;
+package com.yuki.admin.position.controller;
 
-import com.yuki.common.core.domain.entity.BaseEntity;
+import com.yuki.admin.position.entity.Position;
+import com.yuki.common.annotation.RelatedClass;
+import com.yuki.common.core.domain.CreateOrUpdateParam;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "POSITION")
-public class Position extends BaseEntity {
+@RelatedClass(classes = Position.class)
+public class PositionParam extends CreateOrUpdateParam {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "CODE", length = 32, unique = true)
     private String code;
 
-    @Column(name = "NAME", length = 32, unique = true)
     private String name;
 
-    @Column(name = "IDX")
     private Long idx;
 
-    @Column(name = "IS_DISABLE")
     private boolean disabled;
 
-    @Column(name = "MEMO")
     private String memo;
 
     public String getCode() {
