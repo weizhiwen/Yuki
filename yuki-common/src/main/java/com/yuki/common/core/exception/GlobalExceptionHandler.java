@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
     public JsonResult<String> handleBaseException(BaseException e, HttpServletRequest request)
     {
         log.error(e.getMessage(), e);
-        return JsonResult.error(messageSource.getMessage(e.getMessage(), e.getArgs(), LocaleContextHolder.getLocale()));
+        return JsonResult.error(messageSource.getMessage(e.getMessage(), e.getArgs(), e.getMessage(), LocaleContextHolder.getLocale()));
     }
 
     /**
