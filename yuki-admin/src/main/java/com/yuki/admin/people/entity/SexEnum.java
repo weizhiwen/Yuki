@@ -1,4 +1,4 @@
-package com.yuki.admin.people.domain;
+package com.yuki.admin.people.entity;
 
 public enum SexEnum {
     MALE("男"), FEMALE("女");

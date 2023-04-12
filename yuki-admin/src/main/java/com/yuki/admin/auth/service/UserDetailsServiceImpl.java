@@ -1,7 +1,7 @@
 package com.yuki.admin.auth.service;
 
 import com.yuki.common.core.domain.model.UserSession;
-import com.yuki.admin.auth.domain.SystemUser;
+import com.yuki.admin.auth.entity.SystemUser;
 import com.yuki.admin.auth.repo.SystemUserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

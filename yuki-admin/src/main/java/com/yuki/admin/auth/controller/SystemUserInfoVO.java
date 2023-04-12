@@ -2,7 +2,7 @@ package com.yuki.admin.auth.controller;
 
 import com.yuki.common.annotation.RelatedClass;
 import com.yuki.common.core.domain.BaseData;
-import com.yuki.admin.auth.domain.SystemUser;
+import com.yuki.admin.auth.entity.SystemUser;
 
 @RelatedClass(classes = {SystemUser.class})
 public class SystemUserInfoVO extends BaseData {

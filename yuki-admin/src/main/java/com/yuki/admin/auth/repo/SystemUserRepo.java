@@ -1,7 +1,7 @@
 package com.yuki.admin.auth.repo;
 
 import com.yuki.common.core.repo.BaseRepo;
-import com.yuki.admin.auth.domain.SystemUser;
+import com.yuki.admin.auth.entity.SystemUser;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

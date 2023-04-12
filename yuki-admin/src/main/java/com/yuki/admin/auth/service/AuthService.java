@@ -3,7 +3,7 @@ package com.yuki.admin.auth.service;
 import com.yuki.common.core.domain.model.UserSession;
 import com.yuki.common.core.service.BaseService;
 import com.yuki.admin.auth.controller.LoginParam;
-import com.yuki.admin.auth.domain.SystemUser;
+import com.yuki.admin.auth.entity.SystemUser;
 import com.yuki.common.core.exception.UserPasswordNotMatchException;
 import com.yuki.framework.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
