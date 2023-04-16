@@ -6,4 +6,5 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'javax.servlet:javax.servlet-api'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'net.kaczmarzyk:specification-arg-resolver:2.+'
 }

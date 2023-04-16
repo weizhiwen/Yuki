@@ -1,6 +1,13 @@
 package com.yuki.common.core.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 public class JsonResult<T> implements BaseData {
@@ -30,6 +37,15 @@ public class JsonResult<T> implements BaseData {
         }
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PageList<T> implements BaseData {
+        private long count;
+
+        private Iterable<T> list;
+    }
+
     public JsonResult() {
     }
 
@@ -45,6 +61,10 @@ public class JsonResult<T> implements BaseData {
 
     public static <T> JsonResult<T> success(T data) {
         return new JsonResult<>(Status.SUCCESS.code, Status.SUCCESS.message, data);
+    }
+
+    public static <T> JsonResult<PageList<T>> toPage(long count, Iterable<T> list) {
+        return new JsonResult<>(Status.SUCCESS.code, Status.SUCCESS.message, new PageList<T>(count, list));
     }
 
     public static JsonResult<String> warn() {

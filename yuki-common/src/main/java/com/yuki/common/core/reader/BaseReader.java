@@ -2,6 +2,7 @@ package com.yuki.common.core.reader;
 
 import com.yuki.common.core.domain.BaseData;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -66,7 +67,7 @@ public class BaseReader<S extends BaseData, T extends BaseData> {
         getTargetList().add(target);
     }
 
-    public void read(List<S> souceList) {
+    public void read(Iterable<S> souceList) {
         if (souceList == null) {
             setTargetList(Collections.emptyList());
         } else {

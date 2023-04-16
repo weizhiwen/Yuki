@@ -10,11 +10,10 @@ spring:
     serialization:
       fail-on-empty-beans: false
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
     open-in-view: false
   redis:
     timeout: 10s

@@ -9,4 +9,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'mysql:mysql-connector-java:+'
     implementation 'cn.hutool:hutool-all:+'
+    implementation 'net.kaczmarzyk:specification-arg-resolver:2.+'
+    implementation 'com.google.code.gson:gson:+'
+    implementation 'p6spy:p6spy:3.+'
 }

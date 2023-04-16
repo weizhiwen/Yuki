@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/yuki
+    url: jdbc:p6spy:mysql://localhost:3306/yuki
     username: root
     password: 123456

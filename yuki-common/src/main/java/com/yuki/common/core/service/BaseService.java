@@ -4,12 +4,13 @@ import com.yuki.common.core.domain.CreateParam;
 import com.yuki.common.core.domain.UpdateParam;
 import com.yuki.common.core.domain.entity.BaseEntity;
 import com.yuki.common.core.exception.BaseException;
-import com.yuki.common.core.mapper.BaseMapper;
-import com.yuki.common.core.reader.BaseReader;
+import com.yuki.common.core.query.Queryable;
 import com.yuki.common.core.repo.BaseRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.lang.reflect.ParameterizedType;
 import java.util.Optional;
@@ -33,9 +34,8 @@ public abstract class BaseService<Create extends CreateParam, Update extends Upd
     protected abstract BaseRepo getRepo();
 
 
-    public void executeWithReader(BaseReader reader, Executable<T> executable) {
-        T execute = executable.execute();
-        reader.read(execute);
+    public Page<T> page(Specification query, Pageable pageable) {
+        return getRepo().findAll(query, pageable);
     }
 
     protected void validateOnCreate(Create param) {
