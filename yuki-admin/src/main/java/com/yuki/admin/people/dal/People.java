@@ -1,9 +1,9 @@
-package com.yuki.admin.people.entity;
+package com.yuki.admin.people.dal;
 
 import com.yuki.common.core.domain.entity.BaseEntity;
-import com.yuki.admin.auth.entity.SystemUser;
-import com.yuki.admin.department.entity.Department;
-import com.yuki.admin.position.entity.Position;
+import com.yuki.admin.auth.dal.SystemUser;
+import com.yuki.admin.department.dal.Department;
+import com.yuki.admin.position.dal.Position;
 
 import javax.persistence.*;
 

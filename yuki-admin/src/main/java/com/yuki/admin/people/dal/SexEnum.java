@@ -1,4 +1,4 @@
-package com.yuki.admin.people.entity;
+package com.yuki.admin.people.dal;
 
 public enum SexEnum {
     MALE("男"), FEMALE("女");

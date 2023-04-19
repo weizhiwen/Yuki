@@ -1,4 +1,4 @@
-package com.yuki.admin.position.entity;
+package com.yuki.admin.position.dal;
 
 import com.yuki.common.core.domain.entity.BaseEntity;
 

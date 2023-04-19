@@ -1,7 +1,7 @@
 package com.yuki.admin.auth.service;
 
 import com.yuki.admin.auth.controller.LoginParam;
-import com.yuki.admin.auth.entity.SystemUser;
+import com.yuki.admin.auth.dal.SystemUser;
 import com.yuki.common.core.domain.model.UserSession;
 import com.yuki.common.core.exception.UserPasswordNotMatchException;
 import com.yuki.framework.security.TokenService;
