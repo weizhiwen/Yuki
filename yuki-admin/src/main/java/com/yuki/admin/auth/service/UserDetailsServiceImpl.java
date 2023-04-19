@@ -1,8 +1,8 @@
 package com.yuki.admin.auth.service;
 
 import com.yuki.common.core.domain.model.UserSession;
-import com.yuki.admin.auth.dal.SystemUser;
-import com.yuki.admin.auth.dal.SystemUserRepo;
+import com.yuki.admin.auth.dao.SystemUser;
+import com.yuki.admin.auth.dao.SystemUserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

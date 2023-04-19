@@ -1,4 +1,4 @@
-package com.yuki.admin.auth.dal;
+package com.yuki.admin.auth.dao;
 
 import com.yuki.common.core.domain.entity.BaseEntity;
 

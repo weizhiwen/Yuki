@@ -1,8 +1,8 @@
 package com.yuki.admin.position.service;
 
 import com.yuki.admin.position.controller.PositionParam;
-import com.yuki.admin.position.dal.Position;
-import com.yuki.admin.position.dal.PositionRepo;
+import com.yuki.admin.position.dao.Position;
+import com.yuki.admin.position.dao.PositionRepo;
 import com.yuki.common.core.service.BaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

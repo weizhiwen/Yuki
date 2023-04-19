@@ -1,9 +1,9 @@
-package com.yuki.admin.people.dal;
+package com.yuki.admin.people.dao;
 
 import com.yuki.common.core.domain.entity.BaseEntity;
-import com.yuki.admin.auth.dal.SystemUser;
-import com.yuki.admin.department.dal.Department;
-import com.yuki.admin.position.dal.Position;
+import com.yuki.admin.auth.dao.SystemUser;
+import com.yuki.admin.department.dao.Department;
+import com.yuki.admin.position.dao.Position;
 
 import javax.persistence.*;
 

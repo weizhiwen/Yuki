@@ -1,6 +1,5 @@
-package com.yuki.admin.position.dal;
+package com.yuki.admin.position.dao;
 
-import com.yuki.admin.position.dal.Position;
 import com.yuki.common.core.repo.BaseRepo;
 import org.springframework.stereotype.Repository;
 

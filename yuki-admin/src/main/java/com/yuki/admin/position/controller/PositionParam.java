@@ -1,6 +1,6 @@
 package com.yuki.admin.position.controller;
 
-import com.yuki.admin.position.dal.Position;
+import com.yuki.admin.position.dao.Position;
 import com.yuki.common.annotation.RelatedClass;
 import com.yuki.common.core.domain.CreateOrUpdateParam;
 
