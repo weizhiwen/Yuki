@@ -17,6 +17,10 @@ spring:
     open-in-view: false
   redis:
     timeout: 10s
+  data:
+    redis:
+      repositories:
+        enabled: false
   messages:
     basename: i18n/messages
   profiles:
