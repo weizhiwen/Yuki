@@ -1,7 +1,7 @@
 package com.yuki.admin.position.service;
 
-import com.yuki.admin.position.controller.PositionParam;
-import com.yuki.admin.position.controller.PositionVO;
+import com.yuki.admin.position.web.PositionParam;
+import com.yuki.admin.position.web.PositionVO;
 import com.yuki.admin.position.dao.Position;
 import com.yuki.common.core.mapper.BaseMapper;
 import org.mapstruct.*;

@@ -1,6 +1,6 @@
 package com.yuki.admin.auth.service;
 
-import com.yuki.admin.auth.controller.LoginParam;
+import com.yuki.admin.auth.web.LoginParam;
 import com.yuki.admin.auth.dao.SystemUser;
 import com.yuki.common.core.domain.model.UserSession;
 import com.yuki.common.core.exception.UserPasswordNotMatchException;

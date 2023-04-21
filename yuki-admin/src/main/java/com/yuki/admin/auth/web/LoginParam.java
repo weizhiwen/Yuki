@@ -1,4 +1,4 @@
-package com.yuki.admin.auth.controller;
+package com.yuki.admin.auth.web;
 
 import com.yuki.common.core.domain.BaseParam;
 

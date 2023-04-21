@@ -1,6 +1,6 @@
 package com.yuki.admin.position.service;
 
-import com.yuki.admin.position.controller.PositionParam;
+import com.yuki.admin.position.web.PositionParam;
 import com.yuki.admin.position.dao.Position;
 import com.yuki.admin.position.dao.PositionRepo;
 import com.yuki.common.core.service.BaseService;

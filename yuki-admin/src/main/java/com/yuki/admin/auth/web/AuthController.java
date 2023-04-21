@@ -1,4 +1,4 @@
-package com.yuki.admin.auth.controller;
+package com.yuki.admin.auth.web;
 
 import com.yuki.admin.auth.service.AuthService;
 import com.yuki.admin.auth.service.UserInfoReader;

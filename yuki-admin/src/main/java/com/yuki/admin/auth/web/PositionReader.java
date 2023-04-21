@@ -1,6 +1,6 @@
-package com.yuki.admin.auth.controller;
+package com.yuki.admin.auth.web;
 
-import com.yuki.admin.position.controller.PositionVO;
+import com.yuki.admin.position.web.PositionVO;
 import com.yuki.admin.position.dao.Position;
 import com.yuki.common.core.reader.BaseReader;
 import org.springframework.stereotype.Service;

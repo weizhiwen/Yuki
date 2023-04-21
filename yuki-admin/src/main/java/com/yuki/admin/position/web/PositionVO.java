@@ -1,22 +1,22 @@
-package com.yuki.admin.position.controller;
+package com.yuki.admin.position.web;
 
 import com.yuki.admin.position.dao.Position;
 import com.yuki.common.annotation.RelatedClass;
-import com.yuki.common.core.domain.CreateOrUpdateParam;
+import com.yuki.common.core.domain.BaseVO;
+
+import java.time.LocalDateTime;
 
 @RelatedClass(classes = Position.class)
-public class PositionParam extends CreateOrUpdateParam {
-    private static final long serialVersionUID = 1L;
-
+public class PositionVO extends BaseVO {
     private String code;
 
     private String name;
 
-    private Long idx;
+    private String idx;
 
     private boolean disabled;
 
-    private String memo;
+    private LocalDateTime createdTime;
 
     public String getCode() {
         return code;
@@ -34,11 +34,11 @@ public class PositionParam extends CreateOrUpdateParam {
         this.name = name;
     }
 
-    public Long getIdx() {
+    public String getIdx() {
         return idx;
     }
 
-    public void setIdx(Long idx) {
+    public void setIdx(String idx) {
         this.idx = idx;
     }
 
@@ -50,11 +50,11 @@ public class PositionParam extends CreateOrUpdateParam {
         this.disabled = disabled;
     }
 
-    public String getMemo() {
-        return memo;
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
     }
 }
