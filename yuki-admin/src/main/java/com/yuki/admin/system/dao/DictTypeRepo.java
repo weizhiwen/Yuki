@@ -4,5 +4,5 @@ import com.yuki.common.core.repo.BaseRepo;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DictRepo extends BaseRepo<Dict, Long> {
+public interface DictTypeRepo extends BaseRepo<DictType, Long> {
 }

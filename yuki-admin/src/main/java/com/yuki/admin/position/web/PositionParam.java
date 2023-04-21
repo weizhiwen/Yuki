@@ -2,6 +2,7 @@ package com.yuki.admin.position.web;
 
 import com.yuki.admin.position.dao.Position;
 import com.yuki.common.annotation.RelatedClass;
+import com.yuki.common.core.dict.Dict;
 import com.yuki.common.core.domain.CreateOrUpdateParam;
 
 @RelatedClass(classes = Position.class)
@@ -17,6 +18,8 @@ public class PositionParam extends CreateOrUpdateParam {
     private boolean disabled;
 
     private String memo;
+
+    private Dict jobProfile;
 
     public String getCode() {
         return code;
@@ -56,5 +59,13 @@ public class PositionParam extends CreateOrUpdateParam {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public Dict getJobProfile() {
+        return jobProfile;
+    }
+
+    public void setJobProfile(Dict jobProfile) {
+        this.jobProfile = jobProfile;
     }
 }

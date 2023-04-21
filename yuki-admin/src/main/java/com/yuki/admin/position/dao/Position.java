@@ -1,5 +1,6 @@
 package com.yuki.admin.position.dao;
 
+import com.yuki.common.core.dict.Dict;
 import com.yuki.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.Column;
@@ -25,6 +26,9 @@ public class Position extends BaseEntity {
 
     @Column(name = "MEMO")
     private String memo;
+
+    @Column(name = "JOB_PROFILE")
+    private Dict jobProfile;
 
     public String getCode() {
         return code;
@@ -64,5 +68,13 @@ public class Position extends BaseEntity {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public Dict getJobProfile() {
+        return jobProfile;
+    }
+
+    public void setJobProfile(Dict jobProfile) {
+        this.jobProfile = jobProfile;
     }
 }

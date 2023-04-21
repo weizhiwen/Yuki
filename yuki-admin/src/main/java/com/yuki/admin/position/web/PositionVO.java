@@ -2,6 +2,7 @@ package com.yuki.admin.position.web;
 
 import com.yuki.admin.position.dao.Position;
 import com.yuki.common.annotation.RelatedClass;
+import com.yuki.common.core.dict.Dict;
 import com.yuki.common.core.domain.BaseVO;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,8 @@ public class PositionVO extends BaseVO {
     private boolean disabled;
 
     private LocalDateTime createdTime;
+
+    private Dict jobProfile;
 
     public String getCode() {
         return code;
@@ -56,5 +59,13 @@ public class PositionVO extends BaseVO {
 
     public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
+    }
+
+    public Dict getJobProfile() {
+        return jobProfile;
+    }
+
+    public void setJobProfile(Dict jobProfile) {
+        this.jobProfile = jobProfile;
     }
 }

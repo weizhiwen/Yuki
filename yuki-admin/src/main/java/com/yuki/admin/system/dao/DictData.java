@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class DictData extends BaseEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "DICT_ID", referencedColumnName = "ID")
-    private Dict dict;
+    private DictType dictType;
 
     @Column(nullable = false, unique = true, length = 32)
     private String code;
@@ -42,12 +42,12 @@ public class DictData extends BaseEntity {
         this.name = name;
     }
 
-    public Dict getDict() {
-        return dict;
+    public DictType getDict() {
+        return dictType;
     }
 
-    public void setDict(Dict dict) {
-        this.dict = dict;
+    public void setDict(DictType dictType) {
+        this.dictType = dictType;
     }
 
     public String getMemo() {
