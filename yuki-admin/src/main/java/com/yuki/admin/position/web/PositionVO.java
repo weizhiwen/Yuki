@@ -13,7 +13,7 @@ public class PositionVO extends BaseVO {
 
     private String name;
 
-    private String idx;
+    private Long idx;
 
     private boolean disabled;
 
@@ -37,11 +37,11 @@ public class PositionVO extends BaseVO {
         this.name = name;
     }
 
-    public String getIdx() {
+    public Long getIdx() {
         return idx;
     }
 
-    public void setIdx(String idx) {
+    public void setIdx(Long idx) {
         this.idx = idx;
     }
 
