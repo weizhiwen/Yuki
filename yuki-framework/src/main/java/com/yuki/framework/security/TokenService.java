@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.yuki.common.constant.CacheConstants;
 import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.model.UserSession;
-import com.yuki.common.core.repo.RedisRepo;
+import com.yuki.common.core.dao.RedisRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

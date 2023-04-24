@@ -1,4 +1,4 @@
-package com.yuki.common.core.repo;
+package com.yuki.common.core.dao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,8 @@
 package com.yuki.admin.position.web;
 
-import com.yuki.admin.auth.web.PositionReader;
 import com.yuki.admin.position.dao.Position;
 import com.yuki.admin.position.service.PositionMapper;
+import com.yuki.admin.position.service.PositionReader;
 import com.yuki.admin.position.service.PositionService;
 import com.yuki.common.core.controller.BaseController;
 import com.yuki.common.core.dict.Dict;

@@ -1,6 +1,6 @@
 package com.yuki.admin.auth.dao;
 
-import com.yuki.common.core.repo.BaseRepo;
+import com.yuki.common.core.dao.BaseRepo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

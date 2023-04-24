@@ -3,9 +3,8 @@ package com.yuki.common.core.service;
 import com.yuki.common.core.domain.CreateParam;
 import com.yuki.common.core.domain.UpdateParam;
 import com.yuki.common.core.domain.entity.BaseEntity;
-import com.yuki.common.core.exception.BaseException;
-import com.yuki.common.core.query.Queryable;
-import com.yuki.common.core.repo.BaseRepo;
+import com.yuki.common.core.dao.BaseRepo;
+import com.yuki.common.core.reader.BaseReader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -13,7 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.lang.reflect.ParameterizedType;
-import java.util.Optional;
+import java.util.function.Supplier;
 
 
 @SuppressWarnings("unchecked")
@@ -60,7 +59,7 @@ public abstract class BaseService<Create extends CreateParam, Update extends Upd
     @Transactional
     public T update(Update param) {
         validateOnUpdate(param);
-        T t = findByIdOrElseThrowException(param.getId());
+        T t = (T) getRepo().findOrThrowErrorById(param.getId());
         onUpdate(param, t);
         getRepo().save(t);
         return t;
@@ -71,16 +70,17 @@ public abstract class BaseService<Create extends CreateParam, Update extends Upd
 
     @Transactional
     public void delete(Long id) {
-        T t = findByIdOrElseThrowException(id);
+        T t = (T) getRepo().findOrThrowErrorById(id);
         validateOnDelete(t);
         getRepo().delete(t);
     }
 
-    public T findByIdOrElseThrowException(Long id) {
-        Optional<T> one = getRepo().findById(id);
-        if (one.isPresent()) {
-            return one.get();
-        }
-        throw new BaseException("id.not.found", id, entityClass.getSimpleName());
+    public T get(Long id) {
+        return (T) getRepo().findOrThrowErrorById(id);
+    }
+
+    public void executeWithReader(Supplier<T> supplier, BaseReader reader) {
+        T t = supplier.get();
+        reader.read(t);
     }
 }

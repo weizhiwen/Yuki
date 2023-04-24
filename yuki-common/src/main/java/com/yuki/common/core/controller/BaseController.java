@@ -4,7 +4,6 @@ import com.yuki.common.core.domain.CreateParam;
 import com.yuki.common.core.domain.JsonResult;
 import com.yuki.common.core.domain.UpdateParam;
 import com.yuki.common.core.exception.BaseException;
-import com.yuki.common.core.query.Queryable;
 import com.yuki.common.core.reader.BaseReader;
 import com.yuki.common.core.service.BaseService;
 import org.springframework.data.domain.Page;
@@ -34,6 +33,12 @@ public abstract class BaseController {
         }
     }
 
+    protected JsonResult detail(Long id) {
+        BaseReader reader = getReader();
+        getService().executeWithReader(() -> getService().get(id), reader);
+        return JsonResult.success(reader.fetchTarget());
+    }
+
     protected JsonResult<String> create(CreateParam param) {
         getService().create(param);
         return SUCCESS;
@@ -47,6 +52,13 @@ public abstract class BaseController {
 
     protected JsonResult<String> delete(Long id) {
         getService().delete(id);
+        return SUCCESS;
+    }
+
+    protected JsonResult<String> delete(Long[] ids) {
+        for (Long id : ids) {
+            getService().delete(id);
+        }
         return SUCCESS;
     }
 }

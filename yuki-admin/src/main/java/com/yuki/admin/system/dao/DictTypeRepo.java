@@ -1,6 +1,6 @@
 package com.yuki.admin.system.dao;
 
-import com.yuki.common.core.repo.BaseRepo;
+import com.yuki.common.core.dao.BaseRepo;
 import org.springframework.stereotype.Repository;
 
 @Repository

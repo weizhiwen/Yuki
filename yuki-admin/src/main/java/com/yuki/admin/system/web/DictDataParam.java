@@ -1,29 +1,26 @@
-package com.yuki.admin.system.dao;
+package com.yuki.admin.system.web;
 
-import com.yuki.common.core.domain.entity.BaseEntity;
+import com.yuki.admin.system.dao.DictData;
+import com.yuki.common.annotation.RelatedClass;
+import com.yuki.common.core.domain.CreateOrUpdateParam;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "DICT_DATA")
-public class DictData extends BaseEntity {
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "DICT_ID", referencedColumnName = "ID")
-    private DictType dictType;
+@RelatedClass(classes = DictData.class)
+public class DictDataParam extends CreateOrUpdateParam {
+    private static final long serialVersionUID = 1L;
 
-    @Column(nullable = false, unique = true, length = 32)
+    @NotNull(message = "字典类型必填")
+    private Long dictTypeId;
+
     private String code;
 
-    @Column(nullable = false, unique = true, length = 64)
     private String name;
 
-    @Column(length = 255)
     private String memo;
 
-    @Column(nullable = false)
     private Long idx;
 
-    @Column(nullable = false)
     private Boolean disabled;
 
     public String getCode() {
@@ -42,12 +39,12 @@ public class DictData extends BaseEntity {
         this.name = name;
     }
 
-    public DictType getDictType() {
-        return dictType;
+    public Long getDictTypeId() {
+        return dictTypeId;
     }
 
-    public void setDictType(DictType dictType) {
-        this.dictType = dictType;
+    public void setDictTypeId(Long dictTypeId) {
+        this.dictTypeId = dictTypeId;
     }
 
     public String getMemo() {
