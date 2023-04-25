@@ -6,6 +6,7 @@ import com.yuki.common.util.ServletUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -23,6 +24,8 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -77,7 +80,7 @@ public class SecurityConfig {
     public AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> {
             Authentication authentication = SecurityUtils.getAuthentication();
-            log.warn("用户【{}】禁止访问：{}", ((UserSession)authentication.getPrincipal()).getUsername(), request.getRequestURI());
+            log.warn("用户【{}】禁止访问：{}", ((UserSession) authentication.getPrincipal()).getUsername(), request.getRequestURI());
             ServletUtils.renderJson(response, JsonResult.forbidden());
         };
     }
@@ -101,6 +104,11 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public AuditorAware<String> auditorProvider() {
+        return () -> Optional.of("admin");
     }
 
     public static void main(String[] args) {
