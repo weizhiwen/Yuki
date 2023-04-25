@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "DICT")
+@Table(name = "DICT_TYPE")
 public class DictType extends BaseEntity {
     @Column(nullable = false, unique = true, length = 32)
     private String code;
