@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ValidationException;
 
 @Slf4j
 @RestControllerAdvice
@@ -94,6 +95,23 @@ public class GlobalExceptionHandler {
     {
         log.warn(e.getMessage(), e);
         String message = e.getAllErrors().get(0).getDefaultMessage();
+        return JsonResult.warn(message);
+    }
+
+    /**
+     * 验证异常
+     */
+    @ExceptionHandler(ValidationException.class)
+    public JsonResult<String> handleBindException(ValidationException e)
+    {
+        log.warn(e.getMessage(), e);
+        String message = e.getMessage();
+        if (message != null) {
+            int lastIndex = message.lastIndexOf('.');
+            if (lastIndex >= 0) {
+                message = message.substring(lastIndex + 1).trim();
+            }
+        }
         return JsonResult.warn(message);
     }
 

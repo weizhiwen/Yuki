@@ -1,21 +1,26 @@
 package com.yuki.common.core.service;
 
+import com.yuki.common.core.dao.BaseRepo;
 import com.yuki.common.core.domain.CreateParam;
 import com.yuki.common.core.domain.UpdateParam;
 import com.yuki.common.core.domain.entity.BaseEntity;
-import com.yuki.common.core.dao.BaseRepo;
 import com.yuki.common.core.reader.BaseReader;
+import com.yuki.common.core.validate.CreateValidate;
+import com.yuki.common.core.validate.UpdateValidate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.lang.reflect.ParameterizedType;
 import java.util.function.Supplier;
 
 
 @SuppressWarnings("unchecked")
+@Validated
 public abstract class BaseService<Create extends CreateParam, Update extends UpdateParam, T extends BaseEntity> {
 
     protected Class<Create> createClass;
@@ -43,7 +48,8 @@ public abstract class BaseService<Create extends CreateParam, Update extends Upd
     protected abstract T onCreate(Create param);
 
     @Transactional
-    public T create(Create param) {
+    @Validated(value = {CreateValidate.class})
+    public T create(@Valid Create param) {
         validateOnCreate(param);
         T t = onCreate(param);
         getRepo().save(t);
@@ -57,7 +63,8 @@ public abstract class BaseService<Create extends CreateParam, Update extends Upd
     protected abstract T onUpdate(Update param, T entity);
 
     @Transactional
-    public T update(Update param) {
+    @Validated(value = {UpdateValidate.class})
+    public T update(@Valid Update param) {
         validateOnUpdate(param);
         T t = (T) getRepo().findOrThrowErrorById(param.getId());
         onUpdate(param, t);

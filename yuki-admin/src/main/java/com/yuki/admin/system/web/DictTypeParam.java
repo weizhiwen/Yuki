@@ -4,12 +4,16 @@ import com.yuki.admin.system.dao.DictType;
 import com.yuki.common.annotation.RelatedClass;
 import com.yuki.common.core.domain.CreateOrUpdateParam;
 
+import javax.validation.constraints.NotNull;
+
 @RelatedClass(classes = DictType.class)
 public class DictTypeParam extends CreateOrUpdateParam {
     private static final long serialVersionUID = 1L;
 
+    @NotNull(message = "编码不能为空")
     private String code;
 
+    @NotNull(message = "名称不能为空")
     private String name;
 
     private String description;
