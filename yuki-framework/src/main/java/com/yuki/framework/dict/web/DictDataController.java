@@ -1,9 +1,9 @@
-package com.yuki.admin.system.web;
+package com.yuki.framework.dict.web;
 
-import com.yuki.admin.system.dao.DictType;
-import com.yuki.admin.system.service.DictDataReader;
-import com.yuki.admin.system.service.DictDataService;
+import com.yuki.framework.dict.service.DictDataReader;
+import com.yuki.framework.dict.service.DictDataService;
 import com.yuki.common.core.controller.BaseController;
+import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.domain.JsonResult;
 import lombok.RequiredArgsConstructor;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;

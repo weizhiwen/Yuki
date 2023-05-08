@@ -1,11 +1,9 @@
 package com.yuki.admin.position.web;
 
 import com.yuki.admin.position.dao.Position;
-import com.yuki.admin.position.service.PositionMapper;
 import com.yuki.admin.position.service.PositionReader;
 import com.yuki.admin.position.service.PositionService;
 import com.yuki.common.core.controller.BaseController;
-import com.yuki.common.core.dict.Dict;
 import com.yuki.common.core.domain.JsonResult;
 import lombok.RequiredArgsConstructor;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
@@ -57,7 +55,6 @@ public class PositionController extends BaseController {
 
     @PostMapping
     public JsonResult<String> create(@RequestBody PositionParam param) {
-        param.setJobProfile(new Dict("开发工程师"));
         return super.create(param);
     }
 
@@ -69,19 +66,5 @@ public class PositionController extends BaseController {
     @DeleteMapping("/{id}")
     public JsonResult<String> delete(@PathVariable Long id) {
         return super.delete(id);
-    }
-
-    final PositionMapper mapper;
-
-    @GetMapping("test")
-    public void test() {
-        PositionParam param = new PositionParam();
-        param.setId(1L);
-        param.setName("test");
-        Position position = new Position();
-        position.setId(2L);
-        position.setName("position");
-        mapper.paramToEntity(param, position);
-        System.out.println(position.getId());
     }
 }

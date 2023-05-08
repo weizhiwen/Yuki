@@ -1,8 +1,8 @@
-package com.yuki.admin.system.service;
+package com.yuki.framework.dict.service;
 
-import com.yuki.admin.system.dao.DictType;
-import com.yuki.admin.system.web.DictTypeParam;
-import com.yuki.admin.system.web.DictTypeVO;
+import com.yuki.framework.dict.web.DictTypeParam;
+import com.yuki.framework.dict.web.DictTypeVO;
+import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.mapper.BaseMapper;
 import com.yuki.common.core.mapper.CustomMapperConfig;
 import org.mapstruct.Mapper;

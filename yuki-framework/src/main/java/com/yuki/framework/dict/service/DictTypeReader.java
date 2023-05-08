@@ -1,7 +1,7 @@
-package com.yuki.admin.system.service;
+package com.yuki.framework.dict.service;
 
-import com.yuki.admin.system.dao.DictType;
-import com.yuki.admin.system.web.DictTypeVO;
+import com.yuki.framework.dict.web.DictTypeVO;
+import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.reader.BaseReader;
 import org.springframework.stereotype.Service;
 

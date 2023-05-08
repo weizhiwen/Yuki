@@ -1,4 +1,4 @@
-package com.yuki.admin.system.dao;
+package com.yuki.common.core.dict;
 
 import com.yuki.common.core.domain.entity.BaseEntity;
 

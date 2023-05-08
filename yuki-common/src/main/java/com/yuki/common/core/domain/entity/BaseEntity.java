@@ -1,5 +1,6 @@
 package com.yuki.common.core.domain.entity;
 
+import com.yuki.common.core.dict.CustomEntityListener;
 import com.yuki.common.core.domain.BaseData;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @DynamicInsert
 @DynamicUpdate
-@EntityListeners({AuditingEntityListener.class})
+@EntityListeners({AuditingEntityListener.class, CustomEntityListener.class})
 public class BaseEntity implements BaseData {
     private static final long serialVersionUID = 1L;
 

@@ -1,6 +1,7 @@
 package com.yuki.admin.position.dao;
 
 import com.yuki.common.core.dict.Dict;
+import com.yuki.common.core.dict.DictReference;
 import com.yuki.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.Column;
@@ -28,6 +29,7 @@ public class Position extends BaseEntity {
     private String memo;
 
     @Column(name = "JOB_PROFILE")
+    @DictReference(type = "JOB_PROFILE")
     private Dict jobProfile;
 
     public String getCode() {

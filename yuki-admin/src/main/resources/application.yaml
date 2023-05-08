@@ -2,7 +2,7 @@ yuki:
   name: 'Yuki 管理系统'
   authors: 'ShiXin,Yuki'
   version: '0.0.1'
-  file-root-path: 'E:\Code\Java\Yuki\path'
+  fileRootPath: 'E:\Code\Java\Yuki\path'
   captchaType: 'digital'
 spring:
   jackson:
@@ -22,7 +22,7 @@ spring:
       repositories:
         enabled: false
   messages:
-    basename: i18n/messages
+    basename: i18n/admin_messages,i18n/common_messages,i18n/framework_messages
   profiles:
     active: dev
 token:

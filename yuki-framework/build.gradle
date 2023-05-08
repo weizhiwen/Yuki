@@ -2,9 +2,28 @@ group 'com.yuki.framework'
 
 dependencies {
     implementation project(':yuki-common')
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'cn.hutool:hutool-all:+'
     implementation 'io.jsonwebtoken:jjwt:+'
+    implementation 'net.kaczmarzyk:specification-arg-resolver:2.+'
 }
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources"]
+            include "messages.properties"
+        }
+    }
+}
+
+task copyMessages(type: Copy) {
+    from("src/main/resources/messages.properties")
+    into("build/resources/main")
+}
+
+processResources.dependsOn(copyMessages)

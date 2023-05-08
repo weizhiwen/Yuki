@@ -1,8 +1,8 @@
-package com.yuki.admin.system.service;
+package com.yuki.framework.dict.service;
 
-import com.yuki.admin.system.dao.DictType;
-import com.yuki.admin.system.dao.DictTypeRepo;
-import com.yuki.admin.system.web.DictTypeParam;
+import com.yuki.framework.dict.web.DictTypeParam;
+import com.yuki.common.core.dict.DictType;
+import com.yuki.common.core.dict.DictTypeRepo;
 import com.yuki.common.core.service.BaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
-package com.yuki.admin.system.web;
+package com.yuki.framework.dict.web;
 
-import com.yuki.admin.system.dao.DictType;
 import com.yuki.common.annotation.RelatedClass;
+import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.domain.CreateOrUpdateParam;
 
 import javax.validation.constraints.NotNull;

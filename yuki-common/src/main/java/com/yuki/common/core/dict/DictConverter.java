@@ -8,11 +8,14 @@ public class DictConverter implements AttributeConverter<Dict, String> {
 
     @Override
     public String convertToDatabaseColumn(Dict attribute) {
-        return attribute.getCode();
+        return attribute == null ? null : attribute.getCode();
     }
 
     @Override
     public Dict convertToEntityAttribute(String dbData) {
-        return new Dict(dbData);
+        if (dbData != null) {
+            return new Dict(dbData);
+        }
+        return null;
     }
 }

@@ -1,17 +1,26 @@
-package com.yuki.admin.system.web;
+package com.yuki.framework.dict.web;
 
-import com.yuki.admin.system.dao.DictData;
+import cn.hutool.core.util.StrUtil;
 import com.yuki.common.annotation.RelatedClass;
+import com.yuki.common.core.dict.DictData;
 import com.yuki.common.core.domain.CreateOrUpdateParam;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 @RelatedClass(classes = DictData.class)
 public class DictDataParam extends CreateOrUpdateParam {
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "字典类型必填")
+    @NotNull(message = "字典类型不能为空")
+    @AssertTrue(message = "字典类型不能为空")
+    public boolean dictTypeNotNull() {
+        return dictTypeId != null || StrUtil.isNotBlank(dictTypeCode);
+    }
+
     private Long dictTypeId;
+
+    private String dictTypeCode;
 
     private String code;
 
@@ -45,6 +54,14 @@ public class DictDataParam extends CreateOrUpdateParam {
 
     public void setDictTypeId(Long dictTypeId) {
         this.dictTypeId = dictTypeId;
+    }
+
+    public String getDictTypeCode() {
+        return dictTypeCode;
+    }
+
+    public void setDictTypeCode(String dictTypeCode) {
+        this.dictTypeCode = dictTypeCode;
     }
 
     public String getMemo() {
