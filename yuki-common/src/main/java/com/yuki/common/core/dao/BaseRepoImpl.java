@@ -1,20 +1,20 @@
 package com.yuki.common.core.dao;
 
 import com.yuki.common.core.exception.BaseException;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
-import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.Optional;
+public class BaseRepoImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseRepo<T, ID> {
 
-@Repository
-public abstract class BaseRepoImpl<T, ID extends Serializable> implements BaseRepo<T, ID> {
-    protected Class<T> entityClass;
+    public BaseRepoImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
+        super(entityInformation, entityManager);
+    }
 
-    @PostConstruct
-    protected void init() {
-        entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    public BaseRepoImpl(Class<T> domainClass, EntityManager em) {
+        super(domainClass, em);
     }
 
     @Override
@@ -23,6 +23,6 @@ public abstract class BaseRepoImpl<T, ID extends Serializable> implements BaseRe
         if (one.isPresent()) {
             return one.get();
         }
-        throw new BaseException("id.not.found", id, entityClass.getSimpleName());
+        throw new BaseException("id.not.found", id, getDomainClass().getSimpleName());
     }
 }
