@@ -1,47 +1,34 @@
-package com.yuki.admin.department.dao;
+package com.yuki.admin.department.service;
 
-import com.yuki.common.core.domain.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.yuki.admin.department.dao.Department;
+import com.yuki.common.annotation.RelatedClass;
+import com.yuki.common.core.domain.BaseVO;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
-@Table(name = "DEPARTMENT")
-public class Department extends BaseEntity {
+@RelatedClass(classes = Department.class)
+public class HierarchyDepartmentVO extends BaseVO {
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
-    @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID")
-    private Department parent;
-
-    @Column(name = "CODE", length = 32, nullable = false, unique = true)
     private String code;
 
-    @Column(name = "NAME", length = 32, nullable = false, unique = true)
     private String name;
 
-    @Column(name = "IDX", nullable = false)
-    private Long idx;
-
-    @Column(name = "IS_DISABLE", nullable = false)
     private boolean disabled;
 
-    @Column(name = "DEPTH", nullable = false)
+    private List<HierarchyDepartmentVO> children;
+
+    @JsonIgnore
     private int depth;
 
-    @Column(name = "C_LEFT", precision = 15, scale = 6, nullable = false)
+    @JsonIgnore
     private BigDecimal left;
 
-    @Column(name = "C_RIGHT", precision = 15, scale = 6, nullable = false)
+    @JsonIgnore
     private BigDecimal right;
-
-    public Department getParent() {
-        return parent;
-    }
-
-    public void setParent(Department parent) {
-        this.parent = parent;
-    }
 
     public String getCode() {
         return code;
@@ -59,20 +46,27 @@ public class Department extends BaseEntity {
         this.name = name;
     }
 
-    public Long getIdx() {
-        return idx;
-    }
-
-    public void setIdx(Long idx) {
-        this.idx = idx;
-    }
-
     public boolean isDisabled() {
         return disabled;
     }
 
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
+    }
+
+    public List<HierarchyDepartmentVO> getChildren() {
+        if (children == null) {
+            children = new ArrayList<>();
+        }
+        return children;
+    }
+
+    public void setChildren(List<HierarchyDepartmentVO> children) {
+        this.children = children;
+    }
+
+    public void addChild(HierarchyDepartmentVO child) {
+        getChildren().add(child);
     }
 
     public int getDepth() {
