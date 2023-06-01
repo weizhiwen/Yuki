@@ -10,6 +10,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 
 @Service
@@ -41,7 +43,40 @@ public class DepartmentService extends BaseBusinessService<DepartmentParam, Depa
 
     @Override
     protected Department onCreate(DepartmentParam param) {
-        return mapper.paramToEntity(param);
+        Department department = mapper.paramToEntity(param);
+        Department parent = getParent(param);
+        department.setParent(parent);
+        addToHierarchy(department, parent);
+        return department;
+    }
+
+    private void addToHierarchy(Department department, Department parent) {
+        if (parent == null) {
+            department.setDepth(0);
+            department.setLeft(new BigDecimal("1"));
+            department.setRight(new BigDecimal("2"));
+            return;
+        }
+        department.setDepth(parent.getDepth() + 1);
+        BigDecimal maxRight = parent.getRight();
+        BigDecimal minLeft = repo.getDirectChildrenMaxRight(parent);
+        if (minLeft == null) {
+            minLeft = parent.getLeft();
+        }
+        BigDecimal divisor = new BigDecimal(3);
+        BigDecimal gap = maxRight.subtract(minLeft, MathContext.DECIMAL128).divide(divisor, MathContext.DECIMAL128);
+        BigDecimal left = minLeft.add(gap, MathContext.DECIMAL128);
+        BigDecimal right = maxRight.subtract(gap, MathContext.DECIMAL128);
+        department.setLeft(left);
+        department.setRight(right);
+        // TODO: 考虑无法添加部门节点时报错
+    }
+
+    private Department getParent(DepartmentParam param) {
+        if (param.getParentId() != null) {
+            return repo.findOrThrowErrorById(param.getParentId());
+        }
+        return null;
     }
 
     @Override

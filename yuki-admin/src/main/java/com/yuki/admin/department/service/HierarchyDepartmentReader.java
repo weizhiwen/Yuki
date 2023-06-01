@@ -28,15 +28,17 @@ public class HierarchyDepartmentReader extends BaseReader<Department, HierarchyD
     }
 
     private HierarchyDepartmentVO buildHierarchy(List<HierarchyDepartmentVO> nodeList) {
-        HierarchyDepartmentVO vo = new HierarchyDepartmentVO();
         if (CollectionUtil.isEmpty(nodeList)) {
-            return vo;
+            return null;
         }
+        HierarchyDepartmentVO vo = new HierarchyDepartmentVO();
         nodeList.sort(Comparator.comparing(HierarchyDepartmentVO::getDepth));
         HierarchyDepartmentVO rootDepartment = nodeList.get(0);
         vo.setId(rootDepartment.getId());
         vo.setCode(rootDepartment.getCode());
+        vo.setName(rootDepartment.getName());
         vo.setDisabled(rootDepartment.isDisabled());
+        vo.setChildren(rootDepartment.getChildren());
         Map<Long, HierarchyDepartmentVO> map = nodeList.stream().collect(Collectors.toMap(HierarchyDepartmentVO::getId, Function.identity()));
         ArrayDeque<HierarchyDepartmentVO> stack = new ArrayDeque<>();
         stack.push(rootDepartment);

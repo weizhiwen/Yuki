@@ -29,10 +29,10 @@ public class Department extends BaseEntity {
     @Column(name = "DEPTH", nullable = false)
     private int depth;
 
-    @Column(name = "C_LEFT", precision = 15, scale = 6, nullable = false)
+    @Column(name = "C_LEFT", precision = 38, scale = 16, nullable = false)
     private BigDecimal left;
 
-    @Column(name = "C_RIGHT", precision = 15, scale = 6, nullable = false)
+    @Column(name = "C_RIGHT", precision = 38, scale = 16, nullable = false)
     private BigDecimal right;
 
     public Department getParent() {
