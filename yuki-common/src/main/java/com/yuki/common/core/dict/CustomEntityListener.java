@@ -1,11 +1,11 @@
 package com.yuki.common.core.dict;
 
 import com.yuki.common.core.domain.entity.BaseEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
@@ -42,17 +42,20 @@ public class CustomEntityListener {
                 if (annotation.annotationType().equals(DictReference.class)) {
                     String type = ((DictReference) annotation).type();
                     PropertyDescriptor propertyDescriptor = BeanUtils.getPropertyDescriptor(entity.getClass(), field.getName());
-                    if (propertyDescriptor != null && field.getType().equals(Dict.class)) {
-                        Method readMethod = propertyDescriptor.getReadMethod();
-                        if (readMethod != null) {
-                            Dict dict = (Dict)readMethod.invoke(entity);
-                            if (dict != null && dict.getCode() != null) {
-                                DictData dictData = dictDataRepo.findByDictTypeAndCode(type, dict.getCode());
-                                if (dictData != null) {
-                                    dict.setName(dictData.getName());
-                                }
-                            }
-                        }
+                    if (propertyDescriptor == null || !field.getType().equals(Dict.class)) {
+                        continue;
+                    }
+                    Method readMethod = propertyDescriptor.getReadMethod();
+                    if (readMethod == null) {
+                        continue;
+                    }
+                    Dict dict = (Dict) readMethod.invoke(entity);
+                    if (dict == null || StringUtils.isEmpty(dict.getCode())) {
+                        continue;
+                    }
+                    DictData dictData = dictDataRepo.findByDictTypeAndCode(type, dict.getCode());
+                    if (dictData != null) {
+                        dict.setName(dictData.getName());
                     }
                 }
             }
