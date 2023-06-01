@@ -5,17 +5,17 @@ import com.yuki.common.core.domain.JsonResult;
 import com.yuki.common.core.domain.UpdateParam;
 import com.yuki.common.core.exception.BaseException;
 import com.yuki.common.core.reader.BaseReader;
-import com.yuki.common.core.service.BaseService;
+import com.yuki.common.core.service.BaseBusinessService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 
-public abstract class BaseController {
+public abstract class BaseBusinessController {
     public static final JsonResult<String> SUCCESS = JsonResult.success();
     private static final int MAX_PAGE_SIZE = 100;
 
-    protected abstract BaseService getService();
+    protected abstract BaseBusinessService getService();
 
     protected abstract BaseReader getReader();
 

@@ -1,8 +1,7 @@
 package com.yuki.common.core.reader;
 
-import com.yuki.common.core.domain.BaseData;
+import com.yuki.common.core.exception.BaseException;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -11,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BaseReader<S extends BaseData, T extends BaseData> {
+public class BaseReader<S, T> {
+    private Class<S> sourceClass;
     private Class<T> targetClass;
 
     @Resource
@@ -22,6 +22,7 @@ public class BaseReader<S extends BaseData, T extends BaseData> {
 
     @PostConstruct
     protected void init() {
+        sourceClass = (Class<S>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         targetClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
@@ -67,12 +68,13 @@ public class BaseReader<S extends BaseData, T extends BaseData> {
         getTargetList().add(target);
     }
 
-    public void read(Iterable<S> souceList) {
-        if (souceList == null) {
+    public void read(Iterable<S> sourceList) {
+        if (sourceList == null) {
             setTargetList(Collections.emptyList());
         } else {
             clear();
-            souceList.forEach(s -> {
+            checkConvert();
+            sourceList.forEach(s -> {
                 setTarget(conversionService.convert(s, targetClass));
                 T target = getTarget();
                 postListItem(s, target);
@@ -83,14 +85,21 @@ public class BaseReader<S extends BaseData, T extends BaseData> {
         }
     }
 
-    protected void postListItem(S source, T target) {
+    private void checkConvert() {
+        if (!conversionService.canConvert(sourceClass, targetClass)) {
+            throw new BaseException("common.convert.not.supported", sourceClass, targetClass);
+        }
+    }
 
+    protected void postListItem(S source, T target) {
+        postDetails(source, target);
     }
 
     public void read(S source) {
         if (source == null) {
             setTarget(null);
         }
+        checkConvert();
         setTarget(conversionService.convert(source, targetClass));
         postDetails(source, getTarget());
     }

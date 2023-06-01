@@ -1,9 +1,11 @@
 package com.yuki.admin.position.web;
 
 import com.yuki.admin.position.dao.Position;
+import com.yuki.admin.position.service.PositionParam;
 import com.yuki.admin.position.service.PositionReader;
 import com.yuki.admin.position.service.PositionService;
-import com.yuki.common.core.controller.BaseController;
+import com.yuki.admin.position.service.PositionVO;
+import com.yuki.common.core.controller.BaseBusinessController;
 import com.yuki.common.core.domain.JsonResult;
 import lombok.RequiredArgsConstructor;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/position")
 @RequiredArgsConstructor
 @RestController
-public class PositionController extends BaseController {
+public class PositionController extends BaseBusinessController {
     private final PositionService service;
     private final PositionReader reader;
 
@@ -51,6 +53,11 @@ public class PositionController extends BaseController {
             })
             Specification<Position> query, Pageable pageable) {
         return super.page(query, pageable);
+    }
+
+    @GetMapping("/{id}")
+    public JsonResult<PositionVO> detail(@PathVariable Long id) {
+        return super.detail(id);
     }
 
     @PostMapping

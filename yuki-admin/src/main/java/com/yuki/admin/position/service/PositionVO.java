@@ -1,14 +1,14 @@
-package com.yuki.admin.position.web;
+package com.yuki.admin.position.service;
 
 import com.yuki.admin.position.dao.Position;
 import com.yuki.common.annotation.RelatedClass;
 import com.yuki.common.core.dict.Dict;
-import com.yuki.common.core.domain.BaseVO;
-
-import java.time.LocalDateTime;
+import com.yuki.common.core.domain.BaseAuditVO;
 
 @RelatedClass(classes = Position.class)
-public class PositionVO extends BaseVO {
+public class PositionVO extends BaseAuditVO {
+    private static final long serialVersionUID = 1L;
+
     private String code;
 
     private String name;
@@ -16,8 +16,6 @@ public class PositionVO extends BaseVO {
     private Long idx;
 
     private boolean disabled;
-
-    private LocalDateTime createdTime;
 
     private Dict jobProfile;
 
@@ -51,14 +49,6 @@ public class PositionVO extends BaseVO {
 
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
     }
 
     public Dict getJobProfile() {

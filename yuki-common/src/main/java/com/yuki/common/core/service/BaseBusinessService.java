@@ -16,12 +16,13 @@ import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 import java.util.function.Supplier;
 
 
 @SuppressWarnings("unchecked")
 @Validated
-public abstract class BaseService<Create extends CreateParam, Update extends UpdateParam, T extends BaseEntity> {
+public abstract class BaseBusinessService<Create extends CreateParam, Update extends UpdateParam, T extends BaseEntity> {
 
     protected Class<Create> createClass;
     protected Class<Update> updateClass;
@@ -37,6 +38,9 @@ public abstract class BaseService<Create extends CreateParam, Update extends Upd
 
     protected abstract BaseRepo getRepo();
 
+    public List<T> list(Specification query) {
+        return getRepo().findAll(query);
+    }
 
     public Page<T> page(Specification query, Pageable pageable) {
         return getRepo().findAll(query, pageable);

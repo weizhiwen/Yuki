@@ -2,7 +2,7 @@ package com.yuki.framework.dict.web;
 
 import com.yuki.framework.dict.service.DictDataReader;
 import com.yuki.framework.dict.service.DictDataService;
-import com.yuki.common.core.controller.BaseController;
+import com.yuki.common.core.controller.BaseBusinessController;
 import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.domain.JsonResult;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/dict-data")
 @RequiredArgsConstructor
-public class DictDataController extends BaseController {
+public class DictDataController extends BaseBusinessController {
     final DictDataService service;
     final DictDataReader reader;
 

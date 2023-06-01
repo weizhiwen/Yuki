@@ -7,13 +7,13 @@ import com.yuki.common.core.dict.DictDataRepo;
 import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.dict.DictTypeRepo;
 import com.yuki.common.core.exception.BaseException;
-import com.yuki.common.core.service.BaseService;
+import com.yuki.common.core.service.BaseBusinessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class DictDataService extends BaseService<DictDataParam, DictDataParam, DictData> {
+public class DictDataService extends BaseBusinessService<DictDataParam, DictDataParam, DictData> {
     final DictDataRepo repo;
     final DictTypeRepo dictTypeRepo;
     final DictDataMapper mapper;

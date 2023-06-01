@@ -1,4 +1,4 @@
-package com.yuki.admin.position.web;
+package com.yuki.admin.position.service;
 
 import com.yuki.admin.position.dao.Position;
 import com.yuki.common.annotation.RelatedClass;

@@ -3,13 +3,13 @@ package com.yuki.framework.dict.service;
 import com.yuki.framework.dict.web.DictTypeParam;
 import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.dict.DictTypeRepo;
-import com.yuki.common.core.service.BaseService;
+import com.yuki.common.core.service.BaseBusinessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class DictTypeService extends BaseService<DictTypeParam, DictTypeParam, DictType> {
+public class DictTypeService extends BaseBusinessService<DictTypeParam, DictTypeParam, DictType> {
     final DictTypeRepo repo;
     final DictTypeMapper mapper;
 
