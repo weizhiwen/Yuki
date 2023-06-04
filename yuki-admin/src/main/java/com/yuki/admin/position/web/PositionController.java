@@ -16,7 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/position")
+@RequestMapping("/positions")
 @RequiredArgsConstructor
 @RestController
 public class PositionController extends BaseBusinessController {

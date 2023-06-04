@@ -12,7 +12,7 @@ import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/department")
+@RequestMapping("/departments")
 @RequiredArgsConstructor
 @RestController
 public class DepartmentController extends BaseBusinessController {

@@ -14,7 +14,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/dict-type")
+@RequestMapping("/dict-types")
 @RequiredArgsConstructor
 public class DictTypeController extends BaseBusinessController {
     final DictTypeService service;
