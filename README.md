@@ -6,6 +6,8 @@
 
 ## 项目简介
 
+- 配套的前端仓库 [Yuki-Web](https://github.com/weizhiwen/Yuki-Web)
+
 
 ## 内置功能
 
