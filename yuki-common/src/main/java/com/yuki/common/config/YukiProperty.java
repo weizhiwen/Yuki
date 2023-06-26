@@ -40,12 +40,12 @@ public class YukiProperty {
         this.version = version;
     }
 
-    public static String getFileRootPath() {
+    public String getFileRootPath() {
         return fileRootPath;
     }
 
     public void setFileRootPath(String fileRootPath) {
-        YukiProperty.fileRootPath = fileRootPath;
+        this.fileRootPath = fileRootPath;
     }
 
     public String getCaptchaType() {
@@ -60,7 +60,7 @@ public class YukiProperty {
     /**
      * 获取导入上传路径
      */
-    public static String getImportPath()
+    public String getImportPath()
     {
         return getFileRootPath() + "/import/";
     }
@@ -68,7 +68,7 @@ public class YukiProperty {
     /**
      * 获取头像上传路径
      */
-    public static String getAvatarPath()
+    public String getAvatarPath()
     {
         return getFileRootPath() + "/avatar/";
     }
@@ -76,7 +76,7 @@ public class YukiProperty {
     /**
      * 获取下载路径
      */
-    public static String getDownloadPath()
+    public String getDownloadPath()
     {
         return getFileRootPath() + "/download/";
     }
@@ -84,7 +84,7 @@ public class YukiProperty {
     /**
      * 获取上传路径
      */
-    public static String getUploadPath()
+    public String getUploadPath()
     {
         return getFileRootPath() + "/upload/";
     }

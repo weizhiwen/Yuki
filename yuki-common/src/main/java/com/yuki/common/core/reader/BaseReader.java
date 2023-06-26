@@ -59,7 +59,7 @@ public class BaseReader<S, T> {
     }
 
     public List<T> fetchTargetList() {
-        List<T> list = this.targetList.get();
+        List<T> list = getTargetList();
         clear();
         return list;
     }

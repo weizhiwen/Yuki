@@ -4,12 +4,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
 @NoArgsConstructor
 public class UserSession implements UserDetails {
+    @Serial
     private static final long serialVersionUID = 1L;
     private String sessionId;
 
@@ -111,7 +113,7 @@ public class UserSession implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return null;
     }
 
     @Override
