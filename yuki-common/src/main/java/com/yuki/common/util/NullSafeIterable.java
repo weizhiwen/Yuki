@@ -3,6 +3,7 @@ package com.yuki.common.util;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class NullSafeIterable<T> implements Iterable<T> {
     private Iterable<T> iterable;
@@ -35,9 +36,10 @@ public class NullSafeIterable<T> implements Iterable<T> {
         }
 
         public T next() {
-            throw new RuntimeException("无数据");
+            throw new NoSuchElementException("无数据");
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }

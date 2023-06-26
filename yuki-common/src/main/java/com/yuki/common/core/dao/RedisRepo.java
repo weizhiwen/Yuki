@@ -258,7 +258,7 @@ public class RedisRepo {
             return redisTemplate.opsForSet().members(key);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            return null;
+            return Collections.emptySet();
         }
     }
 
@@ -318,7 +318,7 @@ public class RedisRepo {
             return redisTemplate.opsForList().range(key, start, end);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            return null;
+            return Collections.emptyList();
         }
     }
 

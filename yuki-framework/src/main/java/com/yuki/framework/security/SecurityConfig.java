@@ -71,9 +71,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
-        return (request, response, authentication) -> {
-            ServletUtils.renderJson(response, JsonResult.unauthorized());
-        };
+        return (request, response, authentication) -> ServletUtils.renderJson(response, JsonResult.unauthorized());
     }
 
     @Bean

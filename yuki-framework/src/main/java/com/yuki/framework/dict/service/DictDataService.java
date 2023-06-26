@@ -1,6 +1,6 @@
 package com.yuki.framework.dict.service;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import com.yuki.framework.dict.web.DictDataParam;
 import com.yuki.common.core.dict.DictData;
 import com.yuki.common.core.dict.DictDataRepo;
@@ -24,11 +24,6 @@ public class DictDataService extends BaseBusinessService<DictDataParam, DictData
     }
 
     @Override
-    protected void validateOnCreate(DictDataParam param) {
-        super.validateOnCreate(param);
-    }
-
-    @Override
     protected DictData onCreate(DictDataParam param) {
         DictData dictData = mapper.paramToEntity(param);
         DictType dictType = getDictType(param);
@@ -44,7 +39,7 @@ public class DictDataService extends BaseBusinessService<DictDataParam, DictData
         DictType dictType = null;
         if (param.getDictTypeId() != null) {
             dictType = dictTypeRepo.findOrThrowErrorById(param.getDictTypeId());
-        } else if (StrUtil.isNotBlank(param.getDictTypeCode())) {
+        } else if (CharSequenceUtil.isNotBlank(param.getDictTypeCode())) {
             dictType = dictTypeRepo.findByCode(param.getDictTypeCode());
         }
         if (dictType == null) {

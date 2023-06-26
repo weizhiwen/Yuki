@@ -1,6 +1,6 @@
 package com.yuki.admin.department.service;
 
-import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.collection.CollUtil;
 import com.yuki.admin.department.dao.Department;
 import com.yuki.common.core.exception.BaseException;
 import com.yuki.common.core.reader.BaseReader;
@@ -28,7 +28,7 @@ public class HierarchyDepartmentReader extends BaseReader<Department, HierarchyD
     }
 
     private HierarchyDepartmentVO buildHierarchy(List<HierarchyDepartmentVO> nodeList) {
-        if (CollectionUtil.isEmpty(nodeList)) {
+        if (CollUtil.isEmpty(nodeList)) {
             return null;
         }
         HierarchyDepartmentVO vo = new HierarchyDepartmentVO();

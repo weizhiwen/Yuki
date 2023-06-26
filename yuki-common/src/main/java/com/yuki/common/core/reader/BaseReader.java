@@ -50,18 +50,18 @@ public class BaseReader<S, T> {
     }
 
     public List<T> getTargetList() {
-        List<T> targetList = this.targetList.get();
-        if (targetList == null) {
-            targetList = new ArrayList<>();
-            this.targetList.set(targetList);
+        List<T> list = this.targetList.get();
+        if (list == null) {
+            list = new ArrayList<>();
+            this.targetList.set(list);
         }
-        return targetList;
+        return list;
     }
 
     public List<T> fetchTargetList() {
-        List<T> targetList = this.targetList.get();
+        List<T> list = this.targetList.get();
         clear();
-        return targetList;
+        return list;
     }
 
     protected void addToTargetList(T target) {
@@ -76,10 +76,10 @@ public class BaseReader<S, T> {
             checkConvert();
             sourceList.forEach(s -> {
                 setTarget(conversionService.convert(s, targetClass));
-                T target = getTarget();
-                postListItem(s, target);
-                if (target != null) {
-                    addToTargetList(target);
+                T t = getTarget();
+                postListItem(s, t);
+                if (t != null) {
+                    addToTargetList(t);
                 }
             });
         }

@@ -50,6 +50,7 @@ public class DictDataController extends BaseBusinessController {
         return super.page(query, pageable);
     }
 
+    @Override
     @GetMapping("/{id}")
     public JsonResult<DictDataVO> detail(@PathVariable Long id) {
         return super.detail(id);
@@ -65,6 +66,7 @@ public class DictDataController extends BaseBusinessController {
         return super.update(id, param);
     }
 
+    @Override
     @DeleteMapping("/{ids}")
     public JsonResult<String> delete(@PathVariable Long ids) {
         return super.delete(ids);

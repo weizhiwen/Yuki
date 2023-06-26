@@ -11,7 +11,6 @@ import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import java.beans.PropertyDescriptor;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,40 +23,40 @@ public class CustomEntityListener {
     private DictDataRepo dictDataRepo;
 
     @PrePersist
-    public void onPersist(BaseEntity entity) {
+    public void prePersist(BaseEntity entity) {
         System.out.println("pre persist");
     }
 
     @PreUpdate
-    public void onUpdate(BaseEntity entity) {
+    public void preUpdate(BaseEntity entity) {
         System.out.println("pre update");
     }
 
     @PostLoad
-    public void onPostLoad(BaseEntity entity) throws InvocationTargetException, IllegalAccessException {
+    public void postLoad(BaseEntity entity) throws InvocationTargetException, IllegalAccessException {
         Field[] fields = entity.getClass().getDeclaredFields();
         for (Field field : fields) {
-            Annotation[] annotations = field.getAnnotations();
-            for (Annotation annotation : annotations) {
-                if (annotation.annotationType().equals(DictReference.class)) {
-                    String type = ((DictReference) annotation).type();
-                    PropertyDescriptor propertyDescriptor = BeanUtils.getPropertyDescriptor(entity.getClass(), field.getName());
-                    if (propertyDescriptor == null || !field.getType().equals(Dict.class)) {
-                        continue;
-                    }
-                    Method readMethod = propertyDescriptor.getReadMethod();
-                    if (readMethod == null) {
-                        continue;
-                    }
-                    Dict dict = (Dict) readMethod.invoke(entity);
-                    if (dict == null || StringUtils.isEmpty(dict.getCode())) {
-                        continue;
-                    }
-                    DictData dictData = dictDataRepo.findByDictTypeAndCode(type, dict.getCode());
-                    if (dictData != null) {
-                        dict.setName(dictData.getName());
-                    }
-                }
+            DictReference annotation = field.getAnnotation(DictReference.class);
+            if (annotation == null || !field.getType().equals(Dict.class)) {
+                continue;
+            }
+
+            String type = annotation.type();
+            PropertyDescriptor propertyDescriptor = BeanUtils.getPropertyDescriptor(entity.getClass(), field.getName());
+            if (propertyDescriptor == null) {
+                continue;
+            }
+            Method readMethod = propertyDescriptor.getReadMethod();
+            if (readMethod == null) {
+                continue;
+            }
+            Dict dict = (Dict) readMethod.invoke(entity);
+            if (dict == null || StringUtils.isEmpty(dict.getCode())) {
+                continue;
+            }
+            DictData dictData = dictDataRepo.findByDictTypeAndCode(type, dict.getCode());
+            if (dictData != null) {
+                dict.setName(dictData.getName());
             }
         }
     }

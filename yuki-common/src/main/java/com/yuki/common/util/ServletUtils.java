@@ -7,6 +7,9 @@ import java.io.IOException;
 
 public class ServletUtils {
 
+    private ServletUtils() {
+    }
+
     public static void renderJson(HttpServletResponse response, Object object) {
         try {
             response.setStatus(200);

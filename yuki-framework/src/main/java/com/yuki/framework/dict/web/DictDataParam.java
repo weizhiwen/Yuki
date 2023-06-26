@@ -1,6 +1,6 @@
 package com.yuki.framework.dict.web;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import com.yuki.common.annotation.RelatedClass;
 import com.yuki.common.core.dict.DictData;
 import com.yuki.common.core.domain.CreateOrUpdateParam;
@@ -15,7 +15,7 @@ public class DictDataParam extends CreateOrUpdateParam {
     @NotNull(message = "字典类型不能为空")
     @AssertTrue(message = "字典类型不能为空")
     public boolean dictTypeNotNull() {
-        return dictTypeId != null || StrUtil.isNotBlank(dictTypeCode);
+        return dictTypeId != null || CharSequenceUtil.isNotBlank(dictTypeCode);
     }
 
     private Long dictTypeId;

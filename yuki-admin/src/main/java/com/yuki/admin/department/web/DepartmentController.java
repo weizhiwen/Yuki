@@ -40,6 +40,7 @@ public class DepartmentController extends BaseBusinessController {
         return JsonResult.success(service.hierarchy(query));
     }
 
+    @Override
     @GetMapping("/{id}")
     public JsonResult<DepartmentVO> detail(@PathVariable Long id) {
         return super.detail(id);

@@ -22,16 +22,16 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
 @Validated
-public abstract class BaseBusinessService<Create extends CreateParam, Update extends UpdateParam, T extends BaseEntity> {
+public abstract class BaseBusinessService<C extends CreateParam, U extends UpdateParam, T extends BaseEntity> {
 
-    protected Class<Create> createClass;
-    protected Class<Update> updateClass;
+    protected Class<C> createClass;
+    protected Class<U> updateClass;
     protected Class<T> entityClass;
 
     @PostConstruct
     protected void init() {
-        createClass = (Class<Create>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        updateClass = (Class<Update>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+        createClass = (Class<C>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        updateClass = (Class<U>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[2];
     }
 
@@ -46,29 +46,29 @@ public abstract class BaseBusinessService<Create extends CreateParam, Update ext
         return getRepo().findAll(query, pageable);
     }
 
-    protected void validateOnCreate(Create param) {
+    protected void validateOnCreate(C param) {
     }
 
-    protected abstract T onCreate(Create param);
+    protected abstract T onCreate(C param);
 
     @Transactional
     @Validated(value = {CreateValidate.class})
-    public T create(@Valid Create param) {
+    public T create(@Valid C param) {
         validateOnCreate(param);
         T t = onCreate(param);
         getRepo().save(t);
         return t;
     }
 
-    protected void validateOnUpdate(Update param) {
+    protected void validateOnUpdate(U param) {
 
     }
 
-    protected abstract T onUpdate(Update param, T entity);
+    protected abstract T onUpdate(U param, T entity);
 
     @Transactional
     @Validated(value = {UpdateValidate.class})
-    public T update(@Valid Update param) {
+    public T update(@Valid U param) {
         validateOnUpdate(param);
         T t = (T) getRepo().findOrThrowErrorById(param.getId());
         onUpdate(param, t);

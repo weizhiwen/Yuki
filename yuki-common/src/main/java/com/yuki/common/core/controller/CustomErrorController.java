@@ -1,17 +1,13 @@
 package com.yuki.common.core.controller;
 
 import com.yuki.common.core.domain.JsonResult;
-import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
-import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @RequestMapping("${server.error.path:${error.path:/error}}")

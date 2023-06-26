@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.Optional;
-public class BaseRepoImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseRepo<T, ID> {
+public class BaseRepoImpl<T, I extends Serializable> extends SimpleJpaRepository<T, I> implements BaseRepo<T, I> {
 
     public BaseRepoImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
         super(entityInformation, entityManager);
@@ -18,7 +18,7 @@ public class BaseRepoImpl<T, ID extends Serializable> extends SimpleJpaRepositor
     }
 
     @Override
-    public T findOrThrowErrorById(ID id) {
+    public T findOrThrowErrorById(I id) {
         Optional<T> one = findById(id);
         if (one.isPresent()) {
             return one.get();

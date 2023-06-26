@@ -8,6 +8,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.util.PropertiesPersister;
 import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -123,7 +124,11 @@ public class GlobalExceptionHandler {
     public JsonResult<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e)
     {
         log.warn(e.getMessage(), e);
-        String message = e.getBindingResult().getFieldError().getDefaultMessage();
+        FieldError fieldError = e.getBindingResult().getFieldError();
+        String message = "字段校验不通过";
+        if (fieldError != null) {
+            message = fieldError.getDefaultMessage();
+        }
         return JsonResult.warn(message);
     }
 }

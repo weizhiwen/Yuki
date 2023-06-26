@@ -1,7 +1,7 @@
 package com.yuki.admin.auth.service;
 
-import com.yuki.admin.auth.web.LoginParam;
 import com.yuki.admin.auth.dao.SystemUser;
+import com.yuki.admin.auth.web.LoginParam;
 import com.yuki.common.core.domain.model.UserSession;
 import com.yuki.common.core.exception.UserPasswordNotMatchException;
 import com.yuki.framework.security.TokenService;
@@ -25,11 +25,8 @@ public class AuthService {
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             UserSession userSession = (UserSession) authentication.getPrincipal();
             return tokenService.createToken(userSession);
-        } catch (Exception ex) {
-            if (ex instanceof BadCredentialsException) {
-                throw new UserPasswordNotMatchException();
-            }
-            throw ex;
+        } catch (BadCredentialsException ex) {
+            throw new UserPasswordNotMatchException();
         }
     }
 

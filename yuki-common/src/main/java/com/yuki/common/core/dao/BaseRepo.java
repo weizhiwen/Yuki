@@ -7,6 +7,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.io.Serializable;
 
 @NoRepositoryBean
-public interface BaseRepo<T, ID extends Serializable> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
-    T findOrThrowErrorById(ID id);
+public interface BaseRepo<T, I extends Serializable> extends JpaRepository<T, I>, JpaSpecificationExecutor<T> {
+    T findOrThrowErrorById(I id);
 }

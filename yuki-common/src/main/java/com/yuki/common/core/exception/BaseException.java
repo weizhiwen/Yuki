@@ -1,28 +1,29 @@
 package com.yuki.common.core.exception;
 
+import java.io.Serial;
+
 public class BaseException extends RuntimeException {
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    private Object[] args;
+    private final Object[] args;
 
-    public BaseException() {
+    public BaseException(Object[] args) {
         super();
+        this.args = args;
     }
 
     public BaseException(String message) {
         super(message);
+        this.args = new Object[]{};
     }
 
-    public BaseException(String message, Object ...args) {
+    public BaseException(String message, Object... args) {
         super(message);
         this.args = args;
     }
 
     public Object[] getArgs() {
         return args;
-    }
-
-    public void setArgs(Object[] args) {
-        this.args = args;
     }
 }

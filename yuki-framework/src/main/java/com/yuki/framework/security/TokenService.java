@@ -1,5 +1,6 @@
 package com.yuki.framework.security;
 
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.yuki.common.constant.CacheConstants;
@@ -33,7 +34,7 @@ public class TokenService {
 
     public UserSession getUserSession(HttpServletRequest request) {
         String token = getToken(request);
-        if (StrUtil.isNotEmpty(token)) {
+        if (CharSequenceUtil.isNotEmpty(token)) {
             try {
                 Claims claims = parseToken(token);
                 String sessionId = (String) claims.get(Constants.LOGIN_SESSION_ID);
@@ -48,7 +49,7 @@ public class TokenService {
 
     public String getToken(HttpServletRequest request) {
         String header = request.getHeader(tokenProperty.getHeader());
-        if (StrUtil.isNotEmpty(header) && header.startsWith(Constants.TOKEN_PREFIX)) {
+        if (CharSequenceUtil.isNotEmpty(header) && header.startsWith(Constants.TOKEN_PREFIX)) {
             return header.substring(Constants.TOKEN_PREFIX.length());
         }
         return null;

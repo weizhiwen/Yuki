@@ -12,7 +12,7 @@ public class YukiProperty {
 
     private String version;
 
-    private static String fileRootPath;
+    private String fileRootPath;
 
     private String captchaType;
 

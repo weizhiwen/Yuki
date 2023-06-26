@@ -55,6 +55,7 @@ public class PositionController extends BaseBusinessController {
         return super.page(query, pageable);
     }
 
+    @Override
     @GetMapping("/{id}")
     public JsonResult<PositionVO> detail(@PathVariable Long id) {
         return super.detail(id);
@@ -70,6 +71,7 @@ public class PositionController extends BaseBusinessController {
         return super.update(id, param);
     }
 
+    @Override
     @DeleteMapping("/{id}")
     public JsonResult<String> delete(@PathVariable Long id) {
         return super.delete(id);
