@@ -1,7 +1,7 @@
 package com.yuki.admin.department.web;
 
+import com.yuki.admin.department.dao.Department;
 import com.yuki.admin.department.service.*;
-import com.yuki.admin.position.dao.Position;
 import com.yuki.common.core.controller.BaseBusinessController;
 import com.yuki.common.core.domain.JsonResult;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class DepartmentController extends BaseBusinessController {
                     @Spec(path = "name", params = "name", spec = Like.class),
                     @Spec(path = "disabled", params = "disabled", spec = Equal.class),
             })
-            Specification<Position> query) {
+            Specification<Department> query) {
         return JsonResult.success(service.hierarchy(query));
     }
 
