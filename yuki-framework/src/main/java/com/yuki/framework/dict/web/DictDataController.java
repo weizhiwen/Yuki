@@ -1,9 +1,9 @@
 package com.yuki.framework.dict.web;
 
+import com.yuki.common.core.dict.DictData;
 import com.yuki.framework.dict.service.DictDataReader;
 import com.yuki.framework.dict.service.DictDataService;
 import com.yuki.common.core.controller.BaseBusinessController;
-import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.domain.JsonResult;
 import lombok.RequiredArgsConstructor;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/dict-data")
 @RequiredArgsConstructor
 public class DictDataController extends BaseBusinessController {
-    final DictDataService service;
-    final DictDataReader reader;
+    private final DictDataService service;
+    private final DictDataReader reader;
 
     @Override
     protected DictDataService getService() {
@@ -33,20 +33,20 @@ public class DictDataController extends BaseBusinessController {
     @GetMapping
     public JsonResult<JsonResult.PageList> pageList(
             @And({
-                    @Spec(path = "code", params = "code", spec = Like.class),
-                    @Spec(path = "name", params = "name", spec = Like.class),
+                    @Spec(path = DictData.CODE_FIELD, params = DictData.CODE_FIELD, spec = Like.class),
+                    @Spec(path = DictData.NAME_FIELD, params = DictData.NAME_FIELD, spec = Like.class),
             })
-            Specification<DictType> query, Pageable pageable) {
+            Specification<DictData> query, Pageable pageable) {
         return super.page(query, pageable);
     }
 
     @PostMapping("/search")
     public JsonResult<JsonResult.PageList> pageSearch(
             @And({
-                    @Spec(path = "code", jsonPaths = "code", spec = Like.class),
-                    @Spec(path = "name", jsonPaths = "name", spec = Like.class),
+                    @Spec(path = DictData.CODE_FIELD, jsonPaths = DictData.CODE_FIELD, spec = Like.class),
+                    @Spec(path = DictData.NAME_FIELD, jsonPaths = DictData.NAME_FIELD, spec = Like.class),
             })
-            Specification<DictType> query, Pageable pageable) {
+            Specification<DictData> query, Pageable pageable) {
         return super.page(query, pageable);
     }
 

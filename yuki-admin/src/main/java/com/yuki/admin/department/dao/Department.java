@@ -1,5 +1,6 @@
 package com.yuki.admin.department.dao;
 
+import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.*;
@@ -14,10 +15,10 @@ public class Department extends BaseEntity {
     @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID")
     private Department parent;
 
-    @Column(name = "CODE", length = 32, nullable = false, unique = true)
+    @Column(name = "CODE", length = Constants.MEDIUM_STRING_LENGTH, nullable = false, unique = true)
     private String code;
 
-    @Column(name = "NAME", length = 32, nullable = false, unique = true)
+    @Column(name = "NAME", length = Constants.MEDIUM_STRING_LENGTH, nullable = false, unique = true)
     private String name;
 
     @Column(name = "IDX", nullable = false)
@@ -29,10 +30,10 @@ public class Department extends BaseEntity {
     @Column(name = "DEPTH", nullable = false)
     private int depth;
 
-    @Column(name = "C_LEFT", precision = 38, scale = 16, nullable = false)
+    @Column(name = "C_LEFT", precision = Constants.BIG_DECIMAL_MAX_PRECISION, scale = Constants.BIG_DECIMAL_MAX_SCALE, nullable = false)
     private BigDecimal left;
 
-    @Column(name = "C_RIGHT", precision = 38, scale = 16, nullable = false)
+    @Column(name = "C_RIGHT", precision = Constants.BIG_DECIMAL_MAX_PRECISION, scale = Constants.BIG_DECIMAL_MAX_SCALE, nullable = false)
     private BigDecimal right;
 
     public Department getParent() {

@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.springframework.http.HttpStatus;
 
 @Getter
 public class JsonResult<T> implements BaseData {
@@ -18,24 +15,6 @@ public class JsonResult<T> implements BaseData {
     private String message;
 
     private T data;
-
-    enum Status {
-        SUCCESS(200, "操作成功"),
-        WARN(400, "请求有误"),
-        UNAUTHORIZED(401, "没有认证"),
-        FORBIDDEN(403, "没有权限"),
-        NOT_FOUND(404, "资源不存在"),
-        ERROR(500, "系统异常");
-
-        final int code;
-
-        final String message;
-
-        Status(int code, String message) {
-            this.code = code;
-            this.message = message;
-        }
-    }
 
     @Data
     @NoArgsConstructor
@@ -89,5 +68,23 @@ public class JsonResult<T> implements BaseData {
 
     public static JsonResult<String> error(String message) {
         return new JsonResult<>(Status.ERROR.code, message, null);
+    }
+
+    enum Status {
+        SUCCESS(HttpStatus.OK.value(), "操作成功"),
+        WARN(HttpStatus.BAD_REQUEST.value(), "请求有误"),
+        UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "没有认证"),
+        FORBIDDEN(HttpStatus.FORBIDDEN.value(), "没有权限"),
+        NOT_FOUND(HttpStatus.NOT_FOUND.value(), "资源不存在"),
+        ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统异常");
+
+        private final int code;
+
+        private final String message;
+
+        Status(int code, String message) {
+            this.code = code;
+            this.message = message;
+        }
     }
 }

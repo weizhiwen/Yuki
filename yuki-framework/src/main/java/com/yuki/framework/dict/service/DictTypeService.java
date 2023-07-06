@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class DictTypeService extends BaseBusinessService<DictTypeParam, DictTypeParam, DictType> {
-    final DictTypeRepo repo;
-    final DictTypeMapper mapper;
+    private final DictTypeRepo repo;
+    private final DictTypeMapper mapper;
 
     @Override
     protected DictTypeRepo getRepo() {

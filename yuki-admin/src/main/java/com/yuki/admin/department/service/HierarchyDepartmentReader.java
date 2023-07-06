@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class HierarchyDepartmentReader extends BaseReader<Department, HierarchyDepartmentVO> {
-    final HierarchyDepartmentNodeReader nodeReader;
+    private final HierarchyDepartmentNodeReader nodeReader;
 
     @Override
     public void read(Iterable<Department> list) {

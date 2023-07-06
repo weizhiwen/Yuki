@@ -1,8 +1,10 @@
 package com.yuki.common.core.domain;
 
+import java.io.Serial;
 import java.time.LocalDateTime;
 
 public class BaseAuditVO extends BaseVO {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String createdUserId;

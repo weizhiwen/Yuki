@@ -1,5 +1,6 @@
 package com.yuki.admin.auth.dao;
 
+import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.Column;
@@ -10,22 +11,22 @@ import java.time.LocalDateTime;
 public class LoginLog extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "USERNAME", length = 32)
+    @Column(name = "USERNAME", length = Constants.MEDIUM_STRING_LENGTH)
     private String username;
 
     @Column(name = "IS_LOGIN_SUCCESS")
     private boolean loginSuccess;
 
-    @Column(name = "IP_ADDRESS", length = 32)
+    @Column(name = "IP_ADDRESS", length = Constants.MEDIUM_STRING_LENGTH)
     private String ipAddress;
 
-    @Column(name = "IP_LOCATION", length = 256)
+    @Column(name = "IP_LOCATION")
     private String ipLocation;
 
-    @Column(name = "BROWSER", length = 32)
+    @Column(name = "BROWSER", length = Constants.MEDIUM_STRING_LENGTH)
     private String browser;
 
-    @Column(name = "OS", length = 32)
+    @Column(name = "OS", length = Constants.MEDIUM_STRING_LENGTH)
     private String os;
 
     @Column(name = "LOGIN_TIME")

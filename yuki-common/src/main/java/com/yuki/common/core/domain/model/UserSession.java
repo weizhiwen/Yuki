@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 @NoArgsConstructor
 public class UserSession implements UserDetails {
@@ -32,6 +32,8 @@ public class UserSession implements UserDetails {
     private String browser;
 
     private String os;
+
+    private List<GrantedAuthority> authorities;
 
     public UserSession(Long userId, String username, String password) {
         this.userId = userId;
@@ -111,9 +113,13 @@ public class UserSession implements UserDetails {
         this.os = os;
     }
 
+    public void setAuthorities(List<GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override

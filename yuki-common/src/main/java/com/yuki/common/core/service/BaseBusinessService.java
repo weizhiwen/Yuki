@@ -7,6 +7,7 @@ import com.yuki.common.core.domain.entity.BaseEntity;
 import com.yuki.common.core.reader.BaseReader;
 import com.yuki.common.core.validate.CreateValidate;
 import com.yuki.common.core.validate.UpdateValidate;
+import lombok.Getter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -24,9 +25,12 @@ import java.util.function.Supplier;
 @Validated
 public abstract class BaseBusinessService<C extends CreateParam, U extends UpdateParam, T extends BaseEntity> {
 
-    protected Class<C> createClass;
-    protected Class<U> updateClass;
-    protected Class<T> entityClass;
+    @Getter
+    private Class<C> createClass;
+    @Getter
+    private Class<U> updateClass;
+    @Getter
+    private Class<T> entityClass;
 
     @PostConstruct
     protected void init() {

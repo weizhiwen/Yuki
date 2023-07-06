@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/dict-types")
 @RequiredArgsConstructor
 public class DictTypeController extends BaseBusinessController {
-    final DictTypeService service;
-    final DictTypeReader reader;
+    private final DictTypeService service;
+    private final DictTypeReader reader;
 
     @Override
     protected DictTypeService getService() {
@@ -31,12 +31,22 @@ public class DictTypeController extends BaseBusinessController {
     }
 
     @GetMapping
-    public JsonResult<JsonResult.PageList> pageList(@And({@Spec(path = "code", params = "code", spec = Like.class), @Spec(path = "name", params = "name", spec = Like.class),}) Specification<DictType> query, Pageable pageable) {
+    public JsonResult<JsonResult.PageList> pageList(
+            @And({
+                    @Spec(path = DictType.CODE_FIELD, jsonPaths = DictType.CODE_FIELD, spec = Like.class),
+                    @Spec(path = DictType.NAME_FIELD, jsonPaths = DictType.NAME_FIELD, spec = Like.class),
+            })
+            Specification<DictType> query, Pageable pageable) {
         return super.page(query, pageable);
     }
 
     @PostMapping("/search")
-    public JsonResult<JsonResult.PageList> pageSearch(@And({@Spec(path = "code", jsonPaths = "code", spec = Like.class), @Spec(path = "name", jsonPaths = "name", spec = Like.class),}) Specification<DictType> query, Pageable pageable) {
+    public JsonResult<JsonResult.PageList> pageSearch(
+            @And({
+                    @Spec(path = DictType.CODE_FIELD, jsonPaths = DictType.CODE_FIELD, spec = Like.class),
+                    @Spec(path = DictType.NAME_FIELD, jsonPaths = DictType.NAME_FIELD, spec = Like.class),
+            })
+            Specification<DictType> query, Pageable pageable) {
         return super.page(query, pageable);
     }
 

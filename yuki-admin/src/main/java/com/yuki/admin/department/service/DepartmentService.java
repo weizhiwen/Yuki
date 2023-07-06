@@ -2,7 +2,7 @@ package com.yuki.admin.department.service;
 
 import com.yuki.admin.department.dao.Department;
 import com.yuki.admin.department.dao.DepartmentRepo;
-import com.yuki.admin.position.dao.Position;
+import com.yuki.common.constant.Constants;
 import com.yuki.common.core.exception.BaseException;
 import com.yuki.common.core.service.BaseBusinessService;
 import lombok.RequiredArgsConstructor;
@@ -11,15 +11,16 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class DepartmentService extends BaseBusinessService<DepartmentParam, DepartmentParam, Department> {
-    final DepartmentRepo repo;
-    final DepartmentMapper mapper;
-    final HierarchyDepartmentReader hierarchyReader;
+    private final DepartmentRepo repo;
+    private final DepartmentMapper mapper;
+    private final HierarchyDepartmentReader hierarchyReader;
 
     @Override
     protected DepartmentRepo getRepo() {
@@ -53,8 +54,8 @@ public class DepartmentService extends BaseBusinessService<DepartmentParam, Depa
     private void addToHierarchy(Department department, Department parent) {
         if (parent == null) {
             department.setDepth(0);
-            department.setLeft(new BigDecimal("1"));
-            department.setRight(new BigDecimal("2"));
+            department.setLeft(BigDecimal.ONE);
+            department.setRight(new BigDecimal(BigInteger.TWO));
             return;
         }
         department.setDepth(parent.getDepth() + 1);
@@ -63,7 +64,7 @@ public class DepartmentService extends BaseBusinessService<DepartmentParam, Depa
         if (minLeft == null) {
             minLeft = parent.getLeft();
         }
-        BigDecimal divisor = new BigDecimal(3);
+        BigDecimal divisor = Constants.DEPARTMENT_DIVISOR;
         BigDecimal gap = maxRight.subtract(minLeft, MathContext.DECIMAL128).divide(divisor, MathContext.DECIMAL128);
         BigDecimal left = minLeft.add(gap, MathContext.DECIMAL128);
         BigDecimal right = maxRight.subtract(gap, MathContext.DECIMAL128);

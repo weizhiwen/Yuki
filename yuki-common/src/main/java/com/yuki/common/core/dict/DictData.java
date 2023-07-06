@@ -1,5 +1,6 @@
 package com.yuki.common.core.dict;
 
+import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.*;
@@ -7,17 +8,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "DICT_DATA")
 public class DictData extends BaseEntity {
+    public static final String CODE_FIELD = "code";
+    public static final String NAME_FIELD = "name";
     @ManyToOne(optional = false)
     @JoinColumn(name = "DICT_ID", referencedColumnName = "ID")
     private DictType dictType;
 
-    @Column(nullable = false, unique = true, length = 32)
+    @Column(nullable = false, unique = true, length = Constants.MEDIUM_STRING_LENGTH)
     private String code;
 
-    @Column(nullable = false, unique = true, length = 64)
+    @Column(nullable = false, unique = true, length = Constants.LONG_STRING_LENGTH)
     private String name;
 
-    @Column(length = 255)
+    @Column(length = Constants.MAX_STRING_LENGTH)
     private String memo;
 
     @Column(nullable = false)

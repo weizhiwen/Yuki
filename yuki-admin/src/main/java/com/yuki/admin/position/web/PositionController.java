@@ -36,9 +36,9 @@ public class PositionController extends BaseBusinessController {
     @GetMapping
     public JsonResult<JsonResult.PageList> pageList(
             @And({
-                    @Spec(path = "code", params = "code", spec = Like.class),
-                    @Spec(path = "name", params = "name", spec = Like.class),
-                    @Spec(path = "disabled", params = "disabled", spec = Equal.class),
+                    @Spec(path = Position.CODE_FIELD, params = Position.CODE_FIELD, spec = Like.class),
+                    @Spec(path = Position.NAME_FIELD, params = Position.NAME_FIELD, spec = Like.class),
+                    @Spec(path = Position.DISABLED_FIELD, params = Position.DISABLED_FIELD, spec = Equal.class),
             })
             Specification<Position> query, Pageable pageable) {
         return super.page(query, pageable);
@@ -47,9 +47,9 @@ public class PositionController extends BaseBusinessController {
     @PostMapping("/search")
     public JsonResult<JsonResult.PageList> pageSearch(
             @And({
-                    @Spec(path = "code", jsonPaths = "code", spec = Like.class),
-                    @Spec(path = "name", jsonPaths = "name", spec = Like.class),
-                    @Spec(path = "disabled", jsonPaths = "disabled", spec = Equal.class),
+                    @Spec(path = Position.CODE_FIELD, params = Position.CODE_FIELD, spec = Like.class),
+                    @Spec(path = Position.NAME_FIELD, params = Position.NAME_FIELD, spec = Like.class),
+                    @Spec(path = Position.DISABLED_FIELD, params = Position.DISABLED_FIELD, spec = Equal.class),
             })
             Specification<Position> query, Pageable pageable) {
         return super.page(query, pageable);

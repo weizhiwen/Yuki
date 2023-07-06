@@ -1,6 +1,5 @@
 package com.yuki.framework.redis;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,7 +34,7 @@ public class RedisConfig {
 
         RedisSerializer<String> stringRedisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(stringRedisSerializer);
-        redisTemplate.setHashValueSerializer(stringRedisSerializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
 
         ObjectMapper objectMapper = new ObjectMapper();
         JavaTimeModule javaTimeModule = new JavaTimeModule();
@@ -49,12 +48,12 @@ public class RedisConfig {
         objectMapper.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
         Jackson2JsonRedisSerializer jacksonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         jacksonRedisSerializer.setObjectMapper(objectMapper);
+        redisTemplate.setDefaultSerializer(jacksonRedisSerializer);
         redisTemplate.setValueSerializer(jacksonRedisSerializer);
-        redisTemplate.setHashKeySerializer(jacksonRedisSerializer);
+        redisTemplate.setHashValueSerializer(jacksonRedisSerializer);
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }

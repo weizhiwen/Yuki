@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 public class DepartmentController extends BaseBusinessController {
-    final DepartmentService service;
-    final DepartmentReader reader;
+    private final DepartmentService service;
+    private final DepartmentReader reader;
 
     @Override
     protected DepartmentService getService() {

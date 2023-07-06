@@ -2,7 +2,6 @@ package com.yuki.framework.security;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
 import com.yuki.common.constant.CacheConstants;
 import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.model.UserSession;
@@ -14,7 +13,6 @@ import io.jsonwebtoken.SignatureException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +26,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 @RequiredArgsConstructor
 public class TokenService {
-    final TokenProperty tokenProperty;
-    final UserDetailsService userDetailsService;
-    final RedisRepo redisRepo;
+    private final TokenProperty tokenProperty;
+    private final RedisRepo redisRepo;
 
     public UserSession getUserSession(HttpServletRequest request) {
         String token = getToken(request);

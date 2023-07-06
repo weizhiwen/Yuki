@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class DictDataService extends BaseBusinessService<DictDataParam, DictDataParam, DictData> {
-    final DictDataRepo repo;
-    final DictTypeRepo dictTypeRepo;
-    final DictDataMapper mapper;
+    private final DictDataRepo repo;
+    private final DictTypeRepo dictTypeRepo;
+    private final DictDataMapper mapper;
 
     @Override
     protected DictDataRepo getRepo() {

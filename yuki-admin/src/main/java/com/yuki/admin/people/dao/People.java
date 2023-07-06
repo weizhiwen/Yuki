@@ -1,5 +1,6 @@
 package com.yuki.admin.people.dao;
 
+import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
 import com.yuki.admin.auth.dao.SystemUser;
 import com.yuki.admin.department.dao.Department;
@@ -13,17 +14,17 @@ public class People extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "NAME", length = 32)
+    @Column(name = "NAME", length = Constants.MEDIUM_STRING_LENGTH)
     private String name;
 
-    @Column(name = "EMAIL", length = 32)
+    @Column(name = "EMAIL", length = Constants.MEDIUM_STRING_LENGTH)
     private String email;
 
-    @Column(name = "TEL", length = 11)
+    @Column(name = "TEL", length = Constants.SHORT_STRING_LENGTH)
     private String tel;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "SEX", length = 8)
+    @Column(name = "SEX", length = Constants.MINI_STRING_LENGTH)
     private SexEnum sex;
 
     @ManyToOne

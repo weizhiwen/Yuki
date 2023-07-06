@@ -1,5 +1,6 @@
 package com.yuki.admin.position.dao;
 
+import com.yuki.common.constant.Constants;
 import com.yuki.common.core.dict.Dict;
 import com.yuki.common.core.dict.DictReference;
 import com.yuki.common.core.domain.entity.BaseEntity;
@@ -7,16 +8,22 @@ import com.yuki.common.core.domain.entity.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serial;
 
 @Entity
 @Table(name = "POSITION")
 public class Position extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "CODE", length = 32, unique = true)
+    public static final String CODE_FIELD = "code";
+    public static final String NAME_FIELD = "name";
+    public static final String DISABLED_FIELD = "disabled";
+
+    @Column(name = "CODE", length = Constants.MEDIUM_STRING_LENGTH, unique = true)
     private String code;
 
-    @Column(name = "NAME", length = 32, unique = true)
+    @Column(name = "NAME", length = Constants.MEDIUM_STRING_LENGTH, unique = true)
     private String name;
 
     @Column(name = "IDX")

@@ -32,8 +32,12 @@ public class Dict {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Dict dict = (Dict) o;
         return code.equals(dict.code);
     }

@@ -26,7 +26,7 @@ public class AuthService {
             UserSession userSession = (UserSession) authentication.getPrincipal();
             return tokenService.createToken(userSession);
         } catch (BadCredentialsException ex) {
-            throw new UserPasswordNotMatchException();
+            throw (UserPasswordNotMatchException) new UserPasswordNotMatchException().initCause(ex);
         }
     }
 

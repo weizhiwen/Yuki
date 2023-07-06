@@ -8,7 +8,7 @@ public class BaseException extends RuntimeException {
 
     private final Object[] args;
 
-    public BaseException(Object[] args) {
+    public BaseException(final Object[] args) {
         super();
         this.args = args;
     }
@@ -18,7 +18,7 @@ public class BaseException extends RuntimeException {
         this.args = new Object[]{};
     }
 
-    public BaseException(String message, Object... args) {
+    public BaseException(String message, final Object... args) {
         super(message);
         this.args = args;
     }

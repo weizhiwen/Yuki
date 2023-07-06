@@ -1,6 +1,6 @@
 package com.yuki.common.constant;
 
-public class CacheConstants {
+public final class CacheConstants {
 
     private CacheConstants() {
     }
