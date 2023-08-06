@@ -36,7 +36,7 @@ public class TokenService {
                 Claims claims = parseToken(token);
                 String sessionId = (String) claims.get(Constants.LOGIN_SESSION_ID);
                 String userSessionKey = getUserSessionKey(sessionId);
-                return (UserSession) redisRepo.get(userSessionKey);
+                return redisRepo.get(userSessionKey, UserSession.class);
             } catch (SignatureException e) {
                 log.error("JWT签名不匹配，无效的JWT");
             }
@@ -91,7 +91,7 @@ public class TokenService {
 
     public void refreshToken(UserSession userSession) {
         userSession.setLoginTime(LocalDateTime.now());
-        userSession.setExpireTime(userSession.getLoginTime().plus(tokenProperty.getExpireTime(), ChronoUnit.MINUTES));
+        userSession.setExpireTime(userSession.getLoginTime().plusMinutes(tokenProperty.getExpireTime()));
         redisRepo.set(getUserSessionKey(userSession.getSessionId()), userSession, tokenProperty.getExpireTime(), TimeUnit.MINUTES);
     }
 

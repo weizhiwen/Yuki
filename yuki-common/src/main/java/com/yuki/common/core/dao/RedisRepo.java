@@ -1,5 +1,6 @@
 package com.yuki.common.core.dao;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class RedisRepo {
     private final RedisTemplate<Object, Object> redisTemplate;
+    private final ObjectMapper objectMapper;
 
     public boolean expire(String key, long time) {
         try {
@@ -128,6 +130,10 @@ public class RedisRepo {
 
     public Object get(String key) {
         return key == null ? null : redisTemplate.opsForValue().get(key);
+    }
+
+    public <T> T get(String key, Class<T> clazz) {
+        return key == null ? null : objectMapper.convertValue(redisTemplate.opsForValue().get(key), clazz);
     }
 
     public List<Object> multiGet(List<String> keys) {
