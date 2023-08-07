@@ -133,7 +133,8 @@ public class RedisRepo {
     }
 
     public <T> T get(String key, Class<T> clazz) {
-        return key == null ? null : objectMapper.convertValue(redisTemplate.opsForValue().get(key), clazz);
+        Object o = get(key);
+        return o == null ? null : objectMapper.convertValue(o, clazz);
     }
 
     public List<Object> multiGet(List<String> keys) {
@@ -144,6 +145,21 @@ public class RedisRepo {
         }
         list.forEach(ele -> Optional.ofNullable(ele).ifPresent(resultList::add));
         return resultList;
+    }
+
+    public <T> List<T> multiGet(List<String> keys, Class<T> clazz) {
+        List<Object> list = multiGet(keys);
+        return CollectionUtils.isEmpty(list) ? new ArrayList<>() : convertList(list, clazz);
+    }
+
+    private <T> List<T> convertList(List<Object> list, Class<T> clazz) {
+        List<T> result = new ArrayList<>();
+        for (Object obj : list) {
+            // 使用objectMapper转换每个对象
+            T convertedObj = objectMapper.convertValue(obj, clazz);
+            result.add(convertedObj);
+        }
+        return result;
     }
 
     public boolean set(String key, Object value) {
