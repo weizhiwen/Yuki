@@ -9,8 +9,11 @@ import io.jsonwebtoken.*;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.stereotype.Component;
 
+import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -35,7 +38,7 @@ public class TokenService {
             String userSessionKey = getUserSessionKey(sessionId);
             return redisRepo.get(userSessionKey, UserSession.class);
         } catch (JwtException e) {
-            throw new JwtException("JWT签名不匹配，无效的JWT");
+            throw new SessionAuthenticationException("JWT签名不匹配，无效的JWT");
         }
     }
 

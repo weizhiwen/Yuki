@@ -18,4 +18,7 @@ public interface DictDataRepo extends BaseRepo<DictData, Long> {
 
     @Query("select o from DictData o where o.dictType.code = :dictTypeCode and o.code = :code")
     DictData findByDictTypeCodeAndCode(String dictTypeCode, String code);
+
+    @Query("select count(o) from DictData o where o.dictType = :dictType")
+    long countByDictType(DictType dictType);
 }

@@ -3,6 +3,7 @@ package com.yuki.common.core.reader;
 import com.yuki.common.core.exception.BaseException;
 import lombok.Getter;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Transactional(readOnly = true)
 public class BaseReader<S, T> {
     private Class<S> sourceClass;
     private Class<T> targetClass;

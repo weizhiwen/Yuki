@@ -1,5 +1,7 @@
 package com.yuki.framework.dict.service;
 
+import cn.hutool.core.text.CharSequenceUtil;
+import com.yuki.common.core.dict.DictDataRepo;
 import com.yuki.common.core.exception.BaseException;
 import com.yuki.framework.dict.web.DictTypeParam;
 import com.yuki.common.core.dict.DictType;
@@ -15,6 +17,7 @@ import java.util.Objects;
 public class DictTypeService extends BaseBusinessService<DictTypeParam, DictTypeParam, DictType> {
     private final DictTypeRepo repo;
     private final DictTypeMapper mapper;
+    private final DictDataRepo dictDataRepo;
 
     @Override
     protected DictTypeRepo getRepo() {
@@ -51,10 +54,10 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
     }
 
     private DictType getParentDictTypeIfNecessary(DictTypeParam param) {
-        if (param.getParentDictTypeId() != null) {
-            return repo.findOrThrowErrorById(param.getParentDictTypeId());
-        } else if (param.getParentDictTypeCode() != null) {
-            DictType dictType = repo.findByCode(param.getParentDictTypeCode());
+        if (param.getParentId() != null) {
+            return repo.findOrThrowErrorById(param.getParentId());
+        } else if (CharSequenceUtil.isNotEmpty(param.getParentCode())) {
+            DictType dictType = repo.findByCode(param.getParentCode());
             if (dictType == null) {
                 throw new BaseException("dict.type.parent.type.not.found");
             }
@@ -70,7 +73,22 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
         if (!Objects.equals(param.getName(), entity.getName())) {
             validateNameRepeat(param);
         }
+        DictType parentDictType = getParentDictTypeIfNecessary(param);
+        entity.setParent(parentDictType);
         mapper.paramToEntity(param, entity);
         return entity;
+    }
+
+    @Override
+    protected void validateOnDelete(DictType dictType) {
+        super.validateOnDelete(dictType);
+        long count = repo.countByParent(dictType);
+        if (count > 0) {
+            throw new BaseException("dict.type.delete.exist.reference");
+        }
+        count = dictDataRepo.countByDictType(dictType);
+        if (count > 0) {
+            throw new BaseException("dict.type.delete.exist.data");
+        }
     }
 }

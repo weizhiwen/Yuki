@@ -14,4 +14,7 @@ public interface DictTypeRepo extends BaseRepo<DictType, Long> {
 
     @Query("SELECT count(o) from DictType o where o.name = :name")
     long countByName(String name);
+
+    @Query("SELECT count(o) from DictType o where o.parent = :parent")
+    long countByParent(DictType parent);
 }

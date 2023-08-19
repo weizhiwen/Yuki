@@ -4,10 +4,12 @@ import com.yuki.common.annotation.RelatedClass;
 import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.domain.BaseVO;
 
+import java.io.Serial;
 import java.time.LocalDateTime;
 
 @RelatedClass(classes = DictType.class)
 public class DictTypeVO extends BaseVO {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private Long parentId;

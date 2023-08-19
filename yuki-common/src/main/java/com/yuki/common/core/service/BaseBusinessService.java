@@ -11,10 +11,10 @@ import lombok.Getter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -90,10 +90,12 @@ public abstract class BaseBusinessService<C extends CreateParam, U extends Updat
         getRepo().delete(t);
     }
 
+    @Transactional
     public T get(Long id) {
         return (T) getRepo().findOrThrowErrorById(id);
     }
 
+    @Transactional(readOnly = true)
     public void executeWithReader(Supplier<T> supplier, BaseReader reader) {
         T t = supplier.get();
         reader.read(t);

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -43,6 +44,14 @@ public class GlobalExceptionHandler {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
         return JsonResult.warn(e.getMessage());
+    }
+
+    @ExceptionHandler(ConversionFailedException.class)
+    public JsonResult<String> handleConversionFailed(ConversionFailedException e,
+                                                                  HttpServletRequest request)
+    {
+        log.error(e.getMessage(), e);
+        return JsonResult.error("类型转换异常");
     }
 
     /**

@@ -5,14 +5,16 @@ import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.domain.CreateOrUpdateParam;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serial;
 
 @RelatedClass(classes = DictType.class)
 public class DictTypeParam extends CreateOrUpdateParam {
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long parentDictTypeId;
+    private Long parentId;
 
-    private String parentDictTypeCode;
+    private String parentCode;
 
     @NotNull(message = "编码不能为空")
     private String code;
@@ -22,20 +24,20 @@ public class DictTypeParam extends CreateOrUpdateParam {
 
     private String description;
 
-    public Long getParentDictTypeId() {
-        return parentDictTypeId;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParentDictTypeId(Long parentDictTypeId) {
-        this.parentDictTypeId = parentDictTypeId;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
-    public String getParentDictTypeCode() {
-        return parentDictTypeCode;
+    public String getParentCode() {
+        return parentCode;
     }
 
-    public void setParentDictTypeCode(String parentDictTypeCode) {
-        this.parentDictTypeCode = parentDictTypeCode;
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
     }
 
     public String getCode() {
