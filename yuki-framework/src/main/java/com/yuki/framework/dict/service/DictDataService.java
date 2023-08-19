@@ -11,6 +11,8 @@ import com.yuki.common.core.service.BaseBusinessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class DictDataService extends BaseBusinessService<DictDataParam, DictDataParam, DictData> {
@@ -27,12 +29,31 @@ public class DictDataService extends BaseBusinessService<DictDataParam, DictData
     protected DictData onCreate(DictDataParam param) {
         DictData dictData = mapper.paramToEntity(param);
         DictType dictType = getDictType(param);
+        validateParentCodeIfNecessary(param, dictType);
         dictData.setDictType(dictType);
+        validateCodeRepeat(param, dictType);
+        validateNameRepeat(param, dictType);
+        return dictData;
+    }
+
+    private void validateCodeRepeat(DictDataParam param, DictType dictType) {
         long count = repo.countByDictTypeAndCode(dictType, param.getCode());
         if (count > 0) {
             throw new BaseException("dict.data.code.repeat", dictType.getName(), param.getCode());
         }
-        return dictData;
+    }
+
+    private void validateNameRepeat(DictDataParam param, DictType dictType) {
+        long count = repo.countByDictTypeAndParentCodeAndName(dictType, param.getParentCode(), param.getName());
+        if (count > 0) {
+            throw new BaseException("dict.data.name.repeat", dictType.getName(), param.getCode());
+        }
+    }
+
+    private void validateParentCodeIfNecessary(DictDataParam param, DictType dictType) {
+        if (dictType.getParent() != null && CharSequenceUtil.isEmpty(param.getParentCode())) {
+            throw new BaseException("dict.data.need.parent.code");
+        }
     }
 
     private DictType getDictType(DictDataParam param) {
@@ -51,8 +72,13 @@ public class DictDataService extends BaseBusinessService<DictDataParam, DictData
     @Override
     protected DictData onUpdate(DictDataParam param, DictData entity) {
         String code = entity.getCode();
+        DictType dictType = entity.getDictType();
+        validateParentCodeIfNecessary(param, dictType);
+        if (!Objects.equals(param.getName(), entity.getName())) {
+            validateNameRepeat(param, dictType);
+        }
         mapper.paramToEntity(param, entity);
-        entity.setDictType(getDictType(param));
+        entity.setDictType(dictType);
         entity.setCode(code);
         return entity;
     }

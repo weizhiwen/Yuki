@@ -22,8 +22,12 @@ public class DictDataParam extends CreateOrUpdateParam {
 
     private String dictTypeCode;
 
+    private String parentCode;
+
+    @NotNull(message = "枚举编码不能为空")
     private String code;
 
+    @NotNull(message = "枚举名称不能为空")
     private String name;
 
     private String memo;
@@ -31,6 +35,14 @@ public class DictDataParam extends CreateOrUpdateParam {
     private Long idx;
 
     private Boolean disabled;
+
+    public String getParentCode() {
+        return parentCode;
+    }
+
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
+    }
 
     public String getCode() {
         return code;

@@ -10,6 +10,10 @@ import javax.validation.constraints.NotNull;
 public class DictTypeParam extends CreateOrUpdateParam {
     private static final long serialVersionUID = 1L;
 
+    private Long parentDictTypeId;
+
+    private String parentDictTypeCode;
+
     @NotNull(message = "编码不能为空")
     private String code;
 
@@ -17,6 +21,22 @@ public class DictTypeParam extends CreateOrUpdateParam {
     private String name;
 
     private String description;
+
+    public Long getParentDictTypeId() {
+        return parentDictTypeId;
+    }
+
+    public void setParentDictTypeId(Long parentDictTypeId) {
+        this.parentDictTypeId = parentDictTypeId;
+    }
+
+    public String getParentDictTypeCode() {
+        return parentDictTypeCode;
+    }
+
+    public void setParentDictTypeCode(String parentDictTypeCode) {
+        this.parentDictTypeCode = parentDictTypeCode;
+    }
 
     public String getCode() {
         return code;

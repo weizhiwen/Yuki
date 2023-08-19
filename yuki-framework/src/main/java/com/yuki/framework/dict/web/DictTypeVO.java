@@ -10,6 +10,12 @@ import java.time.LocalDateTime;
 public class DictTypeVO extends BaseVO {
     private static final long serialVersionUID = 1L;
 
+    private Long parentId;
+
+    private String parentCode;
+
+    private String parentName;
+
     private String code;
 
     private String name;
@@ -17,6 +23,30 @@ public class DictTypeVO extends BaseVO {
     private String description;
 
     private LocalDateTime createdTime;
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getParentCode() {
+        return parentCode;
+    }
+
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
 
     public String getCode() {
         return code;

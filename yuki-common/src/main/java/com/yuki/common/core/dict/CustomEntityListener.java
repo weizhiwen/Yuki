@@ -54,7 +54,7 @@ public class CustomEntityListener {
             if (dict == null || StringUtils.isEmpty(dict.getCode())) {
                 continue;
             }
-            DictData dictData = dictDataRepo.findByDictTypeAndCode(type, dict.getCode());
+            DictData dictData = dictDataRepo.findByDictTypeCodeAndCode(type, dict.getCode());
             if (dictData != null) {
                 dict.setName(dictData.getName());
             }

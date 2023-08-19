@@ -6,21 +6,27 @@ import com.yuki.common.core.domain.entity.BaseEntity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "DICT_DATA")
+@Table(name = "DICT_DATA", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"DICT_TYPE_ID", "CODE"}),
+        @UniqueConstraint(columnNames = {"DICT_TYPE_ID", "PARENT_CODE", "NAME"})
+})
 public class DictData extends BaseEntity {
     public static final String CODE_FIELD = "code";
     public static final String NAME_FIELD = "name";
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "DICT_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "DICT_TYPE_ID", referencedColumnName = "ID")
     private DictType dictType;
 
-    @Column(nullable = false, unique = true, length = Constants.MEDIUM_STRING_LENGTH)
+    @Column(name = "PARENT_CODE", length = Constants.MEDIUM_STRING_LENGTH)
+    private String parentCode;
+
+    @Column(nullable = false, length = Constants.MEDIUM_STRING_LENGTH)
     private String code;
 
-    @Column(nullable = false, unique = true, length = Constants.LONG_STRING_LENGTH)
+    @Column(nullable = false, length = Constants.LONG_STRING_LENGTH)
     private String name;
 
-    @Column(length = Constants.MAX_STRING_LENGTH)
+    @Column
     private String memo;
 
     @Column(nullable = false)
@@ -28,6 +34,14 @@ public class DictData extends BaseEntity {
 
     @Column(nullable = false)
     private Boolean disabled;
+
+    public String getParentCode() {
+        return parentCode;
+    }
+
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
+    }
 
     public String getCode() {
         return code;

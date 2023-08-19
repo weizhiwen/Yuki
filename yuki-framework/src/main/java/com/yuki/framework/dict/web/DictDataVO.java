@@ -16,6 +16,10 @@ public class DictDataVO extends BaseVO {
 
     private String dictTypeName;
 
+    private String parentCode;
+
+    private String parentName;
+
     private String code;
 
     private String name;
@@ -27,6 +31,22 @@ public class DictDataVO extends BaseVO {
     private Boolean disabled;
 
     private LocalDateTime createdTime;
+
+    public String getParentCode() {
+        return parentCode;
+    }
+
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
 
     public String getCode() {
         return code;
