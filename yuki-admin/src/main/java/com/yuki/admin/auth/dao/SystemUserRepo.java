@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SystemUserRepo extends BaseRepo<SystemUser, Long> {
-    @Query("SELECT o from SystemUser o where o.username = :username")
-    SystemUser findByUsername(@Param("username") String username);
+    @Query("SELECT o from SystemUser o where o.tel = :loginName or o.email = :loginName")
+    SystemUser findByLoginName(@Param("loginName") String loginName);
 }

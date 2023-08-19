@@ -1,24 +1,33 @@
 package com.yuki.admin.auth.dao;
 
+import cn.hutool.core.util.IdUtil;
 import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
+import com.yuki.common.core.domain.model.UserSession;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.io.Serial;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "SYSTEM_USER")
-public class SystemUser extends BaseEntity {
+public class SystemUser extends BaseEntity implements UserDetails {
+    @Serial
     private static final long serialVersionUID = 1L;
+
+    @Column(name = "USER_NO", length = Constants.MEDIUM_STRING_LENGTH, unique = true)
+    private String userNo;
 
     @Column(name = "USERNAME", length = Constants.MEDIUM_STRING_LENGTH, unique = true)
     private String username;
 
-    @Column(name = "NICKNAME", length = Constants.MEDIUM_STRING_LENGTH)
-    private String nickname;
-
-    @Column(name = "EMAIL", length = Constants.MEDIUM_STRING_LENGTH)
+    @Column(name = "EMAIL", length = Constants.MEDIUM_STRING_LENGTH, unique = true)
     private String email;
 
     @Column(name = "TEL", length = Constants.SHORT_STRING_LENGTH)
@@ -33,20 +42,44 @@ public class SystemUser extends BaseEntity {
     @Column(name = "IS_ENABLED")
     private boolean enabled;
 
+    @Transient
+    private List<GrantedAuthority> authorities;
+
+
     public String getUsername() {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public String getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(String userNo) {
+        this.userNo = userNo;
+    }
+
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public String getEmail() {
@@ -73,6 +106,10 @@ public class SystemUser extends BaseEntity {
         this.avatar = avatar;
     }
 
+    public void setAuthorities(List<GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -87,5 +124,14 @@ public class SystemUser extends BaseEntity {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public UserSession buildUserSession() {
+        UserSession userSession = new UserSession();
+        userSession.setSessionId(IdUtil.fastSimpleUUID());
+        userSession.setUserNo(this.getUserNo());
+        userSession.setUsername(this.getUsername());
+        userSession.setAuthorities((List<GrantedAuthority>) this.getAuthorities());
+        return userSession;
     }
 }

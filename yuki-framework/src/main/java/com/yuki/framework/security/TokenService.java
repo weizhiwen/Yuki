@@ -1,15 +1,11 @@
 package com.yuki.framework.security;
 
 import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.IdUtil;
 import com.yuki.common.constant.CacheConstants;
 import com.yuki.common.constant.Constants;
-import com.yuki.common.core.domain.model.UserSession;
 import com.yuki.common.core.dao.RedisRepo;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
+import com.yuki.common.core.domain.model.UserSession;
+import io.jsonwebtoken.*;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -31,25 +26,25 @@ public class TokenService {
 
     public UserSession getUserSession(HttpServletRequest request) {
         String token = getToken(request);
-        if (CharSequenceUtil.isNotEmpty(token)) {
-            try {
-                Claims claims = parseToken(token);
-                String sessionId = (String) claims.get(Constants.LOGIN_SESSION_ID);
-                String userSessionKey = getUserSessionKey(sessionId);
-                return redisRepo.get(userSessionKey, UserSession.class);
-            } catch (SignatureException e) {
-                log.error("JWT签名不匹配，无效的JWT");
-            }
+        if (CharSequenceUtil.isEmpty(token)) {
+            return null;
         }
-        return null;
+        try {
+            Claims claims = parseToken(token);
+            String sessionId = (String) claims.get(Constants.LOGIN_SESSION_ID);
+            String userSessionKey = getUserSessionKey(sessionId);
+            return redisRepo.get(userSessionKey, UserSession.class);
+        } catch (JwtException e) {
+            throw new JwtException("JWT签名不匹配，无效的JWT");
+        }
     }
 
     public String getToken(HttpServletRequest request) {
         String header = request.getHeader(tokenProperty.getHeader());
-        if (CharSequenceUtil.isNotEmpty(header) && header.startsWith(Constants.TOKEN_PREFIX)) {
-            return header.substring(Constants.TOKEN_PREFIX.length());
+        if (CharSequenceUtil.isEmpty(header) || !header.startsWith(Constants.TOKEN_PREFIX)) {
+            return null;
         }
-        return null;
+        return header.substring(Constants.TOKEN_PREFIX.length());
     }
 
     public void refreshTokenIfNecessary(UserSession userSession) {
@@ -61,10 +56,7 @@ public class TokenService {
     }
 
     private Claims parseToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(tokenProperty.getSecret())
-                .parseClaimsJws(token)
-                .getBody();
+        return Jwts.parser().setSigningKey(tokenProperty.getSecret()).parseClaimsJws(token).getBody();
     }
 
     public void deleteUserSession(UserSession userSession) {
@@ -72,21 +64,15 @@ public class TokenService {
     }
 
     public String createToken(UserSession userSession) {
-        String username = userSession.getUsername();
-        userSession.setSessionId(username);
-        String sessionId = IdUtil.fastSimpleUUID();
-        userSession.setSessionId(sessionId);
         refreshToken(userSession);
         Map<String, Object> claims = new HashMap<>();
-        claims.put(Constants.LOGIN_USER_NAME, username);
-        claims.put(Constants.LOGIN_SESSION_ID, sessionId);
+        claims.put(Constants.LOGIN_USER_NAME, userSession.getUsername());
+        claims.put(Constants.LOGIN_SESSION_ID, userSession.getSessionId());
         return createTokenByClaims(claims);
     }
 
     private String createTokenByClaims(Map<String, Object> claims) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .signWith(SignatureAlgorithm.forName(tokenProperty.getAlgorithm()), tokenProperty.getSecret()).compact();
+        return Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.forName(tokenProperty.getAlgorithm()), tokenProperty.getSecret()).compact();
     }
 
     public void refreshToken(UserSession userSession) {

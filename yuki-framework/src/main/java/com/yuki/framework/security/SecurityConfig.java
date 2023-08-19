@@ -31,6 +31,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
+    public static final String LOGIN_PATH = "/auth/login";
+    public static final String LOGOUT_PATH = "/auth/logout";
     private final UserDetailsService userDetailsService;
     private final JWTAuthFilter jwtAuthFilter;
     private final TokenService tokenService;
@@ -43,7 +45,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/auth/login")
+                .antMatchers(LOGIN_PATH)
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -55,7 +57,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint(authenticationEntryPoint())
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
+                .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_PATH, "POST"))
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .and()
                 .build();

@@ -5,21 +5,21 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
-public class UserSession implements UserDetails {
+public class UserSession implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
     private String sessionId;
 
-    private Long userId;
+    private String userNo;
 
     private String username;
-
-    private String password;
 
     private LocalDateTime loginTime;
 
@@ -35,26 +35,16 @@ public class UserSession implements UserDetails {
 
     private List<GrantedAuthority> authorities;
 
-    public UserSession(Long userId, String username, String password) {
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
+    public String getUserNo() {
+        return userNo;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserNo(String userNo) {
+        this.userNo = userNo;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getSessionId() {
@@ -117,37 +107,26 @@ public class UserSession implements UserDetails {
         this.authorities = authorities;
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
     public String getUsername() {
         return username;
     }
 
-    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @Override
     public boolean isEnabled() {
         return true;
     }

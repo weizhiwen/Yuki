@@ -2,7 +2,6 @@ package com.yuki.admin.auth.service;
 
 import com.yuki.admin.auth.dao.SystemUser;
 import com.yuki.admin.auth.web.LoginParam;
-import com.yuki.common.core.domain.model.UserSession;
 import com.yuki.common.core.exception.UserPasswordNotMatchException;
 import com.yuki.framework.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +20,10 @@ public class AuthService {
 
     public String login(LoginParam param) {
         try {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(param.getUsername(), param.getPassword());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(param.getLoginName(), param.getPassword());
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
-            UserSession userSession = (UserSession) authentication.getPrincipal();
-            return tokenService.createToken(userSession);
+            SystemUser systemUser = (SystemUser) authentication.getPrincipal();
+            return tokenService.createToken(systemUser.buildUserSession());
         } catch (BadCredentialsException ex) {
             throw (UserPasswordNotMatchException) new UserPasswordNotMatchException().initCause(ex);
         }

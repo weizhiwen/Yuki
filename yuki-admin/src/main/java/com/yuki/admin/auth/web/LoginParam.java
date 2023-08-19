@@ -2,13 +2,16 @@ package com.yuki.admin.auth.web;
 
 import com.yuki.common.core.domain.BaseParam;
 
+import java.io.Serial;
+
 
 public class LoginParam extends BaseParam {
+    @Serial
     private static final long serialVersionUID = 1L;
     /**
      * 用户名
      */
-    private String username;
+    private String loginName;
 
     /**
      * 密码
@@ -20,12 +23,12 @@ public class LoginParam extends BaseParam {
      */
     private String captchaCode;
 
-    public String getUsername() {
-        return username;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public String getPassword() {
