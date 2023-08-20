@@ -46,14 +46,6 @@ public class GlobalExceptionHandler {
         return JsonResult.warn(e.getMessage());
     }
 
-    @ExceptionHandler(ConversionFailedException.class)
-    public JsonResult<String> handleConversionFailed(ConversionFailedException e,
-                                                                  HttpServletRequest request)
-    {
-        log.error(e.getMessage(), e);
-        return JsonResult.error("类型转换异常");
-    }
-
     /**
      * 自定义异常
      */
@@ -61,7 +53,8 @@ public class GlobalExceptionHandler {
     public JsonResult<String> handleBaseException(BaseException e, HttpServletRequest request)
     {
         log.error(e.getMessage(), e);
-        return JsonResult.error(messageSource.getMessage(e.getMessage(), e.getArgs(), e.getMessage(), LocaleContextHolder.getLocale()));
+        String message = messageSource.getMessage(e.getMessage(), e.getArgs(), e.getMessage(), LocaleContextHolder.getLocale());
+        return JsonResult.error(message);
     }
 
     /**
