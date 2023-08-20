@@ -11,19 +11,3 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt:+'
     implementation 'net.kaczmarzyk:specification-arg-resolver:2.+'
 }
-
-sourceSets {
-    main {
-        resources {
-            srcDirs = ["src/main/resources"]
-            include "messages.properties"
-        }
-    }
-}
-
-task copyMessages(type: Copy) {
-    from("src/main/resources/messages.properties")
-    into("build/resources/main")
-}
-
-processResources.dependsOn(copyMessages)
