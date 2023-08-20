@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/dict-types")
 @RequiredArgsConstructor
@@ -68,7 +70,7 @@ public class DictTypeController extends BaseBusinessController {
 
     @Override
     @DeleteMapping("/{ids}")
-    public JsonResult<String> delete(@PathVariable Long ids) {
+    public JsonResult<String> delete(@PathVariable Long[] ids) {
         return super.delete(ids);
     }
 }
