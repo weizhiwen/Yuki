@@ -11,7 +11,7 @@ public interface DictDataMapper extends BusinessMapper<DictData, DictDataParam, 
     @Override
     @Mappings({
             @Mapping(source = "dictType.id", target = "dictTypeId"),
-            @Mapping(source = "dictType.code", target = "dictTypeCode"),
+            @Mapping(source = "dictType.type", target = "dictTypeType"),
             @Mapping(source = "dictType.name", target = "dictTypeName"),
     })
     DictDataVO convert(DictData source);

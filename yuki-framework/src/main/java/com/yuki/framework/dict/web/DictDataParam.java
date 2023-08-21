@@ -15,12 +15,12 @@ public class DictDataParam extends CreateOrUpdateParam {
     @NotNull(message = "字典类型不能为空")
     @AssertTrue(message = "字典类型不能为空")
     public boolean dictTypeNotNull() {
-        return dictTypeId != null || CharSequenceUtil.isNotBlank(dictTypeCode);
+        return dictTypeId != null || CharSequenceUtil.isNotBlank(dictTypeType);
     }
 
     private Long dictTypeId;
 
-    private String dictTypeCode;
+    private String dictTypeType;
 
     private String parentCode;
 
@@ -68,12 +68,12 @@ public class DictDataParam extends CreateOrUpdateParam {
         this.dictTypeId = dictTypeId;
     }
 
-    public String getDictTypeCode() {
-        return dictTypeCode;
+    public String getDictTypeType() {
+        return dictTypeType;
     }
 
-    public void setDictTypeCode(String dictTypeCode) {
-        this.dictTypeCode = dictTypeCode;
+    public void setDictTypeType(String dictTypeType) {
+        this.dictTypeType = dictTypeType;
     }
 
     public String getMemo() {

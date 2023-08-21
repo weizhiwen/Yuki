@@ -27,14 +27,14 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
     @Override
     protected void validateOnCreate(DictTypeParam param) {
         super.validateOnCreate(param);
-        validateCodeRepeat(param);
+        validateTypeRepeat(param);
         validateNameRepeat(param);
     }
 
-    private void validateCodeRepeat(DictTypeParam param) {
-        long count = repo.countByCode(param.getCode());
+    private void validateTypeRepeat(DictTypeParam param) {
+        long count = repo.countByType(param.getType());
         if (count > 0) {
-            throw new BaseException("dict.type.code.repeat");
+            throw new BaseException("dict.type.type.repeat");
         }
     }
 
@@ -50,14 +50,15 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
         DictType parentDictType = getParentDictTypeIfNecessary(param);
         DictType dictType = mapper.paramToEntity(param);
         dictType.setParent(parentDictType);
+        dictType.setBuiltIn(Boolean.FALSE);
         return dictType;
     }
 
     private DictType getParentDictTypeIfNecessary(DictTypeParam param) {
         if (param.getParentId() != null) {
             return repo.findOrThrowErrorById(param.getParentId());
-        } else if (CharSequenceUtil.isNotEmpty(param.getParentCode())) {
-            DictType dictType = repo.findByCode(param.getParentCode());
+        } else if (CharSequenceUtil.isNotEmpty(param.getParentType())) {
+            DictType dictType = repo.findByType(param.getParentType());
             if (dictType == null) {
                 throw new BaseException("dict.type.parent.type.not.found");
             }
@@ -67,8 +68,8 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
 
     @Override
     protected DictType onUpdate(DictTypeParam param, DictType entity) {
-        if (!Objects.equals(param.getCode(), entity.getCode())) {
-            validateCodeRepeat(param);
+        if (!Objects.equals(param.getType(), entity.getType())) {
+            validateTypeRepeat(param);
         }
         if (!Objects.equals(param.getName(), entity.getName())) {
             validateNameRepeat(param);

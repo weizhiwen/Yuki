@@ -11,7 +11,7 @@ public interface DictTypeMapper extends BusinessMapper<DictType, DictTypeParam, 
     @Override
     @Mappings({
             @Mapping(source = "parent.id", target = "parentId"),
-            @Mapping(source = "parent.code", target = "parentCode"),
+            @Mapping(source = "parent.type", target = "parentType"),
             @Mapping(source = "parent.name", target = "parentName"),
     })
     DictTypeVO convert(DictType source);

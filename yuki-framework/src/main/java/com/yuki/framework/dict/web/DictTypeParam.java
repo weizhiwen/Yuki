@@ -14,15 +14,18 @@ public class DictTypeParam extends CreateOrUpdateParam {
 
     private Long parentId;
 
-    private String parentCode;
+    private String parentType;
 
-    @NotNull(message = "编码不能为空")
-    private String code;
+    @NotNull(message = "类型不能为空")
+    private String type;
 
     @NotNull(message = "名称不能为空")
     private String name;
 
     private String description;
+
+    @NotNull(message = "是否启用不能为空")
+    private Boolean enabled = Boolean.TRUE;
 
     public Long getParentId() {
         return parentId;
@@ -32,20 +35,20 @@ public class DictTypeParam extends CreateOrUpdateParam {
         this.parentId = parentId;
     }
 
-    public String getParentCode() {
-        return parentCode;
+    public String getParentType() {
+        return parentType;
     }
 
-    public void setParentCode(String parentCode) {
-        this.parentCode = parentCode;
+    public void setParentType(String parentType) {
+        this.parentType = parentType;
     }
 
-    public String getCode() {
-        return code;
+    public String getType() {
+        return type;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -62,5 +65,13 @@ public class DictTypeParam extends CreateOrUpdateParam {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

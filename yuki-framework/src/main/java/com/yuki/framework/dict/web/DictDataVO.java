@@ -12,7 +12,7 @@ public class DictDataVO extends BaseVO {
 
     private Long dictTypeId;
 
-    private String dictTypeCode;
+    private String dictTypeType;
 
     private String dictTypeName;
 
@@ -72,12 +72,12 @@ public class DictDataVO extends BaseVO {
         this.dictTypeId = dictTypeId;
     }
 
-    public String getDictTypeCode() {
-        return dictTypeCode;
+    public String getDictTypeType() {
+        return dictTypeType;
     }
 
-    public void setDictTypeCode(String dictTypeCode) {
-        this.dictTypeCode = dictTypeCode;
+    public void setDictTypeType(String dictTypeType) {
+        this.dictTypeType = dictTypeType;
     }
 
     public String getDictTypeName() {

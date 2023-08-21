@@ -60,8 +60,8 @@ public class DictDataService extends BaseBusinessService<DictDataParam, DictData
         DictType dictType = null;
         if (param.getDictTypeId() != null) {
             dictType = dictTypeRepo.findOrThrowErrorById(param.getDictTypeId());
-        } else if (CharSequenceUtil.isNotBlank(param.getDictTypeCode())) {
-            dictType = dictTypeRepo.findByCode(param.getDictTypeCode());
+        } else if (CharSequenceUtil.isNotBlank(param.getDictTypeType())) {
+            dictType = dictTypeRepo.findByType(param.getDictTypeType());
         }
         if (dictType == null) {
             throw new BaseException("dict.type.not.found");

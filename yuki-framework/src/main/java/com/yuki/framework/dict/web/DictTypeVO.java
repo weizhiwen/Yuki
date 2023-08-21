@@ -14,13 +14,17 @@ public class DictTypeVO extends BaseVO {
 
     private Long parentId;
 
-    private String parentCode;
+    private String parentType;
 
     private String parentName;
 
-    private String code;
+    private String type;
 
     private String name;
+
+    private Boolean enabled;
+
+    private Boolean builtIn;
 
     private String description;
 
@@ -34,12 +38,12 @@ public class DictTypeVO extends BaseVO {
         this.parentId = parentId;
     }
 
-    public String getParentCode() {
-        return parentCode;
+    public String getParentType() {
+        return parentType;
     }
 
-    public void setParentCode(String parentCode) {
-        this.parentCode = parentCode;
+    public void setParentType(String parentType) {
+        this.parentType = parentType;
     }
 
     public String getParentName() {
@@ -50,12 +54,12 @@ public class DictTypeVO extends BaseVO {
         this.parentName = parentName;
     }
 
-    public String getCode() {
-        return code;
+    public String getType() {
+        return type;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -80,5 +84,21 @@ public class DictTypeVO extends BaseVO {
 
     public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Boolean getBuiltIn() {
+        return builtIn;
+    }
+
+    public void setBuiltIn(Boolean builtIn) {
+        this.builtIn = builtIn;
     }
 }

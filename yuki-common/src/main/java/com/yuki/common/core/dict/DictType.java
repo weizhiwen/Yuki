@@ -4,6 +4,7 @@ import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "DICT_TYPE")
@@ -16,13 +17,21 @@ public class DictType extends BaseEntity {
     private DictType parent;
 
     @Column(nullable = false, unique = true, length = Constants.MEDIUM_STRING_LENGTH)
-    private String code;
+    @Size(max = Constants.MEDIUM_STRING_LENGTH, message = "{size.max.limit}")
+    private String type;
 
     @Column(nullable = false, unique = true, length = Constants.LONG_STRING_LENGTH)
     private String name;
 
     @Column
+    @Size(max = Constants.MAX_STRING_LENGTH, message = "{size.max.limit}")
     private String description;
+
+    @Column(name = "IS_ENABLED")
+    private Boolean enabled = Boolean.TRUE;
+
+    @Column(name = "IS_BUILT_IN")
+    private Boolean builtIn = Boolean.FALSE;
 
     public DictType getParent() {
         return parent;
@@ -32,12 +41,12 @@ public class DictType extends BaseEntity {
         this.parent = parentDictType;
     }
 
-    public String getCode() {
-        return code;
+    public String getType() {
+        return type;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -54,5 +63,21 @@ public class DictType extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Boolean getBuiltIn() {
+        return builtIn;
+    }
+
+    public void setBuiltIn(Boolean builtIn) {
+        this.builtIn = builtIn;
     }
 }
