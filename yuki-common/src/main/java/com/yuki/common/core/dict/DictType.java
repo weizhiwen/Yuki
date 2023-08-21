@@ -30,8 +30,8 @@ public class DictType extends BaseEntity {
     @Column(name = "IS_ENABLED")
     private Boolean enabled = Boolean.TRUE;
 
-    @Column(name = "IS_BUILT_IN")
-    private Boolean builtIn = Boolean.FALSE;
+    @Column(name = "IS_BUILTIN")
+    private Boolean builtin = Boolean.FALSE;
 
     public DictType getParent() {
         return parent;
@@ -73,11 +73,11 @@ public class DictType extends BaseEntity {
         this.enabled = enabled;
     }
 
-    public Boolean getBuiltIn() {
-        return builtIn;
+    public Boolean getBuiltin() {
+        return builtin;
     }
 
-    public void setBuiltIn(Boolean builtIn) {
-        this.builtIn = builtIn;
+    public void setBuiltin(Boolean builtin) {
+        this.builtin = builtin;
     }
 }

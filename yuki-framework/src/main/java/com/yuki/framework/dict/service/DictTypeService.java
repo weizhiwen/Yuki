@@ -50,7 +50,7 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
         DictType parentDictType = getParentDictTypeIfNecessary(param);
         DictType dictType = mapper.paramToEntity(param);
         dictType.setParent(parentDictType);
-        dictType.setBuiltIn(Boolean.FALSE);
+        dictType.setBuiltin(Boolean.FALSE);
         return dictType;
     }
 

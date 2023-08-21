@@ -24,7 +24,7 @@ public class DictTypeVO extends BaseVO {
 
     private Boolean enabled;
 
-    private Boolean builtIn;
+    private Boolean builtin;
 
     private String description;
 
@@ -94,11 +94,11 @@ public class DictTypeVO extends BaseVO {
         this.enabled = enabled;
     }
 
-    public Boolean getBuiltIn() {
-        return builtIn;
+    public Boolean getBuiltin() {
+        return builtin;
     }
 
-    public void setBuiltIn(Boolean builtIn) {
-        this.builtIn = builtIn;
+    public void setBuiltin(Boolean builtin) {
+        this.builtin = builtin;
     }
 }
