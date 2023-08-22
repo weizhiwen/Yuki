@@ -74,6 +74,9 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
         if (!Objects.equals(param.getName(), entity.getName())) {
             validateNameRepeat(param);
         }
+        if (Boolean.TRUE.equals(entity.getBuiltin())) {
+            throw new BaseException("dict.type.update.builtin.not.support");
+        }
         DictType parentDictType = getParentDictTypeIfNecessary(param);
         entity.setParent(parentDictType);
         mapper.paramToEntity(param, entity);
@@ -83,6 +86,9 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
     @Override
     protected void validateOnDelete(DictType dictType) {
         super.validateOnDelete(dictType);
+        if (Boolean.TRUE.equals(dictType.getBuiltin())) {
+            throw new BaseException("dict.type.delete.builtin.not.support");
+        }
         long count = repo.countByParent(dictType);
         if (count > 0) {
             throw new BaseException("dict.type.delete.exist.reference");
