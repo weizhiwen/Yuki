@@ -9,8 +9,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "DICT_TYPE")
 public class DictType extends BaseEntity {
-    public static final String CODE_FIELD = "code";
+    public static final String TYPE_FIELD = "type";
     public static final String NAME_FIELD = "name";
+    public static final String BUILTIN_FIELD = "builtin";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID")

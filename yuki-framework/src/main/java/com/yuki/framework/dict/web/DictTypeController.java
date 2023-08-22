@@ -6,6 +6,7 @@ import com.yuki.common.core.controller.BaseBusinessController;
 import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.domain.JsonResult;
 import lombok.RequiredArgsConstructor;
+import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
@@ -35,8 +36,9 @@ public class DictTypeController extends BaseBusinessController {
     @GetMapping
     public JsonResult<JsonResult.PageList> pageList(
             @And({
-                    @Spec(path = DictType.CODE_FIELD, jsonPaths = DictType.CODE_FIELD, spec = Like.class),
+                    @Spec(path = DictType.TYPE_FIELD, jsonPaths = DictType.TYPE_FIELD, spec = Like.class),
                     @Spec(path = DictType.NAME_FIELD, jsonPaths = DictType.NAME_FIELD, spec = Like.class),
+                    @Spec(path = DictType.BUILTIN_FIELD, jsonPaths = DictType.BUILTIN_FIELD, spec = Equal.class),
             })
             Specification<DictType> query, Pageable pageable) {
         return super.page(query, pageable);
@@ -45,8 +47,9 @@ public class DictTypeController extends BaseBusinessController {
     @PostMapping("/search")
     public JsonResult<JsonResult.PageList> pageSearch(
             @And({
-                    @Spec(path = DictType.CODE_FIELD, jsonPaths = DictType.CODE_FIELD, spec = Like.class),
+                    @Spec(path = DictType.TYPE_FIELD, jsonPaths = DictType.TYPE_FIELD, spec = Like.class),
                     @Spec(path = DictType.NAME_FIELD, jsonPaths = DictType.NAME_FIELD, spec = Like.class),
+                    @Spec(path = DictType.BUILTIN_FIELD, jsonPaths = DictType.BUILTIN_FIELD, spec = Equal.class),
             })
             Specification<DictType> query, Pageable pageable) {
         return super.page(query, pageable);
