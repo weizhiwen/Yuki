@@ -1,18 +1,22 @@
-package com.yuki.admin.auth.dao;
+package com.yuki.admin.user.dao;
 
 import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serial;
 import java.time.LocalDateTime;
 
 @Entity
-public class LoginLog extends BaseEntity {
+@Table(name = "USER_LOGIN_LOG")
+public class UserLoginLog extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "USERNAME", length = Constants.MEDIUM_STRING_LENGTH)
-    private String username;
+    @Column(name = "LOGIN_NAME", length = Constants.MEDIUM_STRING_LENGTH)
+    private String loginName;
 
     @Column(name = "IS_LOGIN_SUCCESS")
     private boolean loginSuccess;
@@ -32,12 +36,12 @@ public class LoginLog extends BaseEntity {
     @Column(name = "LOGIN_TIME")
     private LocalDateTime loginTime;
 
-    public String getUsername() {
-        return username;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public boolean isLoginSuccess() {

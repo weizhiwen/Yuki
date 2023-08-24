@@ -1,4 +1,4 @@
-package com.yuki.admin.auth.dao;
+package com.yuki.admin.user.dao;
 
 import cn.hutool.core.util.IdUtil;
 import com.yuki.common.constant.Constants;
@@ -16,8 +16,8 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "SYSTEM_USER")
-public class SystemUser extends BaseEntity implements UserDetails {
+@Table(name = "USER")
+public class User extends BaseEntity implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
 

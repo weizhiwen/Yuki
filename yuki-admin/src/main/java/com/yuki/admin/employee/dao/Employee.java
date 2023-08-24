@@ -1,16 +1,16 @@
-package com.yuki.admin.people.dao;
+package com.yuki.admin.employee.dao;
 
 import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
-import com.yuki.admin.auth.dao.SystemUser;
+import com.yuki.admin.user.dao.User;
 import com.yuki.admin.department.dao.Department;
 import com.yuki.admin.position.dao.Position;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PEOPLE")
-public class People extends BaseEntity {
+@Table(name = "EMPLOYEE")
+public class Employee extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ public class People extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
-    private SystemUser user;
+    private User user;
 
     public String getName() {
         return name;
@@ -87,11 +87,11 @@ public class People extends BaseEntity {
         this.position = position;
     }
 
-    public SystemUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(SystemUser user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

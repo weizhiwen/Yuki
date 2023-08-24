@@ -1,11 +1,11 @@
-package com.yuki.admin.auth.web;
+package com.yuki.admin.user.web;
 
 import com.yuki.common.core.domain.BaseParam;
 
 import java.io.Serial;
 
 
-public class LoginParam extends BaseParam {
+public class UserLoginParam extends BaseParam {
     @Serial
     private static final long serialVersionUID = 1L;
     /**

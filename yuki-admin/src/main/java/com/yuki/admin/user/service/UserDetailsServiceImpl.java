@@ -1,7 +1,7 @@
-package com.yuki.admin.auth.service;
+package com.yuki.admin.user.service;
 
-import com.yuki.admin.auth.dao.SystemUser;
-import com.yuki.admin.auth.dao.SystemUserRepo;
+import com.yuki.admin.user.dao.User;
+import com.yuki.admin.user.dao.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final SystemUserRepo systemUserRepo;
+    private final UserRepo userRepo;
 
     @Override
-    public SystemUser loadUserByUsername(String username) throws UsernameNotFoundException {
-        SystemUser user = systemUserRepo.findByLoginName(username);
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepo.findByLoginName(username);
         if (user == null) {
             throw new UsernameNotFoundException("用户不存在");
         }

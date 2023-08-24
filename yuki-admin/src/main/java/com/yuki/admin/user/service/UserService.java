@@ -1,7 +1,7 @@
-package com.yuki.admin.auth.service;
+package com.yuki.admin.user.service;
 
-import com.yuki.admin.auth.dao.SystemUser;
-import com.yuki.admin.auth.web.LoginParam;
+import com.yuki.admin.user.dao.User;
+import com.yuki.admin.user.web.UserLoginParam;
 import com.yuki.common.core.exception.UserPasswordNotMatchException;
 import com.yuki.framework.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,24 +12,24 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthService {
+public class UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private TokenService tokenService;
 
-    public String login(LoginParam param) {
+    public String login(UserLoginParam param) {
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(param.getLoginName(), param.getPassword());
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
-            SystemUser systemUser = (SystemUser) authentication.getPrincipal();
-            return tokenService.createToken(systemUser.buildUserSession());
+            User user = (User) authentication.getPrincipal();
+            return tokenService.createToken(user.buildUserSession());
         } catch (BadCredentialsException ex) {
             throw (UserPasswordNotMatchException) new UserPasswordNotMatchException().initCause(ex);
         }
     }
 
-    public SystemUser getInfo() {
+    public User getInfo() {
         return null;
     }
 }
