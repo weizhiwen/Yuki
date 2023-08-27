@@ -22,4 +22,6 @@ public final class Constants {
     public static final int BIG_DECIMAL_MAX_SCALE = 16;
 
     public static final BigDecimal DEPARTMENT_DIVISOR = BigDecimal.valueOf(3);
+
+    public static final String SEARCH_KEYWORD_FIELD = "keyword";
 }
