@@ -31,8 +31,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
-    public static final String LOGIN_PATH = "/auth/login";
-    public static final String LOGOUT_PATH = "/auth/logout";
+    public static final String LOGIN_PATH = "/user/login";
+    public static final String LOGOUT_PATH = "/user/logout";
     private final UserDetailsService userDetailsService;
     private final JWTAuthFilter jwtAuthFilter;
     private final TokenService tokenService;
