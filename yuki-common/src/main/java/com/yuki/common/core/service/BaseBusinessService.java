@@ -42,10 +42,12 @@ public abstract class BaseBusinessService<C extends CreateParam, U extends Updat
 
     protected abstract BaseRepo getRepo();
 
+    @Transactional(readOnly = true)
     public List<T> list(Specification query) {
         return getRepo().findAll(query);
     }
 
+    @Transactional(readOnly = true)
     public Page<T> page(Specification query, Pageable pageable) {
         return getRepo().findAll(query, pageable);
     }

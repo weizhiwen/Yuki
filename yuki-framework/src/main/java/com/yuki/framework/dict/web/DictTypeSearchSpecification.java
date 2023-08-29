@@ -13,18 +13,20 @@ import org.springframework.data.jpa.domain.Specification;
         value = {
                 @Or({
                         @Spec(params = Constants.SEARCH_KEYWORD_FIELD, path = DictType.TYPE_FIELD, spec = Like.class),
-                        @Spec(params = Constants.SEARCH_KEYWORD_FIELD, path = DictType.TYPE_FIELD, jsonPaths = Constants.SEARCH_KEYWORD_FIELD, spec = Like.class),
+                        @Spec(jsonPaths = Constants.SEARCH_KEYWORD_FIELD, path = DictType.TYPE_FIELD, spec = Like.class),
                         @Spec(params = Constants.SEARCH_KEYWORD_FIELD, path = DictType.NAME_FIELD, spec = Like.class),
-                        @Spec(params = Constants.SEARCH_KEYWORD_FIELD, path = DictType.NAME_FIELD, jsonPaths = Constants.SEARCH_KEYWORD_FIELD, spec = Like.class),
+                        @Spec(jsonPaths = Constants.SEARCH_KEYWORD_FIELD, path = DictType.NAME_FIELD, spec = Like.class),
                 }),
         },
         and = {
                 @Spec(params = DictType.TYPE_FIELD, path = DictType.TYPE_FIELD, spec = Like.class),
-                @Spec(params = DictType.TYPE_FIELD, path = DictType.TYPE_FIELD, jsonPaths = DictType.TYPE_FIELD, spec = Like.class),
+                @Spec(jsonPaths = DictType.TYPE_FIELD, path = DictType.TYPE_FIELD, spec = Like.class),
                 @Spec(params = DictType.NAME_FIELD, path = DictType.NAME_FIELD, spec = Like.class),
-                @Spec(params = DictType.NAME_FIELD, path = DictType.NAME_FIELD, jsonPaths = DictType.NAME_FIELD, spec = Like.class),
+                @Spec(jsonPaths = DictType.NAME_FIELD, path = DictType.NAME_FIELD, spec = Like.class),
+                @Spec(params = DictType.ENABLED_FIELD, path = DictType.ENABLED_FIELD, spec = Equal.class),
+                @Spec(jsonPaths = DictType.ENABLED_FIELD, path = DictType.ENABLED_FIELD, spec = Equal.class),
                 @Spec(params = DictType.BUILTIN_FIELD, path = DictType.BUILTIN_FIELD, spec = Equal.class),
-                @Spec(params = DictType.BUILTIN_FIELD, path = DictType.BUILTIN_FIELD, jsonPaths = DictType.BUILTIN_FIELD, spec = Equal.class),
+                @Spec(jsonPaths = DictType.BUILTIN_FIELD, path = DictType.BUILTIN_FIELD, spec = Equal.class),
         }
 )
 public interface DictTypeSearchSpecification extends Specification<DictType> {

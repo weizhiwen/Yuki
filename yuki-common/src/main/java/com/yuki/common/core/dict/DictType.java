@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 public class DictType extends BaseEntity {
     public static final String TYPE_FIELD = "type";
     public static final String NAME_FIELD = "name";
+    public static final String ENABLED_FIELD = "enabled";
     public static final String BUILTIN_FIELD = "builtin";
 
     @ManyToOne(fetch = FetchType.LAZY)
