@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 
+import java.util.List;
+
 public abstract class BaseBusinessController {
     public static final JsonResult<String> SUCCESS = JsonResult.success();
     private static final int MAX_PAGE_SIZE = 100;
@@ -19,7 +21,13 @@ public abstract class BaseBusinessController {
 
     protected abstract BaseReader getReader();
 
-    public JsonResult<JsonResult.PageList> page(Specification query, @PageableDefault(sort = "id") Pageable pageable) {
+    protected JsonResult<List> listAll(Specification query) {
+        BaseReader reader = getReader();
+        getService().executeListWithReader(() -> getService().list(query), reader);
+        return JsonResult.success(reader.fetchTargetList());
+    }
+
+    protected JsonResult<JsonResult.PageList> page(Specification query, @PageableDefault(sort = "id") Pageable pageable) {
         validatePageable(pageable);
         Page page = getService().page(query, pageable);
         BaseReader reader = getReader();

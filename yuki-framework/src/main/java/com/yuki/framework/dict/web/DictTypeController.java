@@ -26,14 +26,12 @@ public class DictTypeController extends BaseBusinessController {
     }
 
     @GetMapping
-    public JsonResult<JsonResult.PageList> pageList(
-            DictTypeSearchSpecification query, Pageable pageable) {
+    public JsonResult<JsonResult.PageList> pageList(DictTypeSearchSpecification query, Pageable pageable) {
         return super.page(query, pageable);
     }
 
     @PostMapping("/search")
-    public JsonResult<JsonResult.PageList> pageSearch(
-            DictTypeSearchSpecification query, Pageable pageable) {
+    public JsonResult<JsonResult.PageList> pageSearch(DictTypeSearchSpecification query, Pageable pageable) {
         return super.page(query, pageable);
     }
 
