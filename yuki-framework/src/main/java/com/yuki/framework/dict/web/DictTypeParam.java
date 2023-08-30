@@ -24,8 +24,8 @@ public class DictTypeParam extends CreateOrUpdateParam {
 
     private String description;
 
-    @NotNull(message = "是否启用不能为空")
-    private Boolean enabled = Boolean.TRUE;
+    @NotNull(message = "是否禁用不能为空")
+    private Boolean disabled = Boolean.FALSE;
 
     public Long getParentId() {
         return parentId;
@@ -67,11 +67,11 @@ public class DictTypeParam extends CreateOrUpdateParam {
         this.description = description;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
+    public Boolean getDisabled() {
+        return disabled;
     }
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
     }
 }

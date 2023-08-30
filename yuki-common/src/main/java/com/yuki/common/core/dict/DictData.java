@@ -13,6 +13,9 @@ import javax.persistence.*;
 public class DictData extends BaseEntity {
     public static final String CODE_FIELD = "code";
     public static final String NAME_FIELD = "name";
+    public static final String DISABLED_FIELD = "disabled";
+    public static final String DICT_TYPE_FIELD_SUFFIX = "dictType.";
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "DICT_TYPE_ID", referencedColumnName = "ID")
     private DictType dictType;
@@ -32,8 +35,8 @@ public class DictData extends BaseEntity {
     @Column(nullable = false)
     private Long idx;
 
-    @Column(nullable = false)
-    private Boolean disabled;
+    @Column(name = "IS_DISABLED", nullable = false)
+    private Boolean disabled = Boolean.FALSE;
 
     public String getParentCode() {
         return parentCode;

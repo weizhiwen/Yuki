@@ -43,7 +43,7 @@ public class JsonResult<T> implements BaseData {
     }
 
     public static <T> JsonResult<PageList<T>> toPage(long count, Iterable<T> list) {
-        return new JsonResult<>(Status.SUCCESS.code, Status.SUCCESS.message, new PageList<T>(count, list));
+        return new JsonResult<>(Status.SUCCESS.code, Status.SUCCESS.message, new PageList<>(count, list));
     }
 
     public static JsonResult<String> warn() {

@@ -19,12 +19,12 @@ public abstract class BaseBusinessController {
 
     protected abstract BaseReader getReader();
 
-    protected JsonResult<JsonResult.PageList> page(Specification query, @PageableDefault(sort = "id") Pageable pageable) {
+    public JsonResult<JsonResult.PageList> page(Specification query, @PageableDefault(sort = "id") Pageable pageable) {
         validatePageable(pageable);
         Page page = getService().page(query, pageable);
         BaseReader reader = getReader();
-        reader.read(page.getContent());
-        return JsonResult.toPage(page.getTotalElements(), getReader().fetchTargetList());
+        getService().executeListWithReader(() -> page.getContent(), reader);
+        return JsonResult.toPage(page.getTotalElements(), reader.fetchTargetList());
     }
 
     private static void validatePageable(Pageable pageable) {

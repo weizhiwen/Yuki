@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @EntityListeners({AuditingEntityListener.class, CustomEntityListener.class})
 public class BaseEntity implements BaseData {
     private static final long serialVersionUID = 1L;
+    public static final String ID_FIELD = "id";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -23,8 +23,8 @@ import org.springframework.data.jpa.domain.Specification;
                 @Spec(jsonPaths = DictType.TYPE_FIELD, path = DictType.TYPE_FIELD, spec = Like.class),
                 @Spec(params = DictType.NAME_FIELD, path = DictType.NAME_FIELD, spec = Like.class),
                 @Spec(jsonPaths = DictType.NAME_FIELD, path = DictType.NAME_FIELD, spec = Like.class),
-                @Spec(params = DictType.ENABLED_FIELD, path = DictType.ENABLED_FIELD, spec = Equal.class),
-                @Spec(jsonPaths = DictType.ENABLED_FIELD, path = DictType.ENABLED_FIELD, spec = Equal.class),
+                @Spec(params = DictType.DISABLED_FIELD, path = DictType.DISABLED_FIELD, spec = Equal.class),
+                @Spec(jsonPaths = DictType.DISABLED_FIELD, path = DictType.DISABLED_FIELD, spec = Equal.class),
                 @Spec(params = DictType.BUILTIN_FIELD, path = DictType.BUILTIN_FIELD, spec = Equal.class),
                 @Spec(jsonPaths = DictType.BUILTIN_FIELD, path = DictType.BUILTIN_FIELD, spec = Equal.class),
         }

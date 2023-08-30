@@ -7,11 +7,14 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "DICT_TYPE")
+@Table(name = "DICT_TYPE", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"TYPE"}),
+        @UniqueConstraint(columnNames = {"NAME"})
+})
 public class DictType extends BaseEntity {
     public static final String TYPE_FIELD = "type";
     public static final String NAME_FIELD = "name";
-    public static final String ENABLED_FIELD = "enabled";
+    public static final String DISABLED_FIELD = "disabled";
     public static final String BUILTIN_FIELD = "builtin";
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,10 +32,10 @@ public class DictType extends BaseEntity {
     @Size(max = Constants.MAX_STRING_LENGTH, message = "{size.max.limit}")
     private String description;
 
-    @Column(name = "IS_ENABLED")
-    private Boolean enabled = Boolean.TRUE;
+    @Column(name = "IS_DISABLED", nullable = false)
+    private Boolean disabled = Boolean.FALSE;
 
-    @Column(name = "IS_BUILTIN")
+    @Column(name = "IS_BUILTIN", nullable = false)
     private Boolean builtin = Boolean.FALSE;
 
     public DictType getParent() {
@@ -67,12 +70,12 @@ public class DictType extends BaseEntity {
         this.description = description;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
+    public Boolean getDisabled() {
+        return disabled;
     }
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
     }
 
     public Boolean getBuiltin() {

@@ -13,6 +13,7 @@ public interface DictTypeMapper extends BusinessMapper<DictType, DictTypeParam, 
             @Mapping(source = "parent.id", target = "parentId"),
             @Mapping(source = "parent.type", target = "parentType"),
             @Mapping(source = "parent.name", target = "parentName"),
+            @Mapping(source = "parent.builtin", target = "parentBuiltin"),
     })
     DictTypeVO convert(DictType source);
 }

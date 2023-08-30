@@ -102,4 +102,10 @@ public abstract class BaseBusinessService<C extends CreateParam, U extends Updat
         T t = supplier.get();
         reader.read(t);
     }
+
+    @Transactional(readOnly = true)
+    public void executeListWithReader(Supplier<List<T>> supplier, BaseReader reader) {
+        List<T> list = supplier.get();
+        reader.read(list);
+    }
 }
