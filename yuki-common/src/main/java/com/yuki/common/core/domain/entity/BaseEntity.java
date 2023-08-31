@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 @EntityListeners({AuditingEntityListener.class, CustomEntityListener.class})
 public class BaseEntity implements BaseData {
+    @Serial
     private static final long serialVersionUID = 1L;
     public static final String ID_FIELD = "id";
 
