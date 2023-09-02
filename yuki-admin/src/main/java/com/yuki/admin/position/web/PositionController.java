@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/positions")
 @RequiredArgsConstructor
 @RestController
-public class PositionController extends BaseBusinessController {
+public class PositionController extends BaseBusinessController<PositionParam, PositionParam, Position, PositionVO> {
     private final PositionService service;
     private final PositionReader reader;
 
@@ -34,7 +34,7 @@ public class PositionController extends BaseBusinessController {
     }
 
     @GetMapping
-    public JsonResult<JsonResult.PageList> pageList(
+    public JsonResult<JsonResult.PageList<PositionVO>> pageList(
             @And({
                     @Spec(path = Position.CODE_FIELD, params = Position.CODE_FIELD, spec = Like.class),
                     @Spec(path = Position.NAME_FIELD, params = Position.NAME_FIELD, spec = Like.class),
@@ -45,7 +45,7 @@ public class PositionController extends BaseBusinessController {
     }
 
     @PostMapping("/search")
-    public JsonResult<JsonResult.PageList> pageSearch(
+    public JsonResult<JsonResult.PageList<PositionVO>> pageSearch(
             @And({
                     @Spec(path = Position.CODE_FIELD, params = Position.CODE_FIELD, spec = Like.class),
                     @Spec(path = Position.NAME_FIELD, params = Position.NAME_FIELD, spec = Like.class),

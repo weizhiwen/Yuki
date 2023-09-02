@@ -21,11 +21,13 @@ public class User extends BaseEntity implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "USER_NO", length = Constants.MEDIUM_STRING_LENGTH, unique = true)
-    private String userNo;
-
-    @Column(name = "USERNAME", length = Constants.MEDIUM_STRING_LENGTH, unique = true)
+    // 登录名
+    @Column(name = "USERNAME", nullable = false, length = Constants.MEDIUM_STRING_LENGTH, unique = true)
     private String username;
+
+    // 用户名称
+    @Column(name = "NAME", length = Constants.MEDIUM_STRING_LENGTH)
+    private String name;
 
     @Column(name = "EMAIL", length = Constants.MEDIUM_STRING_LENGTH, unique = true)
     private String email;
@@ -40,7 +42,7 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @Column(name = "IS_ENABLED")
-    private boolean enabled;
+    private boolean enabled = Boolean.TRUE;
 
     @Transient
     private List<GrantedAuthority> authorities;
@@ -68,14 +70,6 @@ public class User extends BaseEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
-    }
-
-    public String getUserNo() {
-        return userNo;
-    }
-
-    public void setUserNo(String userNo) {
-        this.userNo = userNo;
     }
 
     public void setUsername(String username) {
@@ -126,10 +120,17 @@ public class User extends BaseEntity implements UserDetails {
         this.enabled = enabled;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public UserSession buildUserSession() {
         UserSession userSession = new UserSession();
         userSession.setSessionId(IdUtil.fastSimpleUUID());
-        userSession.setUserNo(this.getUserNo());
         userSession.setUsername(this.getUsername());
         userSession.setAuthorities((List<GrantedAuthority>) this.getAuthorities());
         return userSession;

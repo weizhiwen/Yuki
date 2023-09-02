@@ -4,6 +4,7 @@ import com.yuki.common.core.dao.BaseRepo;
 import com.yuki.common.core.domain.CreateParam;
 import com.yuki.common.core.domain.UpdateParam;
 import com.yuki.common.core.domain.entity.BaseEntity;
+import com.yuki.common.core.mapper.BusinessMapper;
 import com.yuki.common.core.reader.BaseReader;
 import com.yuki.common.core.validate.CreateValidate;
 import com.yuki.common.core.validate.UpdateValidate;
@@ -14,97 +15,93 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.function.Supplier;
 
 
-@SuppressWarnings("unchecked")
+@Getter
 @Validated
-public abstract class BaseBusinessService<C extends CreateParam, U extends UpdateParam, T extends BaseEntity> {
-
-    @Getter
-    private Class<C> createClass;
-    @Getter
-    private Class<U> updateClass;
-    @Getter
-    private Class<T> entityClass;
-
-    @PostConstruct
-    protected void init() {
-        createClass = (Class<C>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        updateClass = (Class<U>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-        entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[2];
-    }
+public abstract class BaseBusinessService<C extends CreateParam, U extends UpdateParam, T extends BaseEntity, V> {
 
 
-    protected abstract BaseRepo getRepo();
+    protected abstract BaseRepo<T, Long> getRepo();
+
+    protected abstract BusinessMapper<T, C, U, V> getMapper();
 
     @Transactional(readOnly = true)
-    public List<T> list(Specification query) {
+    public List<T> list(Specification<T> query) {
         return getRepo().findAll(query);
     }
 
     @Transactional(readOnly = true)
-    public Page<T> page(Specification query, Pageable pageable) {
+    public Page<T> page(Specification<T> query, Pageable pageable) {
         return getRepo().findAll(query, pageable);
     }
 
-    protected void validateOnCreate(C param) {
+    protected void validateCreateParam(C param) {
+
     }
 
-    protected abstract T onCreate(C param);
+    protected T onCreate(C param) {
+        return getMapper().paramToEntity(param);
+    }
 
     @Transactional
     @Validated(value = {CreateValidate.class})
     public T create(@Valid C param) {
-        validateOnCreate(param);
+        validateCreateParam(param);
         T t = onCreate(param);
         getRepo().save(t);
         return t;
     }
 
-    protected void validateOnUpdate(U param) {
+    protected void validateUpdateParam(U param) {
 
     }
 
-    protected abstract T onUpdate(U param, T entity);
+    protected void validateOnUpdate(U param, T entity) {
+
+    }
+
+    protected void onUpdate(U param, T entity) {
+        getMapper().paramToEntity(param, entity);
+    }
 
     @Transactional
     @Validated(value = {UpdateValidate.class})
     public T update(@Valid U param) {
-        validateOnUpdate(param);
-        T t = (T) getRepo().findOrThrowErrorById(param.getId());
+        validateUpdateParam(param);
+        T t = getRepo().findOrThrowErrorById(param.getId());
+        validateOnUpdate(param, t);
         onUpdate(param, t);
         getRepo().save(t);
         return t;
     }
 
-    protected void validateOnDelete(T t) {
+    protected void validateOnDelete(T entity) {
     }
 
     @Transactional
     public void delete(Long id) {
-        T t = (T) getRepo().findOrThrowErrorById(id);
+        T t = getRepo().findOrThrowErrorById(id);
         validateOnDelete(t);
         getRepo().delete(t);
     }
 
     @Transactional
     public T get(Long id) {
-        return (T) getRepo().findOrThrowErrorById(id);
+        return getRepo().findOrThrowErrorById(id);
     }
 
     @Transactional(readOnly = true)
-    public void executeWithReader(Supplier<T> supplier, BaseReader reader) {
+    public void executeWithReader(Supplier<T> supplier, BaseReader<T, ?> reader) {
         T t = supplier.get();
         reader.read(t);
     }
 
     @Transactional(readOnly = true)
-    public void executeListWithReader(Supplier<List<T>> supplier, BaseReader reader) {
+    public void executeListWithReader(Supplier<List<T>> supplier, BaseReader<T, ?> reader) {
         List<T> list = supplier.get();
         reader.read(list);
     }

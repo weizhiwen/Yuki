@@ -2,11 +2,12 @@ package com.yuki.framework.dict.service;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import com.yuki.common.core.dict.DictDataRepo;
-import com.yuki.common.core.exception.BaseException;
-import com.yuki.framework.dict.web.DictTypeParam;
 import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.dict.DictTypeRepo;
+import com.yuki.common.core.exception.BaseException;
 import com.yuki.common.core.service.BaseBusinessService;
+import com.yuki.framework.dict.web.DictTypeParam;
+import com.yuki.framework.dict.web.DictTypeVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class DictTypeService extends BaseBusinessService<DictTypeParam, DictTypeParam, DictType> {
+public class DictTypeService extends BaseBusinessService<DictTypeParam, DictTypeParam, DictType, DictTypeVO> {
     private final DictTypeRepo repo;
     private final DictTypeMapper mapper;
     private final DictDataRepo dictDataRepo;
@@ -25,8 +26,13 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
     }
 
     @Override
-    protected void validateOnCreate(DictTypeParam param) {
-        super.validateOnCreate(param);
+    protected DictTypeMapper getMapper() {
+        return mapper;
+    }
+
+    @Override
+    protected void validateCreateParam(DictTypeParam param) {
+        super.validateCreateParam(param);
         validateTypeRepeat(param);
         validateNameRepeat(param);
     }
@@ -47,8 +53,8 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
 
     @Override
     protected DictType onCreate(DictTypeParam param) {
+        DictType dictType = super.onCreate(param);
         DictType parentDictType = getParentDictTypeIfNecessary(param);
-        DictType dictType = mapper.paramToEntity(param);
         dictType.setParent(parentDictType);
         dictType.setBuiltin(Boolean.FALSE);
         return dictType;
@@ -67,7 +73,8 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
     }
 
     @Override
-    protected DictType onUpdate(DictTypeParam param, DictType entity) {
+    protected void validateOnUpdate(DictTypeParam param, DictType entity) {
+        super.validateOnUpdate(param, entity);
         if (!Objects.equals(param.getType(), entity.getType())) {
             validateTypeRepeat(param);
         }
@@ -77,10 +84,12 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
         if (Boolean.TRUE.equals(entity.getBuiltin())) {
             throw new BaseException("dict.type.update.builtin.not.support");
         }
+    }
+
+    @Override
+    protected void onUpdate(DictTypeParam param, DictType entity) {
         DictType parentDictType = getParentDictTypeIfNecessary(param);
         entity.setParent(parentDictType);
-        mapper.paramToEntity(param, entity);
-        return entity;
     }
 
     @Override

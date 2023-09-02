@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/departments")
 @RequiredArgsConstructor
 @RestController
-public class DepartmentController extends BaseBusinessController {
+public class DepartmentController extends BaseBusinessController<DepartmentParam, DepartmentParam, Department, DepartmentVO> {
     private final DepartmentService service;
     private final DepartmentReader reader;
 

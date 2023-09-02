@@ -1,7 +1,6 @@
 package com.yuki.common.core.reader;
 
 import com.yuki.common.core.exception.BaseException;
-import lombok.Getter;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +17,10 @@ public class BaseReader<S, T> {
     private Class<T> targetClass;
 
     @Resource
-    @Getter
     private ConversionService conversionService;
 
-    private ThreadLocal<T> target = new ThreadLocal<>();
-    private ThreadLocal<List<T>> targetList = new ThreadLocal<>();
+    private final ThreadLocal<T> target = new ThreadLocal<>();
+    private final ThreadLocal<List<T>> targetList = new ThreadLocal<>();
 
     @PostConstruct
     protected void init() {

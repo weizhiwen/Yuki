@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DepartmentService extends BaseBusinessService<DepartmentParam, DepartmentParam, Department> {
+public class DepartmentService extends BaseBusinessService<DepartmentParam, DepartmentParam, Department, DepartmentVO> {
     private final DepartmentRepo repo;
     private final DepartmentMapper mapper;
     private final HierarchyDepartmentReader hierarchyReader;
@@ -28,8 +28,13 @@ public class DepartmentService extends BaseBusinessService<DepartmentParam, Depa
     }
 
     @Override
-    protected void validateOnCreate(DepartmentParam param) {
-        super.validateOnCreate(param);
+    protected DepartmentMapper getMapper() {
+        return mapper;
+    }
+
+    @Override
+    protected void validateCreateParam(DepartmentParam param) {
+        super.validateCreateParam(param);
         isExistRootDepartment(param);
     }
 
@@ -44,7 +49,7 @@ public class DepartmentService extends BaseBusinessService<DepartmentParam, Depa
 
     @Override
     protected Department onCreate(DepartmentParam param) {
-        Department department = mapper.paramToEntity(param);
+        Department department = super.onCreate(param);
         Department parent = getParent(param);
         department.setParent(parent);
         addToHierarchy(department, parent);
@@ -81,15 +86,9 @@ public class DepartmentService extends BaseBusinessService<DepartmentParam, Depa
     }
 
     @Override
-    protected void validateOnUpdate(DepartmentParam param) {
-        super.validateOnUpdate(param);
+    protected void validateUpdateParam(DepartmentParam param) {
+        super.validateUpdateParam(param);
         isExistRootDepartment(param);
-    }
-
-    @Override
-    protected Department onUpdate(DepartmentParam param, Department entity) {
-        mapper.paramToEntity(param, entity);
-        return entity;
     }
 
     @Transactional

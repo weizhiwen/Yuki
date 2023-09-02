@@ -1,6 +1,7 @@
 package com.yuki.framework.dict.web;
 
 import com.yuki.common.core.controller.BaseBusinessController;
+import com.yuki.common.core.dict.DictData;
 import com.yuki.common.core.domain.JsonResult;
 import com.yuki.framework.dict.service.DictDataReader;
 import com.yuki.framework.dict.service.DictDataService;
@@ -13,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/dict-data")
 @RequiredArgsConstructor
-public class DictDataController extends BaseBusinessController {
+public class DictDataController extends BaseBusinessController<DictDataParam, DictDataParam, DictData, DictDataVO> {
     private final DictDataService service;
     private final DictDataReader reader;
 
@@ -28,17 +29,17 @@ public class DictDataController extends BaseBusinessController {
     }
 
     @GetMapping("/all")
-    public JsonResult<List> listAll(DictDataSearchSpecification query) {
+    public JsonResult<List<DictDataVO>> listAll(DictDataSearchSpecification query) {
         return super.listAll(query);
     }
 
     @GetMapping
-    public JsonResult<JsonResult.PageList> pageList(DictDataSearchSpecification query, Pageable pageable) {
+    public JsonResult<JsonResult.PageList<DictDataVO>> pageList(DictDataSearchSpecification query, Pageable pageable) {
         return super.page(query, pageable);
     }
 
     @PostMapping("/search")
-    public JsonResult<JsonResult.PageList> pageSearch(DictDataSearchSpecification query, Pageable pageable) {
+    public JsonResult<JsonResult.PageList<DictDataVO>> pageSearch(DictDataSearchSpecification query, Pageable pageable) {
         return super.page(query, pageable);
     }
 

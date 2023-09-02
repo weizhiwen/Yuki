@@ -3,6 +3,7 @@ package com.yuki.common.core.controller;
 import com.yuki.common.core.domain.CreateParam;
 import com.yuki.common.core.domain.JsonResult;
 import com.yuki.common.core.domain.UpdateParam;
+import com.yuki.common.core.domain.entity.BaseEntity;
 import com.yuki.common.core.exception.BaseException;
 import com.yuki.common.core.reader.BaseReader;
 import com.yuki.common.core.service.BaseBusinessService;
@@ -13,25 +14,25 @@ import org.springframework.data.web.PageableDefault;
 
 import java.util.List;
 
-public abstract class BaseBusinessController {
+public abstract class BaseBusinessController<C extends CreateParam, U extends UpdateParam, T extends BaseEntity, V> {
     public static final JsonResult<String> SUCCESS = JsonResult.success();
     private static final int MAX_PAGE_SIZE = 100;
 
-    protected abstract BaseBusinessService getService();
+    protected abstract BaseBusinessService<C, U, T, V> getService();
 
-    protected abstract BaseReader getReader();
+    protected abstract BaseReader<T, V> getReader();
 
-    protected JsonResult<List> listAll(Specification query) {
-        BaseReader reader = getReader();
+    protected JsonResult<List<V>> listAll(Specification<T> query) {
+        BaseReader<T, V> reader = getReader();
         getService().executeListWithReader(() -> getService().list(query), reader);
         return JsonResult.success(reader.fetchTargetList());
     }
 
-    protected JsonResult<JsonResult.PageList> page(Specification query, @PageableDefault(sort = "id") Pageable pageable) {
+    protected JsonResult<JsonResult.PageList<V>> page(Specification<T> query, @PageableDefault(sort = "id") Pageable pageable) {
         validatePageable(pageable);
-        Page page = getService().page(query, pageable);
-        BaseReader reader = getReader();
-        getService().executeListWithReader(() -> page.getContent(), reader);
+        Page<T> page = getService().page(query, pageable);
+        BaseReader<T, V> reader = getReader();
+        getService().executeListWithReader(page::getContent, reader);
         return JsonResult.toPage(page.getTotalElements(), reader.fetchTargetList());
     }
 
@@ -41,18 +42,18 @@ public abstract class BaseBusinessController {
         }
     }
 
-    protected JsonResult detail(Long id) {
-        BaseReader reader = getReader();
+    protected JsonResult<V> detail(Long id) {
+        BaseReader<T, V> reader = getReader();
         getService().executeWithReader(() -> getService().get(id), reader);
         return JsonResult.success(reader.fetchTarget());
     }
 
-    protected JsonResult<String> create(CreateParam param) {
+    protected JsonResult<String> create(C param) {
         getService().create(param);
         return SUCCESS;
     }
 
-    protected JsonResult<String> update(Long id, UpdateParam param) {
+    protected JsonResult<String> update(Long id, U param) {
         param.setId(id);
         getService().update(param);
         return SUCCESS;

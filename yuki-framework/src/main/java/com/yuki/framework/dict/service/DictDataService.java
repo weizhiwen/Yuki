@@ -1,13 +1,14 @@
 package com.yuki.framework.dict.service;
 
 import cn.hutool.core.text.CharSequenceUtil;
-import com.yuki.framework.dict.web.DictDataParam;
 import com.yuki.common.core.dict.DictData;
 import com.yuki.common.core.dict.DictDataRepo;
 import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.dict.DictTypeRepo;
 import com.yuki.common.core.exception.BaseException;
 import com.yuki.common.core.service.BaseBusinessService;
+import com.yuki.framework.dict.web.DictDataParam;
+import com.yuki.framework.dict.web.DictDataVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class DictDataService extends BaseBusinessService<DictDataParam, DictDataParam, DictData> {
+public class DictDataService extends BaseBusinessService<DictDataParam, DictDataParam, DictData, DictDataVO> {
     private final DictDataRepo repo;
     private final DictTypeRepo dictTypeRepo;
     private final DictDataMapper mapper;
@@ -26,8 +27,13 @@ public class DictDataService extends BaseBusinessService<DictDataParam, DictData
     }
 
     @Override
+    protected DictDataMapper getMapper() {
+        return mapper;
+    }
+
+    @Override
     protected DictData onCreate(DictDataParam param) {
-        DictData dictData = mapper.paramToEntity(param);
+        DictData dictData = super.onCreate(param);
         DictType dictType = getDictType(param);
         validateParentCodeIfNecessary(param, dictType);
         dictData.setDictType(dictType);
@@ -70,16 +76,14 @@ public class DictDataService extends BaseBusinessService<DictDataParam, DictData
     }
 
     @Override
-    protected DictData onUpdate(DictDataParam param, DictData entity) {
+    protected void onUpdate(DictDataParam param, DictData entity) {
         String code = entity.getCode();
         DictType dictType = entity.getDictType();
         validateParentCodeIfNecessary(param, dictType);
         if (!Objects.equals(param.getName(), entity.getName())) {
             validateNameRepeat(param, dictType);
         }
-        mapper.paramToEntity(param, entity);
         entity.setDictType(dictType);
         entity.setCode(code);
-        return entity;
     }
 }

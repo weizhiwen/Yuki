@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PositionService extends BaseBusinessService<PositionParam, PositionParam, Position> {
+public class PositionService extends BaseBusinessService<PositionParam, PositionParam, Position, PositionVO> {
     private final PositionRepo repo;
     private final PositionMapper mapper;
 
@@ -18,13 +18,8 @@ public class PositionService extends BaseBusinessService<PositionParam, Position
     }
 
     @Override
-    protected Position onCreate(PositionParam param) {
-        return mapper.paramToEntity(param);
+    protected PositionMapper getMapper() {
+        return mapper;
     }
 
-    @Override
-    protected Position onUpdate(PositionParam param, Position entity) {
-        mapper.paramToEntity(param, entity);
-        return entity;
-    }
 }

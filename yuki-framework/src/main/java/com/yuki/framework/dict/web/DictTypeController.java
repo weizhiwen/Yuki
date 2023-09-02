@@ -1,6 +1,7 @@
 package com.yuki.framework.dict.web;
 
 import com.yuki.common.core.controller.BaseBusinessController;
+import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.domain.JsonResult;
 import com.yuki.framework.dict.service.DictTypeReader;
 import com.yuki.framework.dict.service.DictTypeService;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/dict-types")
 @RequiredArgsConstructor
-public class DictTypeController extends BaseBusinessController {
+public class DictTypeController extends BaseBusinessController<DictTypeParam, DictTypeParam, DictType, DictTypeVO> {
     private final DictTypeService service;
     private final DictTypeReader reader;
 
@@ -26,12 +27,12 @@ public class DictTypeController extends BaseBusinessController {
     }
 
     @GetMapping
-    public JsonResult<JsonResult.PageList> pageList(DictTypeSearchSpecification query, Pageable pageable) {
+    public JsonResult<JsonResult.PageList<DictTypeVO>> pageList(DictTypeSearchSpecification query, Pageable pageable) {
         return super.page(query, pageable);
     }
 
     @PostMapping("/search")
-    public JsonResult<JsonResult.PageList> pageSearch(DictTypeSearchSpecification query, Pageable pageable) {
+    public JsonResult<JsonResult.PageList<DictTypeVO>> pageSearch(DictTypeSearchSpecification query, Pageable pageable) {
         return super.page(query, pageable);
     }
 

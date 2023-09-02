@@ -1,22 +1,37 @@
 package com.yuki.admin.user.service;
 
 import com.yuki.admin.user.dao.User;
+import com.yuki.admin.user.dao.UserRepo;
 import com.yuki.admin.user.web.UserLoginParam;
+import com.yuki.admin.user.web.UserVO;
 import com.yuki.common.core.exception.UserPasswordNotMatchException;
+import com.yuki.common.core.service.BaseBusinessService;
 import com.yuki.framework.security.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+
 @Service
-public class UserService {
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private TokenService tokenService;
+@RequiredArgsConstructor
+public class UserService extends BaseBusinessService<CreateUserParam, UpdateUserParam, User, UserVO> {
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
+    private final UserRepo repo;
+    private final UserMapper mapper;
+
+    @Override
+    protected UserRepo getRepo() {
+        return repo;
+    }
+
+    @Override
+    protected UserMapper getMapper() {
+        return mapper;
+    }
 
     public String login(UserLoginParam param) {
         try {

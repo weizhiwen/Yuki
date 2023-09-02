@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepo extends BaseRepo<User, Long> {
-    @Query("SELECT o from User o where o.tel = :loginName or o.email = :loginName")
+    @Query("SELECT o from User o where o.username =:loginName or o.tel = :loginName or o.email = :loginName")
     User findByLoginName(@Param("loginName") String loginName);
 }
