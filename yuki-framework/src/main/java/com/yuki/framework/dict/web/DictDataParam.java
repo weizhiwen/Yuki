@@ -30,7 +30,7 @@ public class DictDataParam extends CreateOrUpdateParam {
     @NotNull(message = "枚举名称不能为空")
     private String name;
 
-    private String memo;
+    private String description;
 
     private Long idx;
 
@@ -76,12 +76,12 @@ public class DictDataParam extends CreateOrUpdateParam {
         this.dictTypeType = dictTypeType;
     }
 
-    public String getMemo() {
-        return memo;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getIdx() {

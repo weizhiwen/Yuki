@@ -26,8 +26,10 @@ public class DictDataReader extends BaseReader<DictData, DictDataVO> {
         if (CharSequenceUtil.isEmpty(parentCode)) {
             return;
         }
-        DictData dictData = repo.findByDictTypeAndCode(dictType, parentCode);
-        target.setParentCode(dictData.getCode());
-        target.setParentName(dictData.getName());
+        DictData dictData = repo.findByDictTypeAndCode(dictType.getParent(), parentCode);
+        if (dictData != null) {
+            target.setParentCode(dictData.getCode());
+            target.setParentName(dictData.getName());
+        }
     }
 }

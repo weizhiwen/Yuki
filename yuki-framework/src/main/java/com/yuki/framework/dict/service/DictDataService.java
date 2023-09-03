@@ -57,8 +57,15 @@ public class DictDataService extends BaseBusinessService<DictDataParam, DictData
     }
 
     private void validateParentCodeIfNecessary(DictDataParam param, DictType dictType) {
-        if (dictType.getParent() != null && CharSequenceUtil.isEmpty(param.getParentCode())) {
+        if (dictType.getParent() == null) {
+            return;
+        }
+        if (CharSequenceUtil.isEmpty(param.getParentCode())) {
             throw new BaseException("dict.data.need.parent.code");
+        }
+        long count = repo.countByDictTypeAndCode(dictType.getParent(), param.getParentCode());
+        if (count == 0) {
+            throw new BaseException("dict.data.parent.code.not.exist", param.getParentCode());
         }
     }
 

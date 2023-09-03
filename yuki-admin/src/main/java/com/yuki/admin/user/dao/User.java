@@ -26,7 +26,7 @@ public class User extends BaseEntity implements UserDetails {
     private String username;
 
     // 用户名称
-    @Column(name = "NAME", length = Constants.MEDIUM_STRING_LENGTH)
+    @Column(name = "NAME", length = Constants.MEDIUM_STRING_LENGTH, nullable = false)
     private String name;
 
     @Column(name = "EMAIL", length = Constants.MEDIUM_STRING_LENGTH, unique = true)
@@ -42,7 +42,7 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @Column(name = "IS_ENABLED")
-    private boolean enabled = Boolean.TRUE;
+    private Boolean enabled = Boolean.TRUE;
 
     @Transient
     private List<GrantedAuthority> authorities;
@@ -116,7 +116,7 @@ public class User extends BaseEntity implements UserDetails {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 

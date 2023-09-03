@@ -24,7 +24,7 @@ public class DictDataVO extends BaseVO {
 
     private String name;
 
-    private String memo;
+    private String description;
 
     private Long idx;
 
@@ -88,12 +88,12 @@ public class DictDataVO extends BaseVO {
         this.dictTypeName = dictTypeName;
     }
 
-    public String getMemo() {
-        return memo;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getIdx() {

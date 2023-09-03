@@ -4,6 +4,7 @@ import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "DICT_DATA", uniqueConstraints = {
@@ -30,7 +31,8 @@ public class DictData extends BaseEntity {
     private String name;
 
     @Column
-    private String memo;
+    @Size(max = Constants.MAX_STRING_LENGTH, message = "{size.max.limit}")
+    private String description;
 
     @Column(nullable = false)
     private Long idx;
@@ -70,12 +72,12 @@ public class DictData extends BaseEntity {
         this.dictType = dictType;
     }
 
-    public String getMemo() {
-        return memo;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getIdx() {

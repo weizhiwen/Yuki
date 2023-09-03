@@ -88,6 +88,7 @@ public class DictTypeService extends BaseBusinessService<DictTypeParam, DictType
 
     @Override
     protected void onUpdate(DictTypeParam param, DictType entity) {
+        super.onUpdate(param, entity);
         DictType parentDictType = getParentDictTypeIfNecessary(param);
         entity.setParent(parentDictType);
     }
