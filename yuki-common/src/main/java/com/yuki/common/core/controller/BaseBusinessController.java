@@ -70,4 +70,14 @@ public abstract class BaseBusinessController<C extends CreateParam, U extends Up
         }
         return SUCCESS;
     }
+
+    protected JsonResult<String> disable(Long id) {
+        getService().disable(id, Boolean.TRUE);
+        return SUCCESS;
+    }
+
+    protected JsonResult<String> enable(Long id) {
+        getService().disable(id, Boolean.FALSE);
+        return SUCCESS;
+    }
 }

@@ -84,6 +84,7 @@ public class DictDataService extends BaseBusinessService<DictDataParam, DictData
 
     @Override
     protected void onUpdate(DictDataParam param, DictData entity) {
+        super.onUpdate(param, entity);
         String code = entity.getCode();
         DictType dictType = entity.getDictType();
         validateParentCodeIfNecessary(param, dictType);

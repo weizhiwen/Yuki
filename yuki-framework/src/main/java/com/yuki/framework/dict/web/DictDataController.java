@@ -60,8 +60,20 @@ public class DictDataController extends BaseBusinessController<DictDataParam, Di
     }
 
     @Override
-    @DeleteMapping("/{ids}")
-    public JsonResult<String> delete(@PathVariable Long ids) {
-        return super.delete(ids);
+    @DeleteMapping("/{id}")
+    public JsonResult<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PatchMapping("/disable/{id}")
+    public JsonResult<String> disable(@PathVariable Long id) {
+        return super.disable(id);
+    }
+
+    @Override
+    @PatchMapping("/enable/{id}")
+    public JsonResult<String> enable(@PathVariable Long id) {
+        return super.enable(id);
     }
 }

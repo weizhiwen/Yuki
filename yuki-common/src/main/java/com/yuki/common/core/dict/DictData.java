@@ -2,6 +2,7 @@ package com.yuki.common.core.dict;
 
 import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
+import com.yuki.common.core.domain.entity.CanDisableEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Size;
         @UniqueConstraint(columnNames = {"DICT_TYPE_ID", "CODE"}),
         @UniqueConstraint(columnNames = {"DICT_TYPE_ID", "PARENT_CODE", "NAME"})
 })
-public class DictData extends BaseEntity {
+public class DictData extends BaseEntity implements CanDisableEntity {
     public static final String CODE_FIELD = "code";
     public static final String NAME_FIELD = "name";
     public static final String DISABLED_FIELD = "disabled";
