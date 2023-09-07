@@ -9,6 +9,7 @@ import com.yuki.common.core.reader.BaseReader;
 import com.yuki.common.core.service.BaseBusinessService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 
@@ -22,9 +23,9 @@ public abstract class BaseBusinessController<C extends CreateParam, U extends Up
 
     protected abstract BaseReader<T, V> getReader();
 
-    protected JsonResult<List<V>> listAll(Specification<T> query) {
+    protected JsonResult<List<V>> listAll(Specification<T> query, Sort sort) {
         BaseReader<T, V> reader = getReader();
-        getService().executeListWithReader(() -> getService().list(query), reader);
+        getService().executeListWithReader(() -> getService().list(query, sort), reader);
         return JsonResult.success(reader.fetchTargetList());
     }
 
@@ -78,6 +79,11 @@ public abstract class BaseBusinessController<C extends CreateParam, U extends Up
 
     protected JsonResult<String> enable(Long id) {
         getService().disable(id, Boolean.FALSE);
+        return SUCCESS;
+    }
+
+    protected JsonResult<String> sort(Long[] ids) {
+        getService().sort(ids);
         return SUCCESS;
     }
 }

@@ -10,6 +10,8 @@ public final class Constants {
     public static final String LOGIN_USER_NAME = "user_name";
 
     public static final String TOKEN_PREFIX = "Bearer ";
+    public static final Integer INTEGER_ZERO = 0;
+    public static final Long LONG_ZERO = 0L;
 
     public static final int MINI_STRING_LENGTH = 8;
     public static final int SHORT_STRING_LENGTH = 16;

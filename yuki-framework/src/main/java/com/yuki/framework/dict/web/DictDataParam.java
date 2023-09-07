@@ -32,7 +32,7 @@ public class DictDataParam extends CreateOrUpdateParam {
 
     private String description;
 
-    private Long idx;
+    private Integer idx;
 
     private Boolean disabled;
 
@@ -84,11 +84,11 @@ public class DictDataParam extends CreateOrUpdateParam {
         this.description = description;
     }
 
-    public Long getIdx() {
+    public Integer getIdx() {
         return idx;
     }
 
-    public void setIdx(Long idx) {
+    public void setIdx(Integer idx) {
         this.idx = idx;
     }
 

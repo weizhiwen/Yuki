@@ -93,7 +93,7 @@ public class DepartmentService extends BaseBusinessService<DepartmentParam, Depa
 
     @Transactional
     public HierarchyDepartmentVO hierarchy(Specification<Department> query) {
-        List<Department> list = list(query);
+        List<Department> list = list(query, null);
         hierarchyReader.read(list);
         return hierarchyReader.fetchTarget();
     }

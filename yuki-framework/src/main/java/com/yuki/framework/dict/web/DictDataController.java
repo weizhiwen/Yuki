@@ -7,6 +7,7 @@ import com.yuki.framework.dict.service.DictDataReader;
 import com.yuki.framework.dict.service.DictDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class DictDataController extends BaseBusinessController<DictDataParam, Di
     }
 
     @GetMapping("/all")
-    public JsonResult<List<DictDataVO>> listAll(DictDataSearchSpecification query) {
-        return super.listAll(query);
+    public JsonResult<List<DictDataVO>> listAll(DictDataSearchSpecification query, Sort sort) {
+        return super.listAll(query, sort);
     }
 
     @GetMapping
@@ -75,5 +76,11 @@ public class DictDataController extends BaseBusinessController<DictDataParam, Di
     @PatchMapping("/enable/{id}")
     public JsonResult<String> enable(@PathVariable Long id) {
         return super.enable(id);
+    }
+
+    @Override
+    @PatchMapping("/sort")
+    public JsonResult<String> sort(@RequestBody Long[] ids) {
+        return super.sort(ids);
     }
 }
