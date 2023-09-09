@@ -153,7 +153,7 @@ public abstract class BaseBusinessService<C extends CreateParam, U extends Updat
         if (!SortableEntity.class.isAssignableFrom(entityClass)) {
             throw new BaseException("entity.not.support.sort", entityClass.getSimpleName());
         }
-        int idx = 0;
+        int idx = 1;
         for (Long id : ids) {
             T t = getRepo().findOrThrowErrorById(id);
             if (t instanceof SortableEntity sortableEntity) {
