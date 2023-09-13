@@ -18,14 +18,11 @@ public class Department extends BaseEntity {
     @Column(name = "CODE", length = Constants.MEDIUM_STRING_LENGTH, nullable = false, unique = true)
     private String code;
 
-    @Column(name = "NAME", length = Constants.MEDIUM_STRING_LENGTH, nullable = false, unique = true)
+    @Column(name = "NAME", length = Constants.MEDIUM_STRING_LENGTH, nullable = false)
     private String name;
 
     @Column(name = "IDX", nullable = false)
     private Long idx;
-
-    @Column(name = "IS_DISABLE", nullable = false)
-    private boolean disabled;
 
     @Column(name = "DEPTH", nullable = false)
     private int depth;
@@ -35,6 +32,9 @@ public class Department extends BaseEntity {
 
     @Column(name = "C_RIGHT", precision = Constants.BIG_DECIMAL_MAX_PRECISION, scale = Constants.BIG_DECIMAL_MAX_SCALE, nullable = false)
     private BigDecimal right;
+
+    @Column(name = "IS_DISABLED", nullable = false)
+    private Boolean disabled = Boolean.FALSE;
 
     public Department getParent() {
         return parent;

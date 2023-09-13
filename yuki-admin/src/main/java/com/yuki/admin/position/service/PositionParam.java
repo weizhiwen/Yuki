@@ -5,21 +5,37 @@ import com.yuki.common.annotation.RelatedClass;
 import com.yuki.common.core.dict.Dict;
 import com.yuki.common.core.domain.CreateOrUpdateParam;
 
+import javax.validation.constraints.NotNull;
+
 @RelatedClass(classes = Position.class)
 public class PositionParam extends CreateOrUpdateParam {
     private static final long serialVersionUID = 1L;
 
+    @NotNull(message = "部门不能为空")
+    private Long departmentId;
+
+    @NotNull(message = "编码不能为空")
     private String code;
 
+    @NotNull(message = "名称不能为空")
     private String name;
 
-    private Long idx;
+    private String title;
 
-    private boolean disabled;
+    private Dict property;
 
-    private String memo;
+    private String description;
 
-    private Dict jobProfile;
+    @NotNull(message = "是否禁用不能为空")
+    private Boolean disabled = Boolean.FALSE;
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public String getCode() {
         return code;
@@ -37,35 +53,35 @@ public class PositionParam extends CreateOrUpdateParam {
         this.name = name;
     }
 
-    public Long getIdx() {
-        return idx;
+    public String getTitle() {
+        return title;
     }
 
-    public void setIdx(Long idx) {
-        this.idx = idx;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public boolean isDisabled() {
+    public Dict getProperty() {
+        return property;
+    }
+
+    public void setProperty(Dict property) {
+        this.property = property;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean getDisabled() {
         return disabled;
     }
 
-    public void setDisabled(boolean disabled) {
+    public void setDisabled(Boolean disabled) {
         this.disabled = disabled;
-    }
-
-    public String getMemo() {
-        return memo;
-    }
-
-    public void setMemo(String memo) {
-        this.memo = memo;
-    }
-
-    public Dict getJobProfile() {
-        return jobProfile;
-    }
-
-    public void setJobProfile(Dict jobProfile) {
-        this.jobProfile = jobProfile;
     }
 }

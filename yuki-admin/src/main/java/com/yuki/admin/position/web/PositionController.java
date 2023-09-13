@@ -8,12 +8,7 @@ import com.yuki.admin.position.service.PositionVO;
 import com.yuki.common.core.controller.BaseBusinessController;
 import com.yuki.common.core.domain.JsonResult;
 import lombok.RequiredArgsConstructor;
-import net.kaczmarzyk.spring.data.jpa.domain.Equal;
-import net.kaczmarzyk.spring.data.jpa.domain.Like;
-import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
-import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/positions")
@@ -34,24 +29,12 @@ public class PositionController extends BaseBusinessController<PositionParam, Po
     }
 
     @GetMapping
-    public JsonResult<JsonResult.PageList<PositionVO>> pageList(
-            @And({
-                    @Spec(path = Position.CODE_FIELD, params = Position.CODE_FIELD, spec = Like.class),
-                    @Spec(path = Position.NAME_FIELD, params = Position.NAME_FIELD, spec = Like.class),
-                    @Spec(path = Position.DISABLED_FIELD, params = Position.DISABLED_FIELD, spec = Equal.class),
-            })
-            Specification<Position> query, Pageable pageable) {
+    public JsonResult<JsonResult.PageList<PositionVO>> pageList(PositionSearchSpecification query, Pageable pageable) {
         return super.page(query, pageable);
     }
 
     @PostMapping("/search")
-    public JsonResult<JsonResult.PageList<PositionVO>> pageSearch(
-            @And({
-                    @Spec(path = Position.CODE_FIELD, params = Position.CODE_FIELD, spec = Like.class),
-                    @Spec(path = Position.NAME_FIELD, params = Position.NAME_FIELD, spec = Like.class),
-                    @Spec(path = Position.DISABLED_FIELD, params = Position.DISABLED_FIELD, spec = Equal.class),
-            })
-            Specification<Position> query, Pageable pageable) {
+    public JsonResult<JsonResult.PageList<PositionVO>> pageSearch(PositionSearchSpecification query, Pageable pageable) {
         return super.page(query, pageable);
     }
 
@@ -61,19 +44,21 @@ public class PositionController extends BaseBusinessController<PositionParam, Po
         return super.detail(id);
     }
 
+    @Override
     @PostMapping
     public JsonResult<String> create(@RequestBody PositionParam param) {
         return super.create(param);
     }
 
+    @Override
     @PutMapping("/{id}")
     public JsonResult<String> update(@PathVariable Long id, @RequestBody PositionParam param) {
         return super.update(id, param);
     }
 
     @Override
-    @DeleteMapping("/{id}")
-    public JsonResult<String> delete(@PathVariable Long id) {
-        return super.delete(id);
+    @DeleteMapping("/{ids}")
+    public JsonResult<String> delete(@PathVariable Long[] ids) {
+        return super.delete(ids);
     }
 }

@@ -6,6 +6,7 @@ import com.yuki.common.constant.Constants;
 import com.yuki.common.core.exception.BaseException;
 import com.yuki.common.core.service.BaseBusinessService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -93,7 +94,7 @@ public class DepartmentService extends BaseBusinessService<DepartmentParam, Depa
 
     @Transactional
     public HierarchyDepartmentVO hierarchy(Specification<Department> query) {
-        List<Department> list = list(query, null);
+        List<Department> list = list(query, Sort.unsorted());
         hierarchyReader.read(list);
         return hierarchyReader.fetchTarget();
     }

@@ -34,7 +34,8 @@ public class DictDataParam extends CreateOrUpdateParam {
 
     private Integer idx;
 
-    private Boolean disabled;
+    @NotNull(message = "是否禁用不能为空")
+    private Boolean disabled = Boolean.FALSE;
 
     public String getParentCode() {
         return parentCode;

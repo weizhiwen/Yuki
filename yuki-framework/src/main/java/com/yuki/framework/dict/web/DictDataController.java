@@ -50,11 +50,13 @@ public class DictDataController extends BaseBusinessController<DictDataParam, Di
         return super.detail(id);
     }
 
+    @Override
     @PostMapping
     public JsonResult<String> create(@RequestBody DictDataParam param) {
         return super.create(param);
     }
 
+    @Override
     @PutMapping("/{id}")
     public JsonResult<String> update(@PathVariable Long id, @RequestBody DictDataParam param) {
         return super.update(id, param);
