@@ -7,6 +7,7 @@ import com.yuki.common.core.domain.CreateOrUpdateParam;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @RelatedClass(classes = DictData.class)
 public class DictDataParam extends CreateOrUpdateParam {
@@ -30,6 +31,7 @@ public class DictDataParam extends CreateOrUpdateParam {
     @NotNull(message = "枚举名称不能为空")
     private String name;
 
+    @Size(max = 255, message = "描述超过最大长度")
     private String description;
 
     private Integer idx;

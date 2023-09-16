@@ -5,6 +5,7 @@ import com.yuki.common.core.dict.DictType;
 import com.yuki.common.core.domain.CreateOrUpdateParam;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serial;
 
 @RelatedClass(classes = DictType.class)
@@ -22,6 +23,7 @@ public class DictTypeParam extends CreateOrUpdateParam {
     @NotNull(message = "名称不能为空")
     private String name;
 
+    @Size(max = 255, message = "描述超过最大长度")
     private String description;
 
     @NotNull(message = "是否禁用不能为空")

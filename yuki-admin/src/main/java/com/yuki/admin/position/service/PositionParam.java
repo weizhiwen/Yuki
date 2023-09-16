@@ -6,6 +6,7 @@ import com.yuki.common.core.dict.Dict;
 import com.yuki.common.core.domain.CreateOrUpdateParam;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @RelatedClass(classes = Position.class)
 public class PositionParam extends CreateOrUpdateParam {
@@ -24,6 +25,7 @@ public class PositionParam extends CreateOrUpdateParam {
 
     private Dict property;
 
+    @Size(max = 255, message = "描述超过最大长度")
     private String description;
 
     @NotNull(message = "是否禁用不能为空")
