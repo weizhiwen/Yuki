@@ -6,12 +6,14 @@ import com.yuki.common.constant.Constants;
 import com.yuki.common.core.dao.RedisRepo;
 import com.yuki.common.core.domain.model.UserSession;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -57,7 +59,11 @@ public class TokenService {
     }
 
     private Claims parseToken(String token) {
-        return Jwts.parser().setSigningKey(tokenProperty.getSecret()).parseClaimsJws(token).getBody();
+        return Jwts.parser().verifyWith(keys()).build().parseSignedClaims(token).getPayload();
+    }
+
+    private SecretKey keys() {
+        return Keys.hmacShaKeyFor(tokenProperty.getSecret().getBytes());
     }
 
     public void deleteUserSession(UserSession userSession) {
@@ -73,7 +79,7 @@ public class TokenService {
     }
 
     private String createTokenByClaims(Map<String, Object> claims) {
-        return Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.forName(tokenProperty.getAlgorithm()), tokenProperty.getSecret()).compact();
+        return Jwts.builder().claims(claims).signWith(keys()).compact();
     }
 
     public void refreshToken(UserSession userSession) {

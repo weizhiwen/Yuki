@@ -27,5 +27,5 @@ spring:
 token:
   algorithm: HS256
   header: Authorization
-  secret: y9xfuDtynPrgf585
+  secret: 094d471e2bcfe84c771b05d0e68d3aae2037d4e7c2eb218776a4a9d66add3d20
   expireTime: 30
