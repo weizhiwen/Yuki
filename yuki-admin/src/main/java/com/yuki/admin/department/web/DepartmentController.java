@@ -46,13 +46,33 @@ public class DepartmentController extends BaseBusinessController<DepartmentParam
         return super.detail(id);
     }
 
+    @Override
     @PostMapping
     public JsonResult<String> create(@RequestBody DepartmentParam param) {
         return super.create(param);
     }
 
+    @Override
     @PutMapping("/{id}")
     public JsonResult<String> update(@PathVariable Long id, @RequestBody DepartmentParam param) {
         return super.update(id, param);
+    }
+
+    @Override
+    @PatchMapping("/disable/{id}")
+    public JsonResult<String> disable(@PathVariable Long id) {
+        return super.disable(id);
+    }
+
+    @Override
+    @PatchMapping("/enable/{id}")
+    public JsonResult<String> enable(@PathVariable Long id) {
+        return super.enable(id);
+    }
+
+    @Override
+    @PatchMapping("/sort")
+    public JsonResult<String> sort(@RequestBody Long[] ids) {
+        return super.sort(ids);
     }
 }

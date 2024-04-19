@@ -2,13 +2,16 @@ package com.yuki.admin.department.dao;
 
 import com.yuki.common.constant.Constants;
 import com.yuki.common.core.domain.entity.BaseEntity;
+import com.yuki.common.core.domain.entity.CanDisableEntity;
+import com.yuki.common.core.domain.entity.SortableEntity;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "DEPARTMENT")
-public class Department extends BaseEntity {
+public class Department extends BaseEntity implements SortableEntity, CanDisableEntity {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne
@@ -22,10 +25,11 @@ public class Department extends BaseEntity {
     private String name;
 
     @Column(name = "IDX", nullable = false)
-    private Long idx;
+    private Integer idx;
 
+    @Getter
     @Column(name = "DEPTH", nullable = false)
-    private int depth;
+    private Integer depth;
 
     @Column(name = "C_LEFT", precision = Constants.BIG_DECIMAL_MAX_PRECISION, scale = Constants.BIG_DECIMAL_MAX_SCALE, nullable = false)
     private BigDecimal left;
@@ -60,27 +64,16 @@ public class Department extends BaseEntity {
         this.name = name;
     }
 
-    public Long getIdx() {
+    public Integer getIdx() {
         return idx;
     }
 
-    public void setIdx(Long idx) {
+    @Override
+    public void setIdx(Integer idx) {
         this.idx = idx;
     }
 
-    public boolean isDisabled() {
-        return disabled;
-    }
-
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
-    }
-
-    public int getDepth() {
-        return depth;
-    }
-
-    public void setDepth(int depth) {
+    public void setDepth(Integer depth) {
         this.depth = depth;
     }
 
@@ -98,5 +91,15 @@ public class Department extends BaseEntity {
 
     public void setRight(BigDecimal right) {
         this.right = right;
+    }
+
+    @Override
+    public Boolean getDisabled() {
+        return disabled;
+    }
+
+    @Override
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
     }
 }
